@@ -1,0 +1,14 @@
+.sub_body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
+.top {
+  flex-grow: 1;
+}
+
+.footer {
+  flex-shrink: 0;
+}
