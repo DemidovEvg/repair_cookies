@@ -3,6 +3,9 @@ import { Form, Button } from "react-bootstrap";
 function Repair() {
   return (
     <div className="container-xxl">
+      <h3>
+        Оставить заявку на ремонт
+      </h3>
       <div className="d-flex justify-content-center">
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
