@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/header';
 import Footer from './components/footer';
@@ -7,28 +8,51 @@ import Home from './components/home';
 import Status from './components/status';
 import "bootstrap/dist/css/bootstrap.css";
 
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.apiPath = 'https://delivery.error';
+    this.state = {
+      'token': '',
+    }
+  }
 
-function App() {
-  return (
-    <div className="sub_body">
-      <div className="top">
 
+  makeOrder(clientNumber) {
+    axios.post(this.apiPath, { "clientNumber": clientNumber })
+      .then(response => {
+        alert("Взяли и починили.")
+      })
+      .catch(error => alert('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.'));
+  }
 
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='repair' element={<Repair />} />
-            <Route path='status' element={<Status />} />
+  checkStatus(orderNumber) {
+    axios.get(`${this.apiPath}/status?order=${orderNumber}`)
+      .then(response => {
+        alert("Можно забирать.")
+      })
+      .catch(error => alert('Еще не готово.'));
+  }
 
-          </Routes>
-        </BrowserRouter>
+  render() {
+    return (
+      <div className="sub_body">
+        <div className="top">
+          <BrowserRouter>
+            <Header />
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='repair' element={<Repair makeOrder={(clientNumber) => this.makeOrder(clientNumber)} />} />
+              <Route path='status' element={<Status checkStatus={(orderNumber) => this.checkStatus(orderNumber)} />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+        <div className='footer'>
+          <Footer />
+        </div>
       </div>
-      <div className='footer'>
-        <Footer />
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App

@@ -1,16 +1,25 @@
 import { Form, Button } from "react-bootstrap";
 
-function Repair() {
+function Repair({ makeOrder }) {
+  let clientNumber = '';
+  const handleChange = (event) => {
+    clientNumber = event.target.value
+  };
+
+  const handleSubmit = () => {
+    makeOrder(clientNumber);
+  }
+
   return (
     <div className="container-xxl">
-      <h3>
+      <h3 className="text-center">
         Оставить заявку на ремонт
       </h3>
       <div className="d-flex justify-content-center">
-        <Form>
+        <Form onSubmit={event => { handleSubmit() }}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Введите Ваш номер телефона</Form.Label>
-            <Form.Control type="text" placeholder="+7-ХХХ-ХХХ-ХХ-ХХ" />
+            <Form.Control type="text" placeholder="+7-ХХХ-ХХХ-ХХ-ХХ" onChange={event => { handleChange(event) }} />
             <Form.Text className="text-muted">
               Мы не передаём информацию третьим лица, наверно.
             </Form.Text>
@@ -18,7 +27,7 @@ function Repair() {
           <Button variant="primary" type="submit">
             Хочу ремонт
           </Button>
-        </Form>
+        </Form >
       </div>
     </div>
 
