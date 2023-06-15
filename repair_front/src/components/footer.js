@@ -14,7 +14,7 @@ function Footer() {
           <Nav.Link eventKey="link-2">About us</Nav.Link>
         </Nav.Item>
       </Nav>
-      <p className="text-center mt-4 mb-4 pb-2">Cookies 2023</p>
+      <p className="text-center mt-4 mb-4 pb-2">Cookies&trade; 2023</p>
     </div>
   );
 }

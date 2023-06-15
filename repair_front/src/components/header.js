@@ -7,12 +7,12 @@ function Header() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">Cookies Service</Navbar.Brand>
+        <Navbar.Brand href="/">Cookies Service</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Услуги ремонта</Nav.Link>
-            <Nav.Link href="#link">Провепка статуса</Nav.Link>
+            <Nav.Link href="/repair">Услуги ремонта</Nav.Link>
+            <Nav.Link href="/status">Проверка статуса</Nav.Link>
             <NavDropdown title="Крутые фичи" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Мощная фича</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
