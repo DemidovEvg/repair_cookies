@@ -6,7 +6,15 @@ from core.models import CustomUser, Order
 class CustomUserModelSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ("id", "username", "email", "first_name", "last_name", "is_active")
+        fields = (
+            "id",
+            "phone_number",
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "is_active",
+        )
 
 
 class OrderModelSerializer(ModelSerializer):
@@ -16,7 +24,6 @@ class OrderModelSerializer(ModelSerializer):
             "id",
             "user",
             "status",
-            "body",
             "created",
             "updated",
             "deleted",

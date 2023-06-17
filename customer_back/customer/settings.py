@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "djangorestframework_camel_case",
     "corsheaders",
     "rest_framework",
+    "core",
 ]
 
 MIDDLEWARE = [

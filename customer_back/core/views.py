@@ -1,5 +1,4 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.renderers import Jso
 
 from core.models import CustomUser, Order
 from core.serializers import CustomUserModelSerializer, OrderModelSerializer
