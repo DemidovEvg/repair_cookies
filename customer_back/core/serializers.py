@@ -1,11 +1,11 @@
 from rest_framework.serializers import ModelSerializer
 
-from core.models import CustomUser, Order
+from core.models import Client, Order
 
 
-class CustomUserModelSerializer(ModelSerializer):
+class ClientModelSerializer(ModelSerializer):
     class Meta:
-        model = CustomUser
+        model = Client
         fields = (
             "id",
             "phone_number",
@@ -22,7 +22,7 @@ class OrderModelSerializer(ModelSerializer):
         model = Order
         fields = (
             "id",
-            "user",
+            "client",
             "status",
             "created",
             "updated",

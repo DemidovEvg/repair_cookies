@@ -10,13 +10,15 @@ phone_regex = RegexValidator(
 )
 
 
-class CustomUser(AbstractUser):
-    phone_number = models.CharField(validators=[phone_regex], max_length=15)
+class Client(AbstractUser):
+    phone_number = models.CharField(
+        validators=[phone_regex], max_length=15, unique=True
+    )
 
 
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     status = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     updated = models.DateTimeField(auto_now=True, editable=False)
