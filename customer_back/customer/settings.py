@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "https://repair-cookies.vercel.app"]
 
-AUTH_USER_MODEL = "core.CustomUser"
+AUTH_USER_MODEL = "core.Client"
 
 
 # Application definition

@@ -19,14 +19,12 @@ from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
 from core.views import (
-    CustomUserViewSet,
-    # CustomUserSnakeCaseViewSet,
+    ClientViewSet,
     OrderViewSet,
-    # OrderSnakeCaseViewSet,
 )
 
 router = DefaultRouter()
-router.register("users", CustomUserViewSet)
+router.register("users", ClientViewSet)
 router.register("orders", OrderViewSet)
 
 urlpatterns = [
