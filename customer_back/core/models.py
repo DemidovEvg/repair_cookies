@@ -12,7 +12,7 @@ phone_regex = RegexValidator(
 
 class Client(AbstractUser):
     phone_number = models.CharField(
-        validators=[phone_regex], max_length=15, unique=True
+        validators=[phone_regex], max_length=15, unique=True, blank=False
     )
 
 
