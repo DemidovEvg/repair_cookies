@@ -1,2 +1,5 @@
 env
 *.pyc
+.vscode/
+poetry.lock
+pyproject.toml
