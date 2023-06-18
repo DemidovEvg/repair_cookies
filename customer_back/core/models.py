@@ -9,7 +9,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 class Client(AbstractUser):
     phone_number = PhoneNumberField(
-        unique=True, region=PHONE_NUMBER_REGION, max_length=11
+        unique=True, region=PHONE_NUMBER_REGION, max_length=12
     )
 
 
