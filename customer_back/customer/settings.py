@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "djangorestframework_camel_case",
+    "phonenumber_field",
     "corsheaders",
     "rest_framework",
     "core",
@@ -120,6 +121,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+PHONE_NUMBER_REGION = "RU"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
