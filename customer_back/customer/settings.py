@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "djangorestframework_camel_case",
+    "phonenumber_field",
     "corsheaders",
     "rest_framework",
     "core",
@@ -119,6 +120,8 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+REGION = "RU"
 
 
 # Static files (CSS, JavaScript, Images)

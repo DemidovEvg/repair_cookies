@@ -1,21 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import RegexValidator
 from uuid import uuid4
 
+from phonenumber_field.modelfields import PhoneNumberField
+
+
 # Create your models here.
-phone_regex = RegexValidator(
-    regex=r"^\d{4,15}$",
-    message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.",
-)
-
-
 class Client(AbstractUser):
-    phone_number = models.CharField(
-        validators=[phone_regex],
-        max_length=15,
-        unique=True,
-    )
+    phone_number = PhoneNumberField(unique=True)
 
 
 class Order(models.Model):

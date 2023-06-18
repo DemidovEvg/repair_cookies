@@ -1,18 +1,23 @@
-from django.core.management.base import BaseCommand
+from customer import settings
 from django.contrib.auth import get_user_model
+from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
+from phonenumber_field.phonenumber import PhoneNumber
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
         client = get_user_model()
         for phone, name in enumerate(("admin", "admin1", "admin_cookies")):
+            number = PhoneNumber.from_string(
+                f"8999999999{phone}", region=settings.REGION
+            )
             try:
                 client.objects.create_superuser(
                     username=name,
                     email=f"{name}@example.com",
                     password=name,
-                    phone_number=f"+7999999999{phone}",
+                    phone_number=number.as_e164,
                 )
             except IntegrityError:
                 pass
