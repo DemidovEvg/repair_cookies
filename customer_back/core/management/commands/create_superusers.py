@@ -1,4 +1,4 @@
-from customer import settings
+from customer.settings import PHONE_NUMBER_REGION
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
@@ -10,7 +10,7 @@ class Command(BaseCommand):
         client = get_user_model()
         for phone, name in enumerate(("admin", "admin1", "admin_cookies")):
             number = PhoneNumber.from_string(
-                f"8999999999{phone}", region=settings.REGION
+                f"8999999999{phone}", region=PHONE_NUMBER_REGION
             )
             try:
                 client.objects.create_superuser(
