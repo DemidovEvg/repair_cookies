@@ -14,7 +14,7 @@ class OrderModelSerializer(ModelSerializer):
         model = Order
         fields = (
             "order_num",
-            "wtd",
+            "order_task",
             "serviceman",
             "comment",
         )

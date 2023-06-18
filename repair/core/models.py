@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class SimpleUser(User):
+class ServiceUser(User):
     def __str__(self):
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"
@@ -11,7 +11,7 @@ class SimpleUser(User):
 
 class ServiceMan(models.Model):
     user = models.OneToOneField(
-        SimpleUser,
+        ServiceUser,
         verbose_name="Ремонтник",
         on_delete=models.CASCADE,
         unique=True,
@@ -37,17 +37,12 @@ class Order(models.Model):
     )
     order_num = models.IntegerField(
         verbose_name='номер заказа',
-        max_length=6,
         unique=True,
-        blank=False,
-        null=False,
     )
-    wtd = models.CharField(
+    order_task = models.CharField(
         verbose_name="Неисправность со слов клиента",
         max_length=1000,
-        blank=False,
-        null=False,
-        default="Ремонтируй так!"
+        default=""
     )
     comment = models.CharField(
         verbose_name="комментарий ремонта",
