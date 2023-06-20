@@ -1,3 +1,15 @@
-from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
 
-# Create your views here.
+from core.models import ServiceMan, Order
+from core.serializers import ServicemanModelSerializer, OrderModelSerializer
+
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderModelSerializer
+
+
+class ServicemanViewSet(ModelViewSet):
+    queryset = ServiceMan.objects.all()
+    serializer_class = ServicemanModelSerializer
+
