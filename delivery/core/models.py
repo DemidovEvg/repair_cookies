@@ -25,11 +25,11 @@ class Deliveryman(models.Model):
     )
 
     def __str__(self):
-        return f'Доставщик {self.user} is_team_lead={self.is_team_lead}'
+        return f'Курьер {self.user} is_team_lead={self.is_team_lead}'
 
     class Meta:
-        verbose_name = "Доставщик"
-        verbose_name_plural = "Доставщики"
+        verbose_name = "Курьер"
+        verbose_name_plural = "Курьеры"
         ordering = ["-id"]
 
 
@@ -86,7 +86,7 @@ class Order(models.Model):
     )
     deliveryman = models.ForeignKey(
         Deliveryman,
-        verbose_name="Доставщик",
+        verbose_name="Курьер",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
