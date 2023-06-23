@@ -2,11 +2,11 @@ from uuid import uuid1
 import random
 
 from django.db.utils import IntegrityError
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import Permission
 
-from core.models import City, Address, Order, Deliveryman, ProxyUser
+from core.models import City, Address, Order, Deliveryman, DeliveryUser
 
 
 def get_delivery_group():
@@ -32,14 +32,14 @@ def get_delivery_group():
 
 def get_new_deliveryman(username: str, is_team_lead: bool = False):
     try:
-        user = ProxyUser.objects.create_user(
+        user = DeliveryUser.objects.create_user(
             username=username,
             email=f"{username}@email.ru",
             password=username,
             is_staff=True,
         )
     except IntegrityError:
-        user = ProxyUser.objects.get(username=username)
+        user = DeliveryUser.objects.get(username=username)
     deliveries_group = get_delivery_group()
     deliveries_group.user_set.add(user)
     return Deliveryman.objects.get_or_create(user=user, is_team_lead=is_team_lead)[0]

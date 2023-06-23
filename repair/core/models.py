@@ -1,17 +1,31 @@
+from uuid import uuid4
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
-class ServiceUser(User):
+class ServiceUser(AbstractUser):
+    id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
+    
     def __str__(self):
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"
         return self.username
 
 
+class TokenData(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        verbose_name="Пользователь",
+        on_delete=models.CASCADE,
+        unique=True,
+        related_name="token_data",
+    )
+    token = models.CharField(verbose_name="Токен", max_length=1500)
+
 class ServiceMan(models.Model):
     user = models.OneToOneField(
-        ServiceUser,
+        settings.AUTH_USER_MODEL,
         verbose_name="Ремонтник",
         on_delete=models.CASCADE,
         unique=True,

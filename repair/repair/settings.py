@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "core.apps.CoreConfig",
 ]
 
@@ -56,6 +57,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "repair.wsgi.application"
 
+AUTH_USER_MODEL = "core.ServiceUser"
 
 DATABASES = {
     "default": {
@@ -91,3 +93,25 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CLIENT_SERVICE = env("CLIENT_SERVICE")
+DELIVERY_SERVICE = env("DELIVERY_SERVICE")
+REPAIR_SERVICE = env("REPAIR_SERVICE")
+
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": (
+        "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
+        "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
+    ),
+    "DEFAULT_PARSER_CLASSES": (
+        "djangorestframework_camel_case.parser.CamelCaseJSONParser",
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'core.api_auth.CookiesKeycloakAuthentication',
+  ]
+}
+
+KEYCLOAK_VERIFY=False
+KEYCLOAK_SERVISE_ACCOUNT_ID=env("KEYCLOAK_SERVISE_ACCOUNT_ID")
+KEYCLOAK_SERVISE_ACCOUNT_NAME=env("KEYCLOAK_SERVISE_ACCOUNT_NAME")
