@@ -1,31 +1,44 @@
+from uuid import uuid4
+
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
-class ProxyUser(User):
+class DeliveryUser(AbstractUser):
+    id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
+
     def __str__(self):
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"
         return self.username
 
-    class Meta:
-        proxy = True
+
+class TokenData(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        verbose_name="Пользователь",
+        on_delete=models.CASCADE,
+        unique=True,
+        related_name="token_data",
+    )
+    token = models.CharField(verbose_name="Токен", max_length=1500)
 
 
 class Deliveryman(models.Model):
     user = models.OneToOneField(
-        ProxyUser,
+        settings.AUTH_USER_MODEL,
         verbose_name="Пользователь",
         on_delete=models.CASCADE,
         unique=True,
-        related_name='deliveryman'
+        related_name="deliveryman",
     )
     is_team_lead = models.BooleanField(
         verbose_name="Является старшим доставщиком", default=False
     )
 
     def __str__(self):
-        return f'Курьер {self.user} is_team_lead={self.is_team_lead}'
+        return f"Курьер {self.user} is_team_lead={self.is_team_lead}"
 
     class Meta:
         verbose_name = "Курьер"
@@ -52,7 +65,7 @@ class Address(models.Model):
     apartment = models.IntegerField(verbose_name="Номер квартиры")
 
     def __str__(self):
-        return f"{self.city} {self.street} {self.home}"
+        return f"{self.city} {self.street} {self.building} {self.apartment}"
 
     class Meta:
         verbose_name = "Адресс"
@@ -61,21 +74,26 @@ class Address(models.Model):
 
 
 class Order(models.Model):
-    class StatusEnum(models.TextChoices):
+    class InnnerStatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
         APPOINTED = ("APPOINTED", "Заявка назначена")
-        IN_WORK = ("IN_WORK", "Заявка в работе")
-        DONE = ("DONE", "Заявка выполнена")
+        GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
+        SENDING_TO_REPAIR = ("SENDING_TO_REPAIR", "Доставка в службу ремонта")
+        SENT_TO_REPAIR = ("SENT_TO_REPAIR", "Передана службе ремонта")
+        GETTING_FROM_REPAIR = ("GETTING_FROM_REPAIR", "Получение техники от службы ремонта")
+        SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка клиенту")
+        SENT_TO_CLIENT = ("SENT_TO_CLIENT", "Передана клиенту")
+        CLOSED = ("CLOSED", "Заявка закрыта")
 
     id = models.UUIDField(verbose_name="Идентификатор заказа", primary_key=True)
     phone_number = models.CharField(
         verbose_name="Номер телефона клиента", max_length=15
     )
-    status = models.CharField(
+    inner_status = models.CharField(
         verbose_name="Статус заявки",
-        max_length=12,
-        choices=StatusEnum.choices,
-        default=StatusEnum.CREATED,
+        max_length=48,
+        choices=InnnerStatusEnum.choices,
+        default=InnnerStatusEnum.CREATED,
     )
     address = models.ForeignKey(
         Address,
@@ -105,3 +123,16 @@ class Order(models.Model):
         verbose_name = "Заявка на доставку"
         verbose_name_plural = "Заявки на доставку"
         ordering = ["-created"]
+
+    def save(self, *args, **kwargs):
+        self.change_status_event_handler(self.inner_status)
+        return super().save(*args, **kwargs)
+
+    def change_status_event_handler(self, new_inner_status):
+        from core.services.order_service import UpdateOrderStatus
+
+        if not self.id or new_inner_status == Order.InnnerStatusEnum.CREATED:
+            return
+        # TODO: Здесь вставить меппинг внутренних статусов на внешнии
+        # Пока что просто передаем внутрении статусы
+        UpdateOrderStatus.set_new_status(self.id, new_inner_status)

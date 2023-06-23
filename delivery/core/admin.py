@@ -1,9 +1,13 @@
 from django.contrib import admin
-from core.models import Deliveryman, Order, Address, City, ProxyUser
+from django.http import HttpResponseRedirect
+from core.models import Deliveryman, Order, Address, City, DeliveryUser
 
 
 admin.site.site_header = "Доставщики"
 
+@admin.register(DeliveryUser)
+class DeliveryUserAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Deliveryman)
 class DeliverymanAdmin(admin.ModelAdmin):
@@ -12,19 +16,19 @@ class DeliverymanAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ["id", "phone_number", "status", "deliveryman", "created"]
+    list_display = ["id", "phone_number", "inner_status", "deliveryman", "created"]
     fields = [
         "id",
         "phone_number",
-        "status",
+        "inner_status",
         "address",
         "deliveryman",
         "created",
         "updated",
     ]
-    readonly_fields = ["id", "phone_number", "created", "updated"]
+    readonly_fields = ["created", "updated"]
     list_filter = ["deliveryman"]
-    list_editable = ["status"]
+    list_editable = ["inner_status"]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
