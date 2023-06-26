@@ -13,7 +13,7 @@ class LoginForm extends Component {
 	}
 
 	handleChange(target) {
-		this.setState({[target.name]: target.value});
+		this.setState({ [target.name]: target.value });
 	}
 
 	handleSubmit(event) {
@@ -28,26 +28,26 @@ class LoginForm extends Component {
 						<Form.Group className="mb-3" controlId="formBasicText">
 							<Form.Label>Username</Form.Label>
 							<Form.Control type="text" name="username" placeholder="Username"
-								onChange={({target}) => this.handleChange(target)}/>
+								onChange={({ target }) => this.handleChange(target)} />
 							<Form.Text className="text-muted">
 								Enter your username here.
 							</Form.Text>
-						</Form.Group> 
+						</Form.Group>
 
 						<Form.Group className="mb-3" controlId="formBasicPassword">
 							<Form.Label>Password</Form.Label>
-							<Form.Control type="password" name="password" placeholder="Password" 
-								onChange={({target}) => this.handleChange(target)}/>
+							<Form.Control type="password" name="password" placeholder="Password"
+								onChange={({ target }) => this.handleChange(target)} />
 							<Form.Text className="text-muted">
 								Пароль на эльфийском.
 							</Form.Text>
 						</Form.Group>
 
-							<Link className='btn btn-primary' to='../' 
-								onClick={(event) => this.handleSubmit(event)}>Submit</Link>
+						<Link className='btn btn-primary' to='../'
+							onClick={(event) => this.handleSubmit(event)}>Submit</Link>
 					</Form>
 				</div>
-		  </div>
+			</div>
 		);
 	}
 }
