@@ -36,7 +36,7 @@ class RegisterForm extends Component {
               <Form.Control type="text" name="username" placeholder="Username"
                 onChange={({ target }) => this.handleChange(target)} />
               <Form.Text className="text-muted">
-                Enter your unique username here.
+                Ввеите имя пользователя.
               </Form.Text>
             </Form.Group>
 
@@ -49,6 +49,9 @@ class RegisterForm extends Component {
                 name="Phone"
                 onChange={phone => this.setState({ phone })}
               />
+              <Form.Text className="text-muted">
+                Номер вашего телефона.
+              </Form.Text>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -56,7 +59,7 @@ class RegisterForm extends Component {
               <Form.Control type="password" name="password" placeholder="Password"
                 onChange={({ target }) => this.handleChange(target)} />
               <Form.Text className="text-muted">
-                Пароль на эльфийском.
+                Введите пароль.
               </Form.Text>
             </Form.Group>
 
@@ -65,7 +68,7 @@ class RegisterForm extends Component {
               <Form.Control type="text" name="firstName" placeholder="First Name"
                 onChange={({ target }) => this.handleChange(target)} />
               <Form.Text className="text-muted">
-                Enter your first name here.
+                Ваше имя.
               </Form.Text>
             </Form.Group>
 
@@ -74,7 +77,7 @@ class RegisterForm extends Component {
               <Form.Control type="text" name="lastName" placeholder="Last name"
                 onChange={({ target }) => this.handleChange(target)} />
               <Form.Text className="text-muted">
-                Enter your second name here.
+                Ваша фамилия.
               </Form.Text>
             </Form.Group>
 
@@ -83,7 +86,7 @@ class RegisterForm extends Component {
               <Form.Control type="email" name="email" placeholder="user@domain.com"
                 onChange={({ target }) => this.handleChange(target)} />
               <Form.Text className="text-muted">
-                Enter your electronic post address here.
+                Адрес электронной почты.
               </Form.Text>
             </Form.Group>
 

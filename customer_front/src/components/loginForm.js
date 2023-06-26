@@ -30,7 +30,7 @@ class LoginForm extends Component {
 							<Form.Control type="text" name="username" placeholder="Username"
 								onChange={({ target }) => this.handleChange(target)} />
 							<Form.Text className="text-muted">
-								Enter your username here.
+								Ввеите имя пользователя.
 							</Form.Text>
 						</Form.Group>
 
@@ -39,7 +39,7 @@ class LoginForm extends Component {
 							<Form.Control type="password" name="password" placeholder="Password"
 								onChange={({ target }) => this.handleChange(target)} />
 							<Form.Text className="text-muted">
-								Пароль на эльфийском.
+								Ввеите пароль.
 							</Form.Text>
 						</Form.Group>
 
