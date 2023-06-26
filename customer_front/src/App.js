@@ -3,6 +3,9 @@ import axios from 'axios';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/header';
 import Footer from './components/footer';
+import NotFound404 from './components/notfound';
+import RegisterForm from './components/registerForm';
+import LoginForm from './components/loginForm';
 import Repair from './components/repair';
 import Home from './components/home';
 import Status from './components/status';
@@ -44,6 +47,9 @@ class App extends Component {
               <Route path='/' element={<Home />} />
               <Route path='repair' element={<Repair makeOrder={(clientNumber) => this.makeOrder(clientNumber)} />} />
               <Route path='status' element={<Status checkStatus={(orderNumber) => this.checkStatus(orderNumber)} />} />
+              <Route path='auth' element={<LoginForm/>} />
+              <Route path='auth/register' element={<RegisterForm />} />
+              <Route path='*' element={<NotFound404 />} />
             </Routes>
           </BrowserRouter>
         </div>
