@@ -22,7 +22,7 @@ from core.views import ServicemanViewSet, OrderViewSet, IndexView, OrderDetail, 
 
 router = DefaultRouter()
 router.register("servicemans", ServicemanViewSet)
-router.register("repair_orders", OrderViewSet)
+router.register("orders", OrderViewSet)
 
 urlpatterns = [
     path("", IndexView.as_view(), name="home"),
