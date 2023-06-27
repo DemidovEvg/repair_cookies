@@ -58,12 +58,12 @@ class ServiceMan(models.Model):
 
 
 class Order(models.Model):
-    class InnnerStatusEnum(models.TextChoices):
+    class StatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
         GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
-        SENT_TO_REPAIR = ("SENT_TO_REPAIR", "Передана службе ремонта")
-        REPAIR_IN_PROCESS = ("REPAIR_IN_PROCESS", "В ремонте")
-        REPAIR_DONE = ("REPAIR_DONE", "Ремонт окончен")
+        SENDING_TO_REPAIR = ("SENDING_TO_REPAIR", "Доставка в службу ремонта")
+        REPAIR_IN_PROCESS = ("REPAIR_IN_PROCESS", "Ремонт начат")
+        REPAIR_DONE = ("REPAIR_DONE", "Ремонт закончен")
         SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка техники клиенту")
         CLOSED = ("CLOSED", "Заявка закрыта")
     serviceman = models.ForeignKey(
@@ -73,32 +73,43 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    order_num = models.IntegerField(
-        verbose_name='номер заказа',
-        unique=True,
+    id = models.UUIDField(
+        verbose_name="Идентификатор заказа",
+        primary_key=True
     )
-    inner_status = models.CharField(
+    status = models.CharField(
         verbose_name="Статус заявки",
         max_length=48,
-        choices=InnnerStatusEnum.choices,
-        default=InnnerStatusEnum.SENT_TO_REPAIR,
+        choices=StatusEnum.choices,
+        default=StatusEnum.CREATED,
     )
-    order_task = models.CharField(
+    serviceman_description = models.CharField(
+        verbose_name="Комментарий ремонтника",
+        max_length=1000,
+        default=""
+    )
+    customer_description = models.CharField(
         verbose_name="Неисправность со слов клиента",
         max_length=1000,
         default=""
     )
-    comment = models.CharField(
-        verbose_name="комментарий ремонта",
-        max_length=300,
-        null=True,
-        blank=True,
+    deliveryman_description = models.CharField(
+        verbose_name="Комментарий доставки",
+        max_length=1000,
+        default=""
     )
+    comment = models.TextField(
+        verbose_name="Комментарии",
+        default='')
     created = models.DateTimeField(
-        verbose_name="Дата и время начала ремонта", auto_now_add=True, editable=False
+        verbose_name="Дата и время создания заявки",
+        auto_now_add=True,
+        editable=False
     )
     updated = models.DateTimeField(
-        verbose_name="Дата и время изменения статуса ремонта", auto_now=True, editable=False
+        verbose_name="Дата и время редактирования заявки",
+        auto_now=True,
+        editable=False
     )
 
     def __str__(self):

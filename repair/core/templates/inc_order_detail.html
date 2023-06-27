@@ -17,10 +17,10 @@
                 <td>{{ order.serviceman }}</td>
               </tr>
          </table>
-          {% endfor %}
       </div>
         <div>
       <form action="#" method="post">
+          {% csrf_token %}
             <p><textarea rows="6" cols="45" name="text"></textarea></p>
             <p><input type="submit" value="Добавить комментарий"></p>
       </form>
