@@ -13,10 +13,10 @@ class ServicemanPermissions(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS and request.user:
             return True
 
-        return bool(request.user.is_team_lead)
+        return bool(request.user)
 
     def has_object_permission(self, request, view, obj):
-        return bool(request.user.is_team_lead)
+        return bool(request.user)
 
 
 class OrderPermissions(permissions.BasePermission):
@@ -28,7 +28,7 @@ class OrderPermissions(permissions.BasePermission):
         if request.method in ALLOWED_METHODS and request.user:
             return True
 
-        return bool(request.user.is_team_lead)
+        return bool(request.user)
 
     def has_object_permission(self, request, view, obj):
-        return bool(request.user.is_serviceman)
+        return bool(request.user)
