@@ -1,0 +1,35 @@
+  <div id="main">
+
+    <div id="site_content">
+      <div id="content">
+        <h1>Список доступных ремонтов</h1>
+          <table border="1">
+               <tr>
+                    <th>Номер заказа</th>
+                    <th>Неисправность со слов клиента</th>
+                    <th>Статус заказа</th>
+                    <th>Ремонтник</th>
+               </tr>
+               <tr>
+                <td>{{ order.order_num }}</td>
+                <td>{{ order.order_task }}</td>
+                <td>{{ order.inner_status }}</td>
+                <td>{{ order.serviceman }}</td>
+              </tr>
+         </table>
+          {% endfor %}
+      </div>
+        <div>
+      <form action="#" method="post">
+            <p><textarea rows="6" cols="45" name="text"></textarea></p>
+            <p><input type="submit" value="Добавить комментарий"></p>
+      </form>
+      </div>
+        <form action="#">
+            <button>Завершить ремонт, передать в службу доставки</button>
+        </form>
+    </div>
+    <div id="footer">
+      Copyright &copy; Чугунбабай
+    </div>
+  </div>

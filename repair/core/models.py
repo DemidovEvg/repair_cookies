@@ -5,8 +5,20 @@ from django.contrib.auth.models import AbstractUser
 
 
 class ServiceUser(AbstractUser):
-    id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
-    
+    id = models.UUIDField(
+        verbose_name="Идентификатор",
+        default=uuid4,
+        primary_key=True
+    )
+    is_serviceman = models.BooleanField(
+        verbose_name="Ремонтник",
+        default=False,
+    )
+    is_team_lead = models.BooleanField(
+        verbose_name="Cтарший ремонтником",
+        default=False,
+    )
+
     def __str__(self):
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"
@@ -21,12 +33,16 @@ class TokenData(models.Model):
         unique=True,
         related_name="token_data",
     )
-    token = models.CharField(verbose_name="Токен", max_length=1500)
+    token = models.CharField(
+        verbose_name="Токен",
+        max_length=1500
+    )
+
 
 class ServiceMan(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
-        verbose_name="Ремонтник",
+        verbose_name="User",
         on_delete=models.CASCADE,
         unique=True,
         related_name='serviceman'
@@ -42,6 +58,14 @@ class ServiceMan(models.Model):
 
 
 class Order(models.Model):
+    class InnnerStatusEnum(models.TextChoices):
+        CREATED = ("CREATED", "Заявка создана")
+        GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
+        SENT_TO_REPAIR = ("SENT_TO_REPAIR", "Передана службе ремонта")
+        REPAIR_IN_PROCESS = ("REPAIR_IN_PROCESS", "В ремонте")
+        REPAIR_DONE = ("REPAIR_DONE", "Ремонт окончен")
+        SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка техники клиенту")
+        CLOSED = ("CLOSED", "Заявка закрыта")
     serviceman = models.ForeignKey(
         ServiceMan,
         verbose_name="Ремонтник",
@@ -52,6 +76,12 @@ class Order(models.Model):
     order_num = models.IntegerField(
         verbose_name='номер заказа',
         unique=True,
+    )
+    inner_status = models.CharField(
+        verbose_name="Статус заявки",
+        max_length=48,
+        choices=InnnerStatusEnum.choices,
+        default=InnnerStatusEnum.SENT_TO_REPAIR,
     )
     order_task = models.CharField(
         verbose_name="Неисправность со слов клиента",
