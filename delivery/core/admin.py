@@ -55,11 +55,11 @@ class OrderAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.save()
         try:
-            self.create_or_update_outter_order(obj)
+            self.create_or_update_outer_order(obj)
         except Exception as exc:
             messages.add_message(request, messages.ERROR, repr(exc))
 
-    def create_or_update_outter_order(self, order: Order):
+    def create_or_update_outer_order(self, order: Order):
         exceptions = []
         try:
             service_create = f"{settings.CLIENT_SERVICE}/api/orders/"
