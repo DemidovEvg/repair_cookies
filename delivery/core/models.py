@@ -3,15 +3,26 @@ from uuid import uuid4
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 
 class DeliveryUser(AbstractUser):
     id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
+    middle_name = models.CharField("Отчетство", max_length=150, blank=True)
 
     def __str__(self):
+        middle_name_first_letter = (
+            self.middle_name[0:1] if len(self.middle_name) else ""
+        )
+        first_name_first_letter = self.first_name[0:1] if len(self.first_name) else ""
+        full_name = ""
         if self.first_name and self.last_name:
-            return f"{self.first_name} {self.last_name}"
-        return self.username
+            full_name += self.last_name
+            full_name += f" {first_name_first_letter}."
+            if middle_name_first_letter:
+                full_name += f"{middle_name_first_letter}."
+        full_name += f" ({self.username})"
+        return full_name
 
 
 class TokenData(models.Model):
@@ -38,7 +49,7 @@ class Deliveryman(models.Model):
     )
 
     def __str__(self):
-        return f"Курьер {self.user} is_team_lead={self.is_team_lead}"
+        return f"{self.user}"
 
     class Meta:
         verbose_name = "Курьер"
@@ -77,7 +88,7 @@ class Order(models.Model):
     class StatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
         GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
-        SENDING_TO_REPAIR = ("SENDING_TO_REPAIR", "Доставка в службу ремонта")
+        SENT_TO_REPAIR = ("SENT_TO_REPAIR", "Доставлен в службу ремонта")
         REPAIR_IN_PROCESS = ("REPAIR_IN_PROCESS", "Ремонт начат")
         REPAIR_DONE = ("REPAIR_DONE", "Ремонт закончен")
         SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка техники клиенту")
@@ -101,19 +112,16 @@ class Order(models.Model):
         on_delete=models.SET_NULL,
     )
     serviceman_description = models.CharField(
-        verbose_name="Комментарий ремонтника",
-        max_length=1000,
-        default=""
+        verbose_name="Комментарий ремонтника", max_length=1000, default="", blank=True
     )
     customer_description = models.CharField(
         verbose_name="Неисправность со слов клиента",
         max_length=1000,
-        default=""
+        default="",
+        blank=True,
     )
     deliveryman_description = models.CharField(
-        verbose_name="Комментарий доставки",
-        max_length=1000,
-        default=""
+        verbose_name="Комментарий доставки", max_length=1000, default="", blank=True
     )
     deliveryman = models.ForeignKey(
         Deliveryman,
@@ -122,13 +130,17 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    comment = models.TextField(verbose_name="Комментарии", default='')
+    comment = models.TextField(verbose_name="Комментарии", default="", blank=True)
     created = models.DateTimeField(
-        verbose_name="Дата и время создания заявки", auto_now_add=True, editable=False
+        verbose_name="Дата и время создания заявки", default=timezone.now
     )
     updated = models.DateTimeField(
-        verbose_name="Дата и время редактирования заявки", auto_now=True, editable=False
+        verbose_name="Дата и время редактирования заявки", auto_now=True
     )
+    payment_completed = models.BooleanField(
+        verbose_name="Оплала произведена?", default=False
+    )
+    amount_due_by = models.FloatField(verbose_name="Сумма к оплате", default=0)
 
     def __str__(self):
         return f"Заявка id={self.id}"
@@ -137,4 +149,3 @@ class Order(models.Model):
         verbose_name = "Заявка на доставку"
         verbose_name_plural = "Заявки на доставку"
         ordering = ["-created"]
-

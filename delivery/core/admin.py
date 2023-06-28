@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib import messages
 from django.conf import settings
+from django import forms
+from django.db import models
 
 from core.models import Deliveryman, Order, Address, City, DeliveryUser
 from core.services.order_service import create_or_update
@@ -20,13 +22,44 @@ class DeliverymanAdmin(admin.ModelAdmin):
     pass
 
 
+class DeliveryStatusEnum(models.TextChoices):
+    EMPTY = ("", "---------")
+    GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
+    SENT_TO_REPAIR = ("SENT_TO_REPAIR", "Доставлен в службу ремонта")
+    SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка техники клиенту")
+    CLOSED = ("CLOSED", "Заявка закрыта")
+
+
+class OrderAdminForm(forms.ModelForm):
+    new_status = forms.fields.ChoiceField(
+        choices=DeliveryStatusEnum.choices, label="Новый статус", required=False
+    )
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if self.cleaned_data.get("new_status"):
+            instance.status = self.cleaned_data.get("new_status")
+        if commit:
+            instance.save()
+        return instance
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ["id", "phone_number", "status", "deliveryman", "created"]
+    form = OrderAdminForm
+    list_display = [
+        "short_id",
+        "status_common",
+        "deliveryman",
+        "created",
+        "address",
+        "deliveryman_description",
+    ]
     fields = [
-        "id",
+        "short_id",
         "phone_number",
-        "status",
+        "status_common",
+        "new_status",
         "address",
         "deliveryman",
         "serviceman_description",
@@ -35,10 +68,36 @@ class OrderAdmin(admin.ModelAdmin):
         "comment",
         "created",
         "updated",
+        "payment_completed",
+        "amount_due_by",
     ]
-    readonly_fields = ["created", "updated", "serviceman_description"]
-    list_filter = ["deliveryman"]
-    list_editable = ["status"]
+    readonly_fields = [
+        "short_id",
+        "status_common",
+        "deliveryman",
+        "created",
+        "updated",
+        "serviceman_description",
+        "amount_due_by",
+    ]
+    list_filter = ["deliveryman", "created"]
+    list_editable = ["deliveryman"]
+
+    def get_changelist_instance(self, request):
+        changelist_instance = super().get_changelist_instance(request)
+        if not request.user.is_superuser and not request.user.deliveryman.is_team_lead:
+            list_editable = list(changelist_instance.list_editable)
+            list_editable.remove("deliveryman")
+            changelist_instance.list_editable = list_editable
+        return changelist_instance
+
+    @admin.display(description="Короткий id")
+    def short_id(self, obj):
+        return obj.id.int % (10 * 4)
+
+    @admin.display(description="Текущий статус")
+    def status_common(self, obj):
+        return obj.get_status_display()
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -79,7 +138,14 @@ class OrderAdmin(admin.ModelAdmin):
 
         if exceptions:
             raise ExceptionGroup("Ошибки обновления", exceptions)
-        
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def has_add_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+
 @admin.register(Address)
 class AdressAdmin(admin.ModelAdmin):
     pass
