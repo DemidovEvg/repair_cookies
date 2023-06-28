@@ -1,21 +1,15 @@
 import json
 
-from django.conf import settings
-
 from core.services import requests
 
 
-class UpdateOrderStatus:
-    elements_url = f"{settings.CLIENT_SERVICE}/api/orders/"
-    element_url = elements_url + "{id}/"
+def create_or_update(service_create: str, service_update: str, data: dict):
+    headers = {"Content-type": "application/json"}
 
-    @classmethod
-    def set_new_status(cls, order_id: str, new_status):
-        url = cls.element_url.format(id=order_id)
-        data = dict(status=new_status)
-        headers = {"Content-type": "application/json"}
-        print(
-            f"Отправили запрос на обновление статуса заявки "
-            f"{order_id} -> новый статус {new_status}"
-        )
-        response = requests.patch(url=url, data=json.dumps(data), headers=headers)
+    response = requests.get(url=service_update)
+    if response.status_code == 200:
+        requests.patch(url=service_update, data=json.dumps(data), headers=headers)
+    elif response.status_code == 404:
+        requests.post(url=service_create, data=json.dumps(data), headers=headers)
+    else:
+        raise Exception(response.text)

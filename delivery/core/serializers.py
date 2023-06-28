@@ -22,14 +22,14 @@ class AddresSerializer(serializers.ModelSerializer):
             "apartment"
         ]
 
-class OrderModelSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
     address = AddresSerializer()
     class Meta:
         model = Order
         fields = [
             "id",
             "phone_number",
-            "inner_status",
+            "status",
             "address",
             "deliveryman",
             "created",

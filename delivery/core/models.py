@@ -74,26 +74,24 @@ class Address(models.Model):
 
 
 class Order(models.Model):
-    class InnnerStatusEnum(models.TextChoices):
+    class StatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
-        APPOINTED = ("APPOINTED", "Заявка назначена")
         GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
         SENDING_TO_REPAIR = ("SENDING_TO_REPAIR", "Доставка в службу ремонта")
-        SENT_TO_REPAIR = ("SENT_TO_REPAIR", "Передана службе ремонта")
-        GETTING_FROM_REPAIR = ("GETTING_FROM_REPAIR", "Получение техники от службы ремонта")
-        SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка клиенту")
-        SENT_TO_CLIENT = ("SENT_TO_CLIENT", "Передана клиенту")
+        REPAIR_IN_PROCESS = ("REPAIR_IN_PROCESS", "Ремонт начат")
+        REPAIR_DONE = ("REPAIR_DONE", "Ремонт закончен")
+        SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка техники клиенту")
         CLOSED = ("CLOSED", "Заявка закрыта")
 
     id = models.UUIDField(verbose_name="Идентификатор заказа", primary_key=True)
     phone_number = models.CharField(
         verbose_name="Номер телефона клиента", max_length=15
     )
-    inner_status = models.CharField(
+    status = models.CharField(
         verbose_name="Статус заявки",
         max_length=48,
-        choices=InnnerStatusEnum.choices,
-        default=InnnerStatusEnum.CREATED,
+        choices=StatusEnum.choices,
+        default=StatusEnum.CREATED,
     )
     address = models.ForeignKey(
         Address,
@@ -102,6 +100,21 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
+    serviceman_description = models.CharField(
+        verbose_name="Комментарий ремонтника",
+        max_length=1000,
+        default=""
+    )
+    customer_description = models.CharField(
+        verbose_name="Неисправность со слов клиента",
+        max_length=1000,
+        default=""
+    )
+    deliveryman_description = models.CharField(
+        verbose_name="Комментарий доставки",
+        max_length=1000,
+        default=""
+    )
     deliveryman = models.ForeignKey(
         Deliveryman,
         verbose_name="Курьер",
@@ -109,6 +122,7 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
+    comment = models.TextField(verbose_name="Комментарии", default='')
     created = models.DateTimeField(
         verbose_name="Дата и время создания заявки", auto_now_add=True, editable=False
     )
@@ -124,15 +138,3 @@ class Order(models.Model):
         verbose_name_plural = "Заявки на доставку"
         ordering = ["-created"]
 
-    def save(self, *args, **kwargs):
-        self.change_status_event_handler(self.inner_status)
-        return super().save(*args, **kwargs)
-
-    def change_status_event_handler(self, new_inner_status):
-        from core.services.order_service import UpdateOrderStatus
-
-        if not self.id or new_inner_status == Order.InnnerStatusEnum.CREATED:
-            return
-        # TODO: Здесь вставить меппинг внутренних статусов на внешнии
-        # Пока что просто передаем внутрении статусы
-        UpdateOrderStatus.set_new_status(self.id, new_inner_status)

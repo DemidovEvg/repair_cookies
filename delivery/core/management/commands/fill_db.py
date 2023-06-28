@@ -51,6 +51,9 @@ def get_new_order(deliveryman: Deliveryman | None = None, address: str = None):
         phone_number=random.randint(80000000000, 89999999999),
         address=address,
         deliveryman=deliveryman,
+        serviceman_description="Вскрыл корпус молотком, все хорошо!",
+        customer_description="Чета экран не работает",
+        deliveryman_description="Опять в Мухосранске, ну емае"
     )
 
 
