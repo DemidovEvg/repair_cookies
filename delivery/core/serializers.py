@@ -23,7 +23,7 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "first_name",
-            "middle_name",
+            "patronymic",
             "last_name",
             "phone_number",
             "email",
@@ -38,7 +38,7 @@ class ClientSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    address = AddresSerializer(required=False, allow_null=True)
+    address = serializers.StringRelatedField()
     client = ClientSerializer()
 
     class Meta:
