@@ -45,7 +45,7 @@ def get_new_deliveryman(username: str, is_team_lead: bool = False):
             first_name=random.choice(
                 ["Евгений", "Олег", "Александр", "Егор", "Владимир"]
             ),
-            middle_name=random.choice(
+            patronymic=random.choice(
                 ["Ивинович", "Петрович", "Сидорович", "Егорович", "Олегович"]
             ),
             username=username,
@@ -64,7 +64,7 @@ def get_new_client(username: str):
     client = Client.objects.get_or_create(
         last_name=random.choice(["Иванов", "Петров", "Сидоров", "Пупкин", "Лапушкин"]),
         first_name=random.choice(["Евгений", "Олег", "Александр", "Егор", "Владимир"]),
-        middle_name=random.choice(
+        patronymic=random.choice(
             ["Ивинович", "Петрович", "Сидорович", "Егорович", "Олегович"]
         ),
         email=f"{username}@email.ru",
