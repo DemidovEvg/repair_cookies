@@ -1,37 +1,78 @@
 from rest_framework import serializers
 
-from core.models import Order, Address, City
+from core.models import Order, Address, City, Client
+
 
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = [
-            "id",
-            "name"
-        ]
+        fields = ["id", "name"]
+
 
 class AddresSerializer(serializers.ModelSerializer):
     city = CitySerializer()
+
     class Meta:
         model = Address
+        fields = ["id", "city", "street", "building", "apartment"]
+
+
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
         fields = [
             "id",
-            "city",
-            "street",
-            "building",
-            "apartment"
+            "first_name",
+            "middle_name",
+            "last_name",
+            "phone_number",
+            "email",
         ]
+        extra_kwargs = {
+            "id": {"validators": []},
+            "phone_number": {"validators": []},
+        }
+
+    def validate(self, attrs):
+        return super().validate(attrs)
+
 
 class OrderSerializer(serializers.ModelSerializer):
-    address = AddresSerializer()
+    address = AddresSerializer(required=False, allow_null=True)
+    client = ClientSerializer()
+
     class Meta:
         model = Order
         fields = [
             "id",
-            "phone_number",
+            "client",
             "status",
             "address",
-            "deliveryman",
+            "serviceman_description",
+            "customer_description",
+            "deliveryman_description",
+            "comment",
+            "payment_completed",
+            "amount_due_by",
             "created",
-            "updated"
         ]
+
+    def create(self, validated_data):
+        self.create_or_update_client(validated_data)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        self.create_or_update_client(validated_data)
+        return super().update(instance, validated_data)
+
+    def create_or_update_client(self, validated_data):
+        if "client" in validated_data:
+            client_instance = Client.objects.filter(
+                id=validated_data["client"]["id"]
+            ).first()
+            client_serializer = ClientSerializer(
+                instance=client_instance, data=validated_data["client"]
+            )
+            client_serializer.is_valid(raise_exception=True)
+            client_serializer.save()
+            del validated_data["client"]

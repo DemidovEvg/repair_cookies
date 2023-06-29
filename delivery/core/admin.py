@@ -4,7 +4,7 @@ from django.conf import settings
 from django import forms
 from django.db import models
 
-from core.models import Deliveryman, Order, Address, City, DeliveryUser
+from core.models import Deliveryman, Order, Address, City, DeliveryUser, Client
 from core.services.order_service import create_or_update
 from core.serializers import OrderSerializer
 
@@ -19,6 +19,10 @@ class DeliveryUserAdmin(admin.ModelAdmin):
 
 @admin.register(Deliveryman)
 class DeliverymanAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
     pass
 
 
@@ -57,7 +61,7 @@ class OrderAdmin(admin.ModelAdmin):
     ]
     fields = [
         "short_id",
-        "phone_number",
+        "client",
         "status_common",
         "new_status",
         "address",
