@@ -5,6 +5,8 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 class DeliveryUser(AbstractUser):
     id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
@@ -23,6 +25,41 @@ class DeliveryUser(AbstractUser):
                 full_name += f"{middle_name_first_letter}."
         full_name += f" ({self.username})"
         return full_name
+
+    class Meta:
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
+        ordering = ["-id"]
+
+
+class Client(models.Model):
+    id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
+    first_name = models.CharField("Имя", max_length=150, blank=True)
+    middle_name = models.CharField("Отчетство", max_length=150, blank=True)
+    last_name = models.CharField("Фамилия", max_length=150, blank=True)
+    email = models.EmailField("Почта", blank=True)
+    phone_number = PhoneNumberField(
+        unique=True, region=settings.PHONE_NUMBER_REGION, max_length=12
+    )
+
+    def __str__(self):
+        middle_name_first_letter = (
+            self.middle_name[0:1] if len(self.middle_name) else ""
+        )
+        first_name_first_letter = self.first_name[0:1] if len(self.first_name) else ""
+        full_name = ""
+        if self.first_name and self.last_name:
+            full_name += self.last_name
+            full_name += f" {first_name_first_letter}."
+            if middle_name_first_letter:
+                full_name += f"{middle_name_first_letter}."
+        full_name += f" ({self.phone_number})"
+        return full_name
+
+    class Meta:
+        verbose_name = "Клиент"
+        verbose_name_plural = "Клиенты"
+        ordering = ["-id"]
 
 
 class TokenData(models.Model):
@@ -58,6 +95,7 @@ class Deliveryman(models.Model):
 
 
 class City(models.Model):
+    id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
     name = models.CharField(verbose_name="Название города", max_length=255)
 
     def __str__(self):
@@ -70,6 +108,7 @@ class City(models.Model):
 
 
 class Address(models.Model):
+    id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
     city = models.ForeignKey(City, verbose_name="Город", on_delete=models.CASCADE)
     street = models.CharField(verbose_name="Улица", max_length=255)
     building = models.CharField(verbose_name="Номер дома", max_length=16)
@@ -95,9 +134,7 @@ class Order(models.Model):
         CLOSED = ("CLOSED", "Заявка закрыта")
 
     id = models.UUIDField(verbose_name="Идентификатор заказа", primary_key=True)
-    phone_number = models.CharField(
-        verbose_name="Номер телефона клиента", max_length=15
-    )
+    client = models.ForeignKey(Client, verbose_name="Клиент", on_delete=models.CASCADE)
     status = models.CharField(
         verbose_name="Статус заявки",
         max_length=48,
