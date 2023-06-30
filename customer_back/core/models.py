@@ -17,7 +17,14 @@ class Client(AbstractUser):
 
 class Category(models.Model):
     '''Вид техники'''
-    name = models.CharField(max_length=250, default='')
+    name = models.CharField("Категория Техники", max_length=250, default='')
+
+    def __str__(self):
+        return "Заказ #{0}".format(str(self.id))
+
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
 
 
 class Order(models.Model):
