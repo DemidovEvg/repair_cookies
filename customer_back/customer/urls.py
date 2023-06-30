@@ -21,13 +21,14 @@ from rest_framework.routers import DefaultRouter
 from core.views import (
     ClientViewSet,
     OrderViewSet,
-    Category,
+    CategoryViewSet,
 )
 
 router = DefaultRouter()
 router.register("users", ClientViewSet)
 router.register("orders", OrderViewSet)
-router.register("category", OrderViewSet)
+router.register("category", CategoryViewSet)
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
