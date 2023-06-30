@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from core.models import Client, Order
+from core.models import Client, Order, Category
 
 
 class ClientModelSerializer(ModelSerializer):
@@ -27,4 +27,14 @@ class OrderModelSerializer(ModelSerializer):
             "created",
             "updated",
             "deleted",
+        )
+
+
+class CategoryModelSerializer(ModelSerializer):
+    class Meta:
+        model = Category
+        fields = (
+            "id",
+            "name",
+
         )
