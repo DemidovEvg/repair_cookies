@@ -35,6 +35,7 @@ class OrderModelSerializer(ModelSerializer):
             "id",
             "client",
             "category",
+            "comments",
             "status",
             "created",
             "updated",
