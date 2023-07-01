@@ -61,7 +61,7 @@ class Order(models.Model):
     class StatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
         GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
-        SENDING_TO_REPAIR = ("SENDING_TO_REPAIR", "Доставка в службу ремонта")
+        SENT_TO_REPAIR = ("SENT_TO_REPAIR", "Доставлен в службу ремонта")
         REPAIR_IN_PROCESS = ("REPAIR_IN_PROCESS", "Ремонт начат")
         REPAIR_DONE = ("REPAIR_DONE", "Ремонт закончен")
         SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка техники клиенту")
@@ -103,7 +103,6 @@ class Order(models.Model):
         default='')
     created = models.DateTimeField(
         verbose_name="Дата и время создания заявки",
-        auto_now_add=True,
         editable=False
     )
     updated = models.DateTimeField(
@@ -111,6 +110,9 @@ class Order(models.Model):
         auto_now=True,
         editable=False
     )
+    amount_due_by = models.FloatField(
+        verbose_name="Сумма к оплате",
+        default=0)
 
     def __str__(self):
         return f"Ремонт id={self.id}"
