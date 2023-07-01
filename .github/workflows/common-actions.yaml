@@ -1,6 +1,7 @@
-name: common-actions
-run-name: github.actor=${{ github.actor }}
-on: [push]
+name: Lint
+
+on: [push, pull_request]
+
 jobs:
   lint:
     runs-on: ubuntu-latest
