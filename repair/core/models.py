@@ -113,6 +113,20 @@ class Order(models.Model):
     amount_due_by = models.FloatField(
         verbose_name="Сумма к оплате",
         default=0)
+    payment_completed = models.BooleanField(
+        verbose_name="Оплала произведена?",
+        default=False
+    )
+    address = models.UUIDField(
+        verbose_name="Адресс клиента",
+        null=True,
+        blank=True,
+    )
+    client = models.UUIDField(
+        verbose_name="Клиент",
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return f"Ремонт id={self.id}"

@@ -12,4 +12,13 @@ class ServicemanModelSerializer(ModelSerializer):
 class OrderModelSerializer(ModelSerializer):
     class Meta:
         model = Order
-        fields = ("__all__")
+        fields = [
+            "id",
+            "status",
+            "serviceman_description",
+            "customer_description",
+            "deliveryman_description",
+            "comment",
+            "amount_due_by",
+            "created",
+        ]
