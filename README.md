@@ -1,3 +1,5 @@
+![black check](https://github.com/DemidovEvg/repair_cookies/actions/workflows/common-actions.yaml/badge.svg)
+
 Проект состоит из микросервисов
 
 - Клиентский сервис DRF + react
