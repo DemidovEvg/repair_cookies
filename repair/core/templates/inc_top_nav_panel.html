@@ -1,0 +1,18 @@
+<div id="header">
+      <div id="logo">
+        <div id="logo_text">
+              <h1><a href="/">Сookies Repair Servicman Desk</a></h1>
+        </div>
+      </div>
+      <div id="menubar">
+        <ul id="menu">
+          <li class="selected"><a href="/">К списку ремонтов</a></li>
+          <li><a href="#">Выполненые ремонты</a></li>
+            {% if request.user.is_authenticated %}
+                <li ><a href="{% url 'logout' %}">Выйти</a> </li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Войти</a></li>
+            {% endif %}
+        </ul>
+      </div>
+    </div>

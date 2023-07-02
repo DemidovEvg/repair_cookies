@@ -12,24 +12,31 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from dotenv import load_dotenv
+from environs import Env
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(dotenv_path=BASE_DIR / ".env")
+env = Env()
+
+DEBUG = env.bool("DEBUG", False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-!ujc&q*ynl(_2se10#b5iz*x40+ep-uxc(1hpx88!wd#*#by5_"
+
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", [])
 
-CSRF_TRUSTED_ORIGINS = ["https://nameless-night-9793.fly.dev"]
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "https://repair-cookies.vercel.app"]
+CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
 
 AUTH_USER_MODEL = "core.Client"
 
@@ -139,7 +146,9 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+CLIENT_SERVICE = env("CLIENT_SERVICE")
+DELIVERY_SERVICE = env("DELIVERY_SERVICE")
+REPAIR_SERVICE = env("REPAIR_SERVICE")
 
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": (
@@ -149,4 +158,12 @@ REST_FRAMEWORK = {
     "DEFAULT_PARSER_CLASSES": (
         "djangorestframework_camel_case.parser.CamelCaseJSONParser",
     ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'core.api_auth.CookiesKeycloakAuthentication',
+  ]
 }
+
+KEYCLOAK_VERIFY=False
+KEYCLOAK_SERVISE_ACCOUNT_ID=env("KEYCLOAK_SERVISE_ACCOUNT_ID")
+KEYCLOAK_SERVISE_ACCOUNT_NAME=env("KEYCLOAK_SERVISE_ACCOUNT_NAME")

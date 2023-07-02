@@ -1,18 +1,48 @@
+from uuid import uuid4
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
-class ServiceUser(User):
+class ServiceUser(AbstractUser):
+    id = models.UUIDField(
+        verbose_name="Идентификатор",
+        default=uuid4,
+        primary_key=True
+    )
+    is_serviceman = models.BooleanField(
+        verbose_name="Ремонтник",
+        default=False,
+    )
+    is_team_lead = models.BooleanField(
+        verbose_name="Cтарший ремонтником",
+        default=False,
+    )
+
     def __str__(self):
         if self.first_name and self.last_name:
             return f"{self.first_name} {self.last_name}"
         return self.username
 
 
+class TokenData(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        verbose_name="Пользователь",
+        on_delete=models.CASCADE,
+        unique=True,
+        related_name="token_data",
+    )
+    token = models.CharField(
+        verbose_name="Токен",
+        max_length=1500
+    )
+
+
 class ServiceMan(models.Model):
     user = models.OneToOneField(
-        ServiceUser,
-        verbose_name="Ремонтник",
+        settings.AUTH_USER_MODEL,
+        verbose_name="User",
         on_delete=models.CASCADE,
         unique=True,
         related_name='serviceman'
@@ -28,6 +58,14 @@ class ServiceMan(models.Model):
 
 
 class Order(models.Model):
+    class StatusEnum(models.TextChoices):
+        CREATED = ("CREATED", "Заявка создана")
+        GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
+        SENDING_TO_REPAIR = ("SENDING_TO_REPAIR", "Доставка в службу ремонта")
+        REPAIR_IN_PROCESS = ("REPAIR_IN_PROCESS", "Ремонт начат")
+        REPAIR_DONE = ("REPAIR_DONE", "Ремонт закончен")
+        SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка техники клиенту")
+        CLOSED = ("CLOSED", "Заявка закрыта")
     serviceman = models.ForeignKey(
         ServiceMan,
         verbose_name="Ремонтник",
@@ -35,26 +73,43 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    order_num = models.IntegerField(
-        verbose_name='номер заказа',
-        unique=True,
+    id = models.UUIDField(
+        verbose_name="Идентификатор заказа",
+        primary_key=True
     )
-    order_task = models.CharField(
+    status = models.CharField(
+        verbose_name="Статус заявки",
+        max_length=48,
+        choices=StatusEnum.choices,
+        default=StatusEnum.CREATED,
+    )
+    serviceman_description = models.CharField(
+        verbose_name="Комментарий ремонтника",
+        max_length=1000,
+        default=""
+    )
+    customer_description = models.CharField(
         verbose_name="Неисправность со слов клиента",
         max_length=1000,
         default=""
     )
-    comment = models.CharField(
-        verbose_name="комментарий ремонта",
-        max_length=300,
-        null=True,
-        blank=True,
+    deliveryman_description = models.CharField(
+        verbose_name="Комментарий доставки",
+        max_length=1000,
+        default=""
     )
+    comment = models.TextField(
+        verbose_name="Комментарии",
+        default='')
     created = models.DateTimeField(
-        verbose_name="Дата и время начала ремонта", auto_now_add=True, editable=False
+        verbose_name="Дата и время создания заявки",
+        auto_now_add=True,
+        editable=False
     )
     updated = models.DateTimeField(
-        verbose_name="Дата и время изменения статуса ремонта", auto_now=True, editable=False
+        verbose_name="Дата и время редактирования заявки",
+        auto_now=True,
+        editable=False
     )
 
     def __str__(self):
