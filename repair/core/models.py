@@ -86,21 +86,30 @@ class Order(models.Model):
     serviceman_description = models.CharField(
         verbose_name="Комментарий ремонтника",
         max_length=1000,
+        null=True,
+        blank=True,
         default=""
     )
     customer_description = models.CharField(
         verbose_name="Неисправность со слов клиента",
         max_length=1000,
+        null=True,
+        blank=True,
         default=""
     )
     deliveryman_description = models.CharField(
         verbose_name="Комментарий доставки",
         max_length=1000,
+        null=True,
+        blank=True,
         default=""
     )
     comment = models.TextField(
         verbose_name="Комментарии",
-        default='')
+        null=True,
+        blank=True,
+        default="",
+    )
     created = models.DateTimeField(
         verbose_name="Дата и время создания заявки",
         editable=False
@@ -112,7 +121,10 @@ class Order(models.Model):
     )
     amount_due_by = models.FloatField(
         verbose_name="Сумма к оплате",
-        default=0)
+        default=0,
+        null=True,
+        blank=True,
+    )
     payment_completed = models.BooleanField(
         verbose_name="Оплала произведена?",
         default=False

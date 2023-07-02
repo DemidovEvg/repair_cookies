@@ -6,6 +6,8 @@
             <h1>Список доступных ремонтов</h1>
             <h2>Ремонтник: {{ user }}</h2>
 
+
+        {% if user.is_serviceman %}
               <table border="1">
                    <tr>
                         <th>Номер заказа</th>
@@ -15,19 +17,14 @@
                    </tr>
                   {% for i in orders %}
                    <tr>
-                       <td><a href="{{ i.pk }}">{{ i.order_num }}</a></td>
-                    <td>{{ i.order_task }}</td>
-                    <td>{{ i.inner_status }}</td>
-                    <td>
-                        <select>
-                            <option disabled>Выберите ремонтника</option>
-                            {% for s in servicemans %}
-                                <option>{{ s }}</option>
-                            {% endfor %}
-                    </select>
-                    </td>
+                       <td><a href="{{ i.pk }}">{{ i.id }}</a></td>
+                    <td>{{ i.customer_description }}</td>
+                    <td>{{ i.status }}</td>
+                    <td>{{ i.serviceman }}</td>
                   </tr>
                   {% endfor %}
+             </table>
+            {% endif %}
              </table>
       {% else %}
       <h1>Доступ только зарегистрирорванным пользователям</h1>

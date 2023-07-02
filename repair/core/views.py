@@ -37,11 +37,6 @@ class IndexView(ListView):
     context_object_name = "orders"
     fields = ['serviceman']
 
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        context['servicemans'] = ServiceMan.objects.all()
-        return context
-
 
 class OrderDetail(UpdateView):
     model = Order
