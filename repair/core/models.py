@@ -35,7 +35,7 @@ class TokenData(models.Model):
     )
     token = models.CharField(
         verbose_name="Токен",
-        max_length=1500
+        max_length=1500,
     )
 
 
@@ -86,28 +86,20 @@ class Order(models.Model):
     serviceman_description = models.CharField(
         verbose_name="Комментарий ремонтника",
         max_length=1000,
-        null=True,
-        blank=True,
         default=""
     )
     customer_description = models.CharField(
         verbose_name="Неисправность со слов клиента",
         max_length=1000,
-        null=True,
-        blank=True,
         default=""
     )
     deliveryman_description = models.CharField(
         verbose_name="Комментарий доставки",
         max_length=1000,
-        null=True,
-        blank=True,
         default=""
     )
     comment = models.TextField(
         verbose_name="Комментарии",
-        null=True,
-        blank=True,
         default="",
     )
     created = models.DateTimeField(
@@ -117,7 +109,7 @@ class Order(models.Model):
     updated = models.DateTimeField(
         verbose_name="Дата и время редактирования заявки",
         auto_now=True,
-        editable=False
+        editable=False,
     )
     amount_due_by = models.FloatField(
         verbose_name="Сумма к оплате",
@@ -127,7 +119,7 @@ class Order(models.Model):
     )
     payment_completed = models.BooleanField(
         verbose_name="Оплала произведена?",
-        default=False
+        default=False,
     )
     address = models.UUIDField(
         verbose_name="Адресс клиента",
