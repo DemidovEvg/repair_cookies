@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Client, Order
+from core.models import Client, Order, Category
 
 
 admin.site.site_header = "Клиентская служба"
@@ -13,3 +13,11 @@ class ClientAdmin(admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    pass
+
+
