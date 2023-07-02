@@ -34,7 +34,7 @@ class Order(models.Model):
         CREATED = ("CREATED", "Заказ создан")
         APPOINTED = ("APPOINTED", "Заказ принят")
         IN_WORK = ("IN_WORK", "Заказ в работе")
-        DONE = ("DONE", "Заказ выполнена")
+        DONE = ("DONE", "Заказ выполнен")
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     status = models.CharField(
