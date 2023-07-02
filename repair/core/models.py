@@ -98,13 +98,8 @@ class Order(models.Model):
         max_length=1000,
         default=""
     )
-    comment = models.TextField(
-        verbose_name="Комментарии",
-        default="",
-    )
     created = models.DateTimeField(
         verbose_name="Дата и время создания заявки",
-        editable=False
     )
     updated = models.DateTimeField(
         verbose_name="Дата и время редактирования заявки",
@@ -120,16 +115,6 @@ class Order(models.Model):
     payment_completed = models.BooleanField(
         verbose_name="Оплала произведена?",
         default=False,
-    )
-    address = models.UUIDField(
-        verbose_name="Адресс клиента",
-        null=True,
-        blank=True,
-    )
-    client = models.UUIDField(
-        verbose_name="Клиент",
-        null=True,
-        blank=True,
     )
 
     def __str__(self):

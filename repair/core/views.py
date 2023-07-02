@@ -46,6 +46,7 @@ class OrderDetail(UpdateView):
     fields = ['serviceman', 'serviceman_description', 'status', 'amount_due_by']
 
     def post(self, request, *args, **kwargs):
+        super().post(request, *args, **kwargs)
         self.object = self.get_object()
         payload = OrderModelSerializer(instance=self.object).data
         pk = self.object.id
@@ -63,6 +64,9 @@ class OrderDetail(UpdateView):
             messages.add_message(request, messages.ERROR, repr(exc))
 
         return HttpResponseRedirect(reverse_lazy('home'))
+
+    def get_success_url(self):
+        pass
 
 
 class LoginUser(LoginView):

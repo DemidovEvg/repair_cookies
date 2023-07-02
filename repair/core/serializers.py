@@ -15,10 +15,10 @@ class OrderModelSerializer(ModelSerializer):
         fields = [
             "id",
             "status",
+            "serviceman",
             "serviceman_description",
             "customer_description",
             "deliveryman_description",
-            "comment",
             "amount_due_by",
             "created",
         ]
