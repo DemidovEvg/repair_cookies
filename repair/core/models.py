@@ -35,7 +35,7 @@ class TokenData(models.Model):
     )
     token = models.CharField(
         verbose_name="Токен",
-        max_length=1500
+        max_length=1500,
     )
 
 
@@ -61,7 +61,7 @@ class Order(models.Model):
     class StatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
         GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
-        SENDING_TO_REPAIR = ("SENDING_TO_REPAIR", "Доставка в службу ремонта")
+        SENT_TO_REPAIR = ("SENT_TO_REPAIR", "Доставлен в службу ремонта")
         REPAIR_IN_PROCESS = ("REPAIR_IN_PROCESS", "Ремонт начат")
         REPAIR_DONE = ("REPAIR_DONE", "Ремонт закончен")
         SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка техники клиенту")
@@ -98,18 +98,23 @@ class Order(models.Model):
         max_length=1000,
         default=""
     )
-    comment = models.TextField(
-        verbose_name="Комментарии",
-        default='')
     created = models.DateTimeField(
         verbose_name="Дата и время создания заявки",
-        auto_now_add=True,
-        editable=False
     )
     updated = models.DateTimeField(
         verbose_name="Дата и время редактирования заявки",
         auto_now=True,
-        editable=False
+        editable=False,
+    )
+    amount_due_by = models.FloatField(
+        verbose_name="Сумма к оплате",
+        default=0,
+        null=True,
+        blank=True,
+    )
+    payment_completed = models.BooleanField(
+        verbose_name="Оплала произведена?",
+        default=False,
     )
 
     def __str__(self):
