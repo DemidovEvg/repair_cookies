@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
 from core.views import (
     ClientViewSet,
     OrderViewSet,
@@ -33,4 +34,5 @@ router.register("category", CategoryViewSet)
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls), name="api"),
+    path("api-token-auth/", views.obtain_auth_token, name="toke_auth"),
 ]
