@@ -10,19 +10,17 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class DeliveryUser(AbstractUser):
     id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
-    middle_name = models.CharField("Отчетство", max_length=150, blank=True)
+    patronymic = models.CharField("Отчетство", max_length=150, blank=True, default="")
 
     def __str__(self):
-        middle_name_first_letter = (
-            self.middle_name[0:1] if len(self.middle_name) else ""
-        )
+        patronymic_first_letter = self.patronymic[0:1] if len(self.patronymic) else ""
         first_name_first_letter = self.first_name[0:1] if len(self.first_name) else ""
         full_name = ""
         if self.first_name and self.last_name:
             full_name += self.last_name
             full_name += f" {first_name_first_letter}."
-            if middle_name_first_letter:
-                full_name += f"{middle_name_first_letter}."
+            if patronymic_first_letter:
+                full_name += f"{patronymic_first_letter}."
         full_name += f" ({self.username})"
         return full_name
 
@@ -35,7 +33,7 @@ class DeliveryUser(AbstractUser):
 class Client(models.Model):
     id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
     first_name = models.CharField("Имя", max_length=150, blank=True)
-    middle_name = models.CharField("Отчетство", max_length=150, blank=True)
+    patronymic = models.CharField("Отчетство", max_length=150, blank=True, default="")
     last_name = models.CharField("Фамилия", max_length=150, blank=True)
     email = models.EmailField("Почта", blank=True)
     phone_number = PhoneNumberField(
@@ -43,16 +41,14 @@ class Client(models.Model):
     )
 
     def __str__(self):
-        middle_name_first_letter = (
-            self.middle_name[0:1] if len(self.middle_name) else ""
-        )
+        patronymic_first_letter = self.patronymic[0:1] if len(self.patronymic) else ""
         first_name_first_letter = self.first_name[0:1] if len(self.first_name) else ""
         full_name = ""
         if self.first_name and self.last_name:
             full_name += self.last_name
             full_name += f" {first_name_first_letter}."
-            if middle_name_first_letter:
-                full_name += f"{middle_name_first_letter}."
+            if patronymic_first_letter:
+                full_name += f"{patronymic_first_letter}."
         full_name += f" ({self.phone_number})"
         return full_name
 
@@ -115,7 +111,7 @@ class Address(models.Model):
     apartment = models.IntegerField(verbose_name="Номер квартиры")
 
     def __str__(self):
-        return f"{self.city} {self.street} {self.building} {self.apartment}"
+        return f"{self.city} ул. {self.street} дом. {self.building} кв. {self.apartment}"
 
     class Meta:
         verbose_name = "Адресс"
