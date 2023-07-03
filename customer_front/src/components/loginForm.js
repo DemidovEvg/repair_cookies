@@ -1,6 +1,7 @@
+import { Button } from 'react-bootstrap';
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 
 class LoginForm extends Component {
@@ -17,7 +18,8 @@ class LoginForm extends Component {
   }
 
   handleSubmit(event) {
-    alert(`Пользователь ${this.state.username} авторизован`);
+    event.preventDefault()
+    this.props.getToken(this.state.username, this.state.password)
   }
 
   render() {
@@ -43,9 +45,15 @@ class LoginForm extends Component {
               </Form.Text>
             </Form.Group>
 
-            <Link className='btn btn-primary' to='../'
-              onClick={(event) => this.handleSubmit(event)}>Submit</Link>
+            {/* <Link className='btn btn-primary' to='../'
+              onClick={(event) => this.handleSubmit(event)}>Submit</Link> */}
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
           </Form>
+          {this.props.isAuth()
+            ? < Navigate to="/" />
+            : null}
         </div>
       </div>
     );
