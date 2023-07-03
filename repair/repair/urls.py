@@ -28,7 +28,7 @@ urlpatterns = [
     path("", IndexView.as_view(), name="home"),
     path("login/", LoginUser.as_view(), name="login"),
     path("logout/", logout_user, name="logout"),
-    path("<int:pk>/", OrderDetail.as_view()),
+    path("<uuid:pk>/", OrderDetail.as_view(), name='order_detail'),
     path("admin/", admin.site.urls),
     path("api/", include(router.urls), name="api"),
 ]
