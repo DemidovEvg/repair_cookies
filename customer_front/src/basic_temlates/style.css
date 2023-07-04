@@ -707,7 +707,14 @@ a:hover {
 .map-and-contacts {
     display: flex;
     flex-direction: column;
-    max-width: 1080px;
+    justify-content: center;
+    align-items: center;
+}
+
+.map-container {
+    display:flex;
+    max-width:1080px;
+    width:100%;
 }
 
 .contacts-contacts {
@@ -715,14 +722,19 @@ a:hover {
     padding-top: 2em;
     padding-left: 2em;
     justify-content: space-between;
-
-
+    max-width:1080px;
+    width:100%;
 }
 
 .contacts-contacts li {
     margin: 1em 0em 1em 0em;
     list-style: none;
     display: flex;
+}
+
+.contacts-list img{
+    width: 15px;
+    margin-right: 10px;
 }
 
 .contacts-owner-info {
