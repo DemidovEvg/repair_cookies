@@ -21,6 +21,7 @@ class DeliveryUserAdmin(admin.ModelAdmin):
 class DeliverymanAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     pass
@@ -52,7 +53,7 @@ class OrderAdminForm(forms.ModelForm):
 class OrderAdmin(admin.ModelAdmin):
     form = OrderAdminForm
     list_display = [
-        "short_id",
+        "id",
         "status_common",
         "deliveryman",
         "created",
@@ -64,12 +65,12 @@ class OrderAdmin(admin.ModelAdmin):
         "client",
         "status_common",
         "new_status",
+        "category",
         "address",
         "deliveryman",
         "serviceman_description",
         "customer_description",
         "deliveryman_description",
-        "comment",
         "created",
         "updated",
         "payment_completed",
@@ -141,7 +142,7 @@ class OrderAdmin(admin.ModelAdmin):
             exceptions.append(exc)
 
         if exceptions:
-            raise ExceptionGroup("Ошибки обновления", exceptions)
+            raise Exception(repr(exceptions))
 
     def has_delete_permission(self, request, obj=None):
         return request.user.is_superuser

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "corsheaders",
     "rest_framework",
+    "rest_framework.authtoken",
     "core",
 ]
 
@@ -161,9 +162,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'core.api_auth.CookiesKeycloakAuthentication',
-  ]
+        "rest_framework.authentication.TokenAuthentication",
+    ]
 }
 
-KEYCLOAK_VERIFY=False
-KEYCLOAK_SERVISE_ACCOUNT_ID=env("KEYCLOAK_SERVISE_ACCOUNT_ID")
-KEYCLOAK_SERVISE_ACCOUNT_NAME=env("KEYCLOAK_SERVISE_ACCOUNT_NAME")
+KEYCLOAK_VERIFY = False
+KEYCLOAK_SERVISE_ACCOUNT_ID = env("KEYCLOAK_SERVISE_ACCOUNT_ID")
+KEYCLOAK_SERVISE_ACCOUNT_NAME = env("KEYCLOAK_SERVISE_ACCOUNT_NAME")
+
+SESSION_COOKIE_NAME = '_customer'

@@ -47,11 +47,11 @@ class OrderSerializer(serializers.ModelSerializer):
             "id",
             "client",
             "status",
+            "category",
             "address",
             "serviceman_description",
             "customer_description",
             "deliveryman_description",
-            "comment",
             "payment_completed",
             "amount_due_by",
             "created",
@@ -71,8 +71,8 @@ class OrderSerializer(serializers.ModelSerializer):
                 id=validated_data["client"]["id"]
             ).first()
             client_serializer = ClientSerializer(
-                instance=client_instance, data=validated_data["client"]
+                instance=client_instance, data=validated_data["client"], partial=True
             )
             client_serializer.is_valid(raise_exception=True)
-            client_serializer.save()
-            del validated_data["client"]
+            client_instance = client_serializer.save()
+            validated_data["client"] = client_instance

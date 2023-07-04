@@ -111,7 +111,9 @@ class Address(models.Model):
     apartment = models.IntegerField(verbose_name="Номер квартиры")
 
     def __str__(self):
-        return f"{self.city} ул. {self.street} дом. {self.building} кв. {self.apartment}"
+        return (
+            f"{self.city} ул. {self.street} дом. {self.building} кв. {self.apartment}"
+        )
 
     class Meta:
         verbose_name = "Адресс"
@@ -120,6 +122,11 @@ class Address(models.Model):
 
 
 class Order(models.Model):
+    class GadgetType(models.TextChoices):
+        TELEPHONE = ("TELEPHONE", "телефон")
+        LAPTOP = ("LAPTOP", "ноутбук")
+        TABLET = ("TABLET", "планшет")
+
     class StatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
         GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
@@ -135,7 +142,12 @@ class Order(models.Model):
         verbose_name="Статус заявки",
         max_length=48,
         choices=StatusEnum.choices,
-        default=StatusEnum.CREATED,
+    )
+    category = models.CharField(
+        "Техника",
+        max_length=15,
+        choices=GadgetType.choices,
+        default=GadgetType.TELEPHONE,
     )
     address = models.ForeignKey(
         Address,
@@ -163,7 +175,6 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    comment = models.TextField(verbose_name="Комментарии", default="", blank=True)
     created = models.DateTimeField(
         verbose_name="Дата и время создания заявки", default=timezone.now
     )
