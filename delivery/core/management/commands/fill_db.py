@@ -86,6 +86,7 @@ def get_new_order(
         serviceman_description="Вскрыл корпус молотком, все хорошо!",
         customer_description="Чета экран не работает",
         deliveryman_description="Опять в Мухосранске, ну емае",
+        category=Order.GadgetType.TELEPHONE,
     )
 
 

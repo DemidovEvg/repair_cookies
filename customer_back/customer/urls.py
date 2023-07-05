@@ -22,13 +22,11 @@ from rest_framework.authtoken import views
 from core.views import (
     ClientViewSet,
     OrderViewSet,
-    CategoryViewSet,
 )
 
 router = DefaultRouter()
 router.register("users", ClientViewSet)
 router.register("orders", OrderViewSet)
-router.register("category", CategoryViewSet)
 
 
 urlpatterns = [
