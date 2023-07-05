@@ -5,11 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class ServiceUser(AbstractUser):
-    id = models.UUIDField(
-        verbose_name="Идентификатор",
-        default=uuid4,
-        primary_key=True
-    )
+    id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
     is_serviceman = models.BooleanField(
         verbose_name="Ремонтник",
         default=False,
@@ -45,11 +41,11 @@ class ServiceMan(models.Model):
         verbose_name="User",
         on_delete=models.CASCADE,
         unique=True,
-        related_name='serviceman'
+        related_name="serviceman",
     )
 
     def __str__(self):
-        return f'Ремонтник {self.user}'
+        return f"Ремонтник {self.user}"
 
     class Meta:
         verbose_name = "Ремонтник"
@@ -58,6 +54,11 @@ class ServiceMan(models.Model):
 
 
 class Order(models.Model):
+    class GadgetType(models.TextChoices):
+        TELEPHONE = ("TELEPHONE", "телефон")
+        LAPTOP = ("LAPTOP", "ноутбук")
+        TABLET = ("TABLET", "планшет")
+
     class StatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
         GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
@@ -66,6 +67,7 @@ class Order(models.Model):
         REPAIR_DONE = ("REPAIR_DONE", "Ремонт закончен")
         SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка техники клиенту")
         CLOSED = ("CLOSED", "Заявка закрыта")
+
     serviceman = models.ForeignKey(
         ServiceMan,
         verbose_name="Ремонтник",
@@ -73,30 +75,29 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    id = models.UUIDField(
-        verbose_name="Идентификатор заказа",
-        primary_key=True
-    )
+    id = models.UUIDField(verbose_name="Идентификатор заказа", primary_key=True)
     status = models.CharField(
         verbose_name="Статус заявки",
         max_length=48,
         choices=StatusEnum.choices,
         default=StatusEnum.CREATED,
     )
+    category = models.CharField(
+        "Техника",
+        max_length=15,
+        choices=GadgetType.choices,
+    )
     serviceman_description = models.CharField(
-        verbose_name="Комментарий ремонтника",
-        max_length=1000,
-        default=""
+        verbose_name="Комментарий ремонтника", max_length=1000, default="", blank=True
     )
     customer_description = models.CharField(
         verbose_name="Неисправность со слов клиента",
         max_length=1000,
-        default=""
+        default="",
+        blank=True,
     )
     deliveryman_description = models.CharField(
-        verbose_name="Комментарий доставки",
-        max_length=1000,
-        default=""
+        verbose_name="Комментарий доставки", max_length=1000, default="", blank=True
     )
     created = models.DateTimeField(
         verbose_name="Дата и время создания заявки",

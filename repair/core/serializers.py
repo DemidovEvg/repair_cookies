@@ -15,6 +15,7 @@ class OrderModelSerializer(ModelSerializer):
         fields = [
             "id",
             "status",
+            "category",
             "serviceman",
             "serviceman_description",
             "customer_description",
