@@ -81,7 +81,8 @@ def get_access_token() -> str:
     user, created = User.objects.get_or_create(
         username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
         id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
-        phone_number="00000"
+        # add phone-number
+        phone_number="00000",
     )
 
     access_token = None
