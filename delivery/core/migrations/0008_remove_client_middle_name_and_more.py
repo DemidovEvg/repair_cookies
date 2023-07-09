@@ -4,28 +4,31 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0007_alter_deliveryuser_options_alter_address_id_and_more'),
+        ("core", "0007_alter_deliveryuser_options_alter_address_id_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='client',
-            name='middle_name',
+            model_name="client",
+            name="middle_name",
         ),
         migrations.RemoveField(
-            model_name='deliveryuser',
-            name='middle_name',
+            model_name="deliveryuser",
+            name="middle_name",
         ),
         migrations.AddField(
-            model_name='client',
-            name='patronymic',
-            field=models.CharField(blank=True, default='', max_length=150, verbose_name='Отчетство'),
+            model_name="client",
+            name="patronymic",
+            field=models.CharField(
+                blank=True, default="", max_length=150, verbose_name="Отчетство"
+            ),
         ),
         migrations.AddField(
-            model_name='deliveryuser',
-            name='patronymic',
-            field=models.CharField(blank=True, default='', max_length=150, verbose_name='Отчетство'),
+            model_name="deliveryuser",
+            name="patronymic",
+            field=models.CharField(
+                blank=True, default="", max_length=150, verbose_name="Отчетство"
+            ),
         ),
     ]

@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-ALLOWED_METHODS = ('GET', 'HEAD', 'OPTIONS', 'POST')
+ALLOWED_METHODS = ("GET", "HEAD", "OPTIONS", "POST")
 
 
 class ServicemanPermissions(permissions.BasePermission):

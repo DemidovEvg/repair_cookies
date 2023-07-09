@@ -12,5 +12,3 @@ class OrderViewSet(ModelViewSet):
 class ClientViewSet(ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientModelSerializer
-
-
