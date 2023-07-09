@@ -1,11 +1,8 @@
-from django.contrib import admin
-from django.contrib import messages
-from django.conf import settings
-
 from core.models import Client, Order
 from core.serializers import OrderModelSerializer
-
 from core.services.order_service import create_or_update
+from django.conf import settings
+from django.contrib import admin, messages
 
 admin.site.site_header = "Клиентская служба"
 

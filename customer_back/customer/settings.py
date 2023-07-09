@@ -156,18 +156,16 @@ REST_FRAMEWORK = {
         "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
         "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
     ),
-    "DEFAULT_PARSER_CLASSES": (
-        "djangorestframework_camel_case.parser.CamelCaseJSONParser",
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'core.api_auth.CookiesKeycloakAuthentication',
+    "DEFAULT_PARSER_CLASSES": ("djangorestframework_camel_case.parser.CamelCaseJSONParser",),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "core.api_auth.CookiesKeycloakAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-    ]
+    ],
 }
 
 KEYCLOAK_VERIFY = False
 KEYCLOAK_SERVISE_ACCOUNT_ID = env("KEYCLOAK_SERVISE_ACCOUNT_ID")
 KEYCLOAK_SERVISE_ACCOUNT_NAME = env("KEYCLOAK_SERVISE_ACCOUNT_NAME")
 
-SESSION_COOKIE_NAME = '_customer'
+SESSION_COOKIE_NAME = "_customer"

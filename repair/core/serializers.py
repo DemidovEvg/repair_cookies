@@ -1,6 +1,5 @@
+from core.models import Order, ServiceMan
 from rest_framework.serializers import ModelSerializer
-
-from core.models import ServiceMan, Order
 
 
 class ServicemanModelSerializer(ModelSerializer):

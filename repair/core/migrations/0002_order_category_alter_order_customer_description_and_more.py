@@ -4,31 +4,37 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0001_initial'),
+        ("core", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='order',
-            name='category',
-            field=models.CharField(choices=[('TELEPHONE', 'телефон'), ('LAPTOP', 'ноутбук'), ('TABLET', 'планшет')], default=1, max_length=15, verbose_name='Техника'),
+            model_name="order",
+            name="category",
+            field=models.CharField(
+                choices=[("TELEPHONE", "телефон"), ("LAPTOP", "ноутбук"), ("TABLET", "планшет")],
+                default=1,
+                max_length=15,
+                verbose_name="Техника",
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='order',
-            name='customer_description',
-            field=models.CharField(blank=True, default='', max_length=1000, verbose_name='Неисправность со слов клиента'),
+            model_name="order",
+            name="customer_description",
+            field=models.CharField(
+                blank=True, default="", max_length=1000, verbose_name="Неисправность со слов клиента"
+            ),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='deliveryman_description',
-            field=models.CharField(blank=True, default='', max_length=1000, verbose_name='Комментарий доставки'),
+            model_name="order",
+            name="deliveryman_description",
+            field=models.CharField(blank=True, default="", max_length=1000, verbose_name="Комментарий доставки"),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='serviceman_description',
-            field=models.CharField(blank=True, default='', max_length=1000, verbose_name='Комментарий ремонтника'),
+            model_name="order",
+            name="serviceman_description",
+            field=models.CharField(blank=True, default="", max_length=1000, verbose_name="Комментарий ремонтника"),
         ),
     ]

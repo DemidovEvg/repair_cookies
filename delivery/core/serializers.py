@@ -1,6 +1,5 @@
+from core.models import Address, City, Client, Order
 from rest_framework import serializers
-
-from core.models import Order, Address, City, Client
 
 
 class CitySerializer(serializers.ModelSerializer):
@@ -67,12 +66,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def create_or_update_client(self, validated_data):
         if "client" in validated_data:
-            client_instance = Client.objects.filter(
-                id=validated_data["client"]["id"]
-            ).first()
-            client_serializer = ClientSerializer(
-                instance=client_instance, data=validated_data["client"], partial=True
-            )
+            client_instance = Client.objects.filter(id=validated_data["client"]["id"]).first()
+            client_serializer = ClientSerializer(instance=client_instance, data=validated_data["client"], partial=True)
             client_serializer.is_valid(raise_exception=True)
             client_instance = client_serializer.save()
             validated_data["client"] = client_instance

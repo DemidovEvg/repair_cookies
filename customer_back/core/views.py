@@ -1,7 +1,6 @@
-from rest_framework.viewsets import ModelViewSet
-
 from core.models import Client, Order
 from core.serializers import ClientModelSerializer, OrderModelSerializer
+from rest_framework.viewsets import ModelViewSet
 
 
 class OrderViewSet(ModelViewSet):
@@ -12,5 +11,3 @@ class OrderViewSet(ModelViewSet):
 class ClientViewSet(ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientModelSerializer
-
-

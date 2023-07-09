@@ -3,7 +3,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 from environs import Env
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(dotenv_path=BASE_DIR / ".env")
@@ -42,7 +41,7 @@ ROOT_URLCONF = "repair.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ['templates'],
+        "DIRS": ["templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -103,15 +102,13 @@ REST_FRAMEWORK = {
         "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
         "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
     ),
-    "DEFAULT_PARSER_CLASSES": (
-        "djangorestframework_camel_case.parser.CamelCaseJSONParser",
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'core.api_auth.CookiesKeycloakAuthentication',
-  ]
+    "DEFAULT_PARSER_CLASSES": ("djangorestframework_camel_case.parser.CamelCaseJSONParser",),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "core.api_auth.CookiesKeycloakAuthentication",
+    ],
 }
 
-KEYCLOAK_VERIFY=False
-KEYCLOAK_SERVISE_ACCOUNT_ID=env("KEYCLOAK_SERVISE_ACCOUNT_ID")
-KEYCLOAK_SERVISE_ACCOUNT_NAME=env("KEYCLOAK_SERVISE_ACCOUNT_NAME")
+KEYCLOAK_VERIFY = False
+KEYCLOAK_SERVISE_ACCOUNT_ID = env("KEYCLOAK_SERVISE_ACCOUNT_ID")
+KEYCLOAK_SERVISE_ACCOUNT_NAME = env("KEYCLOAK_SERVISE_ACCOUNT_NAME")

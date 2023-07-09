@@ -1,7 +1,6 @@
+from core.models import DeliveryUser
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
-
-from core.models import DeliveryUser
 
 
 class Command(BaseCommand):

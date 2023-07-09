@@ -3,7 +3,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 from environs import Env
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(dotenv_path=BASE_DIR / ".env")
@@ -23,8 +22,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'rest_framework',
-    'drf_keycloak_auth',
+    "rest_framework",
+    "drf_keycloak_auth",
     "core.apps.CoreConfig",
 ]
 
@@ -38,7 +37,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-AUTH_USER_MODEL = "core.DeliveryUser" 
+AUTH_USER_MODEL = "core.DeliveryUser"
 
 ROOT_URLCONF = "delivery.urls"
 
@@ -107,20 +106,18 @@ REST_FRAMEWORK = {
         "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
         "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
     ),
-    "DEFAULT_PARSER_CLASSES": (
-        "djangorestframework_camel_case.parser.CamelCaseJSONParser",
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'core.api_auth.CookiesKeycloakAuthentication',
-  ]
+    "DEFAULT_PARSER_CLASSES": ("djangorestframework_camel_case.parser.CamelCaseJSONParser",),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "core.api_auth.CookiesKeycloakAuthentication",
+    ],
 }
 
-KEYCLOAK_VERIFY=False
-KEYCLOAK_SERVISE_ACCOUNT_ID=env("KEYCLOAK_SERVISE_ACCOUNT_ID")
-KEYCLOAK_SERVISE_ACCOUNT_NAME=env("KEYCLOAK_SERVISE_ACCOUNT_NAME")
+KEYCLOAK_VERIFY = False
+KEYCLOAK_SERVISE_ACCOUNT_ID = env("KEYCLOAK_SERVISE_ACCOUNT_ID")
+KEYCLOAK_SERVISE_ACCOUNT_NAME = env("KEYCLOAK_SERVISE_ACCOUNT_NAME")
 
 
-SESSION_COOKIE_NAME = '_delivery'
+SESSION_COOKIE_NAME = "_delivery"
 
 PHONE_NUMBER_REGION = "RU"

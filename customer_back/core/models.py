@@ -1,12 +1,10 @@
 from uuid import uuid4
 
+from customer.settings import PHONE_NUMBER_REGION
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-
-from customer.settings import PHONE_NUMBER_REGION
-
 
 # Create your models here.
 
@@ -16,9 +14,7 @@ class Client(AbstractUser):
     patronymic = models.CharField("Отчетство", max_length=150, blank=True, default="")
     address = models.TextField("Адрес клиента", default="")
     location = models.CharField(max_length=30, blank=True)
-    phone_number = PhoneNumberField(
-        "Номер телефона клиента", unique=True, region=PHONE_NUMBER_REGION, max_length=12
-    )
+    phone_number = PhoneNumberField("Номер телефона клиента", unique=True, region=PHONE_NUMBER_REGION, max_length=12)
 
 
 class TokenData(models.Model):
@@ -73,9 +69,7 @@ class Order(models.Model):
     deliveryman_description = models.CharField(
         verbose_name="Комментарий доставки", max_length=1000, default="", blank=True
     )
-    created = models.DateTimeField(
-        auto_now_add=True, editable=False, blank=True, null=True
-    )
+    created = models.DateTimeField(auto_now_add=True, editable=False, blank=True, null=True)
     updated = models.DateTimeField(auto_now=True, editable=False, blank=True, null=True)
     deleted = models.BooleanField(default=False)
 

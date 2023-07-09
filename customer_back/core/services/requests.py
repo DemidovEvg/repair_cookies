@@ -25,16 +25,8 @@ def delete(url, **kwargs):
 def make_request(action, url, params=None, headers=None, **kwargs: dict):
     if not headers:
         headers = {}
-    response = requests.request(
-        action, url=url, params=params, headers=headers_with_token(headers), **kwargs
-    )
+    response = requests.request(action, url=url, params=params, headers=headers_with_token(headers), **kwargs)
     if response.status_code == 403:
         remove_api_token()
-        response = requests.request(
-            action,
-            url=url,
-            params=params,
-            headers=headers_with_token(headers),
-            **kwargs
-        )
+        response = requests.request(action, url=url, params=params, headers=headers_with_token(headers), **kwargs)
     return response

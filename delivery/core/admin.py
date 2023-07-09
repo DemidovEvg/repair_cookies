@@ -1,13 +1,10 @@
-from django.contrib import admin
-from django.contrib import messages
-from django.conf import settings
-from django import forms
-from django.db import models
-
-from core.models import Deliveryman, Order, Address, City, DeliveryUser, Client
-from core.services.order_service import create_or_update
+from core.models import Address, City, Client, Deliveryman, DeliveryUser, Order
 from core.serializers import OrderSerializer
-
+from core.services.order_service import create_or_update
+from django import forms
+from django.conf import settings
+from django.contrib import admin, messages
+from django.db import models
 
 admin.site.site_header = "Доставщики"
 
@@ -36,9 +33,7 @@ class DeliveryStatusEnum(models.TextChoices):
 
 
 class OrderAdminForm(forms.ModelForm):
-    new_status = forms.fields.ChoiceField(
-        choices=DeliveryStatusEnum.choices, label="Новый статус", required=False
-    )
+    new_status = forms.fields.ChoiceField(choices=DeliveryStatusEnum.choices, label="Новый статус", required=False)
 
     def save(self, commit=True):
         instance = super().save(commit=False)
