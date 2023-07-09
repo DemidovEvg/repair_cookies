@@ -4,24 +4,44 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0008_remove_client_middle_name_and_more'),
+        ("core", "0008_remove_client_middle_name_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='order',
-            name='comment',
+            model_name="order",
+            name="comment",
         ),
         migrations.AddField(
-            model_name='order',
-            name='category',
-            field=models.CharField(choices=[('TELEPHONE', 'телефон'), ('LAPTOP', 'ноутбук'), ('TABLET', 'планшет')], default='TELEPHONE', max_length=15, verbose_name='Техника'),
+            model_name="order",
+            name="category",
+            field=models.CharField(
+                choices=[
+                    ("TELEPHONE", "телефон"),
+                    ("LAPTOP", "ноутбук"),
+                    ("TABLET", "планшет"),
+                ],
+                default="TELEPHONE",
+                max_length=15,
+                verbose_name="Техника",
+            ),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='status',
-            field=models.CharField(choices=[('CREATED', 'Заявка создана'), ('GETTING_FROM_CLIENT', 'Получение техники от клиента'), ('SENT_TO_REPAIR', 'Доставлен в службу ремонта'), ('REPAIR_IN_PROCESS', 'Ремонт начат'), ('REPAIR_DONE', 'Ремонт закончен'), ('SENDING_TO_CLIENT', 'Доставка техники клиенту'), ('CLOSED', 'Заявка закрыта')], max_length=48, verbose_name='Статус заявки'),
+            model_name="order",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("CREATED", "Заявка создана"),
+                    ("GETTING_FROM_CLIENT", "Получение техники от клиента"),
+                    ("SENT_TO_REPAIR", "Доставлен в службу ремонта"),
+                    ("REPAIR_IN_PROCESS", "Ремонт начат"),
+                    ("REPAIR_DONE", "Ремонт закончен"),
+                    ("SENDING_TO_CLIENT", "Доставка техники клиенту"),
+                    ("CLOSED", "Заявка закрыта"),
+                ],
+                max_length=48,
+                verbose_name="Статус заявки",
+            ),
         ),
     ]

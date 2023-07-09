@@ -19,31 +19,27 @@ from core.serializers import OrderModelSerializer
 class OrderViewSet(ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderModelSerializer
-    permission_classes = (
-        OrderPermissions,
-    )
+    permission_classes = (OrderPermissions,)
 
 
 class ServicemanViewSet(ModelViewSet):
     queryset = ServiceMan.objects.all()
     serializer_class = ServicemanModelSerializer
-    permission_classes = (
-        ServicemanPermissions,
-    )
+    permission_classes = (ServicemanPermissions,)
 
 
 class IndexView(ListView):
     model = Order
-    template_name = 'index.html'
+    template_name = "index.html"
     context_object_name = "orders"
-    fields = ['serviceman']
+    fields = ["serviceman"]
 
 
 class OrderDetail(UpdateView):
     model = Order
-    template_name = 'order_detail.html'
-    context_object_name = 'order'
-    fields = ['serviceman', 'serviceman_description', 'status', 'amount_due_by']
+    template_name = "order_detail.html"
+    context_object_name = "order"
+    fields = ["serviceman", "serviceman_description", "status", "amount_due_by"]
 
     def post(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
@@ -63,7 +59,7 @@ class OrderDetail(UpdateView):
         except Exception as exc:
             messages.add_message(request, messages.ERROR, repr(exc))
 
-        return HttpResponseRedirect(reverse_lazy('home'))
+        return HttpResponseRedirect(reverse_lazy("home"))
 
     def get_success_url(self):
         pass
@@ -71,12 +67,12 @@ class OrderDetail(UpdateView):
 
 class LoginUser(LoginView):
     form_class = AuthenticationForm
-    template_name = 'login.html'
+    template_name = "login.html"
 
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy("home")
 
 
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect("login")

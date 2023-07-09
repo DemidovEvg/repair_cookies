@@ -4,52 +4,90 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0002_category_alter_order_options_client_address_and_more'),
+        ("core", "0002_category_alter_order_options_client_address_and_more"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='Category',
+            name="Category",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='comments',
+            model_name="order",
+            name="comments",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='name',
+            model_name="order",
+            name="name",
         ),
         migrations.AddField(
-            model_name='client',
-            name='patronymic',
-            field=models.CharField(blank=True, default='', max_length=150, verbose_name='Отчетство'),
+            model_name="client",
+            name="patronymic",
+            field=models.CharField(
+                blank=True, default="", max_length=150, verbose_name="Отчетство"
+            ),
         ),
         migrations.AddField(
-            model_name='order',
-            name='category',
-            field=models.CharField(choices=[('TELEPHONE', 'телефон'), ('LAPTOP', 'ноутбук'), ('TABLET', 'планшет')], default=1, max_length=15, verbose_name='Техника'),
+            model_name="order",
+            name="category",
+            field=models.CharField(
+                choices=[
+                    ("TELEPHONE", "телефон"),
+                    ("LAPTOP", "ноутбук"),
+                    ("TABLET", "планшет"),
+                ],
+                default=1,
+                max_length=15,
+                verbose_name="Техника",
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='order',
-            name='customer_description',
-            field=models.CharField(blank=True, default='', max_length=1000, verbose_name='Неисправность со слов клиента'),
+            model_name="order",
+            name="customer_description",
+            field=models.CharField(
+                blank=True,
+                default="",
+                max_length=1000,
+                verbose_name="Неисправность со слов клиента",
+            ),
         ),
         migrations.AddField(
-            model_name='order',
-            name='deliveryman_description',
-            field=models.CharField(blank=True, default='', max_length=1000, verbose_name='Комментарий доставки'),
+            model_name="order",
+            name="deliveryman_description",
+            field=models.CharField(
+                blank=True,
+                default="",
+                max_length=1000,
+                verbose_name="Комментарий доставки",
+            ),
         ),
         migrations.AddField(
-            model_name='order',
-            name='serviceman_description',
-            field=models.CharField(blank=True, default='', max_length=1000, verbose_name='Комментарий ремонтника'),
+            model_name="order",
+            name="serviceman_description",
+            field=models.CharField(
+                blank=True,
+                default="",
+                max_length=1000,
+                verbose_name="Комментарий ремонтника",
+            ),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='status',
-            field=models.CharField(choices=[('CREATED', 'Заявка создана'), ('GETTING_FROM_CLIENT', 'Получение техники от клиента'), ('SENT_TO_REPAIR', 'Доставлен в службу ремонта'), ('REPAIR_IN_PROCESS', 'Ремонт начат'), ('REPAIR_DONE', 'Ремонт закончен'), ('SENDING_TO_CLIENT', 'Доставка техники клиенту'), ('CLOSED', 'Заявка закрыта')], default='CREATED', max_length=48, verbose_name='Статус заказа'),
+            model_name="order",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("CREATED", "Заявка создана"),
+                    ("GETTING_FROM_CLIENT", "Получение техники от клиента"),
+                    ("SENT_TO_REPAIR", "Доставлен в службу ремонта"),
+                    ("REPAIR_IN_PROCESS", "Ремонт начат"),
+                    ("REPAIR_DONE", "Ремонт закончен"),
+                    ("SENDING_TO_CLIENT", "Доставка техники клиенту"),
+                    ("CLOSED", "Заявка закрыта"),
+                ],
+                default="CREATED",
+                max_length=48,
+                verbose_name="Статус заказа",
+            ),
         ),
     ]

@@ -4,13 +4,14 @@ from django.db.utils import IntegrityError
 
 User = get_user_model()
 
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
         def create_superuser(name, email, password):
             try:
-                User.objects.create_superuser(name, f'{name}@example.com', name)
+                User.objects.create_superuser(name, f"{name}@example.com", name)
             except IntegrityError:
-                print(f'{name} уже есть')
+                print(f"{name} уже есть")
 
-        create_superuser('admin1', 'admin@example.com', 'admin1')
-        create_superuser('admin_cookies', 'admin@example.com', 'admin_cookies')
+        create_superuser("admin1", "admin@example.com", "admin1")
+        create_superuser("admin_cookies", "admin@example.com", "admin_cookies")

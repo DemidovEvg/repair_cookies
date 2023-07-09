@@ -66,19 +66,20 @@ def get_keycloak_openid_without_verify(
 
 def remove_api_token():
     user, created = User.objects.get_or_create(
-        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME, 
-        id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID
+        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
+        id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
     )
     token_data, created = TokenData.objects.get_or_create(
         user=user, defaults=dict(token="")
     )
-    token_data.token = ''
+    token_data.token = ""
     token_data.save()
+
 
 def get_access_token() -> str:
     user, created = User.objects.get_or_create(
-        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME, 
-        id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID
+        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
+        id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
     )
 
     access_token = None
