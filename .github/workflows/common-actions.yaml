@@ -8,5 +8,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: psf/black@stable
-      with:
+      - with:
           args: "--disable=E0401,C0116"
