@@ -13,7 +13,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="deliveryuser",
             name="middle_name",
-            field=models.CharField(blank=True, max_length=150, verbose_name="Отчетство"),
+            field=models.CharField(
+                blank=True, max_length=150, verbose_name="Отчетство"
+            ),
         ),
         migrations.AddField(
             model_name="order",
@@ -23,12 +25,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="order",
             name="payment_completed",
-            field=models.BooleanField(default=False, verbose_name="Оплала произведена?"),
+            field=models.BooleanField(
+                default=False, verbose_name="Оплала произведена?"
+            ),
         ),
         migrations.AlterField(
             model_name="order",
             name="created",
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name="Дата и время создания заявки"),
+            field=models.DateTimeField(
+                default=django.utils.timezone.now,
+                verbose_name="Дата и время создания заявки",
+            ),
         ),
         migrations.AlterField(
             model_name="order",

@@ -20,11 +20,15 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="client",
             name="patronymic",
-            field=models.CharField(blank=True, default="", max_length=150, verbose_name="Отчетство"),
+            field=models.CharField(
+                blank=True, default="", max_length=150, verbose_name="Отчетство"
+            ),
         ),
         migrations.AddField(
             model_name="deliveryuser",
             name="patronymic",
-            field=models.CharField(blank=True, default="", max_length=150, verbose_name="Отчетство"),
+            field=models.CharField(
+                blank=True, default="", max_length=150, verbose_name="Отчетство"
+            ),
         ),
     ]

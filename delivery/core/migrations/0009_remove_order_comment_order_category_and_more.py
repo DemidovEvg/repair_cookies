@@ -17,7 +17,11 @@ class Migration(migrations.Migration):
             model_name="order",
             name="category",
             field=models.CharField(
-                choices=[("TELEPHONE", "телефон"), ("LAPTOP", "ноутбук"), ("TABLET", "планшет")],
+                choices=[
+                    ("TELEPHONE", "телефон"),
+                    ("LAPTOP", "ноутбук"),
+                    ("TABLET", "планшет"),
+                ],
                 default="TELEPHONE",
                 max_length=15,
                 verbose_name="Техника",

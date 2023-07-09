@@ -12,16 +12,24 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="order",
             name="customer_description",
-            field=models.CharField(default="", max_length=1000, verbose_name="Неисправность со слов клиента"),
+            field=models.CharField(
+                default="",
+                max_length=1000,
+                verbose_name="Неисправность со слов клиента",
+            ),
         ),
         migrations.AddField(
             model_name="order",
             name="deliveryman_description",
-            field=models.CharField(default="", max_length=1000, verbose_name="Комментарий доставки"),
+            field=models.CharField(
+                default="", max_length=1000, verbose_name="Комментарий доставки"
+            ),
         ),
         migrations.AddField(
             model_name="order",
             name="serviceman_description",
-            field=models.CharField(default="", max_length=1000, verbose_name="Комментарий ремонтника"),
+            field=models.CharField(
+                default="", max_length=1000, verbose_name="Комментарий ремонтника"
+            ),
         ),
     ]

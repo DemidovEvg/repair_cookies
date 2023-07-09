@@ -23,13 +23,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="client",
             name="patronymic",
-            field=models.CharField(blank=True, default="", max_length=150, verbose_name="Отчетство"),
+            field=models.CharField(
+                blank=True, default="", max_length=150, verbose_name="Отчетство"
+            ),
         ),
         migrations.AddField(
             model_name="order",
             name="category",
             field=models.CharField(
-                choices=[("TELEPHONE", "телефон"), ("LAPTOP", "ноутбук"), ("TABLET", "планшет")],
+                choices=[
+                    ("TELEPHONE", "телефон"),
+                    ("LAPTOP", "ноутбук"),
+                    ("TABLET", "планшет"),
+                ],
                 default=1,
                 max_length=15,
                 verbose_name="Техника",
@@ -40,18 +46,31 @@ class Migration(migrations.Migration):
             model_name="order",
             name="customer_description",
             field=models.CharField(
-                blank=True, default="", max_length=1000, verbose_name="Неисправность со слов клиента"
+                blank=True,
+                default="",
+                max_length=1000,
+                verbose_name="Неисправность со слов клиента",
             ),
         ),
         migrations.AddField(
             model_name="order",
             name="deliveryman_description",
-            field=models.CharField(blank=True, default="", max_length=1000, verbose_name="Комментарий доставки"),
+            field=models.CharField(
+                blank=True,
+                default="",
+                max_length=1000,
+                verbose_name="Комментарий доставки",
+            ),
         ),
         migrations.AddField(
             model_name="order",
             name="serviceman_description",
-            field=models.CharField(blank=True, default="", max_length=1000, verbose_name="Комментарий ремонтника"),
+            field=models.CharField(
+                blank=True,
+                default="",
+                max_length=1000,
+                verbose_name="Комментарий ремонтника",
+            ),
         ),
         migrations.AlterField(
             model_name="order",

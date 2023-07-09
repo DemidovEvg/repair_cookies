@@ -37,9 +37,15 @@ def get_random_string(arr):
 def get_new_deliveryman(username: str, is_team_lead: bool = False):
     try:
         user = DeliveryUser.objects.create_user(
-            last_name=random.choice(["Иванов", "Петров", "Сидоров", "Пупкин", "Лапушкин"]),
-            first_name=random.choice(["Евгений", "Олег", "Александр", "Егор", "Владимир"]),
-            patronymic=random.choice(["Ивинович", "Петрович", "Сидорович", "Егорович", "Олегович"]),
+            last_name=random.choice(
+                ["Иванов", "Петров", "Сидоров", "Пупкин", "Лапушкин"]
+            ),
+            first_name=random.choice(
+                ["Евгений", "Олег", "Александр", "Егор", "Владимир"]
+            ),
+            patronymic=random.choice(
+                ["Ивинович", "Петрович", "Сидорович", "Егорович", "Олегович"]
+            ),
             username=username,
             email=f"{username}@email.ru",
             password=username,
@@ -56,7 +62,9 @@ def get_new_client(username: str):
     client = Client.objects.get_or_create(
         last_name=random.choice(["Иванов", "Петров", "Сидоров", "Пупкин", "Лапушкин"]),
         first_name=random.choice(["Евгений", "Олег", "Александр", "Егор", "Владимир"]),
-        patronymic=random.choice(["Ивинович", "Петрович", "Сидорович", "Егорович", "Олегович"]),
+        patronymic=random.choice(
+            ["Ивинович", "Петрович", "Сидорович", "Егорович", "Олегович"]
+        ),
         email=f"{username}@email.ru",
         defaults=dict(phone_number=str(random.randint(80000000000, 89999999999))),
     )[0]
@@ -83,16 +91,24 @@ def get_new_order(
 class Command(BaseCommand):
     def handle(self, *args, **options):
         habarovsk = City.objects.create(name="Хабаровск")
-        address1 = Address.objects.create(city=habarovsk, street="Строителей", building="60а", apartment=49)
-        address2 = Address.objects.create(city=habarovsk, street="Ленина", building="56", apartment=123)
+        address1 = Address.objects.create(
+            city=habarovsk, street="Строителей", building="60а", apartment=49
+        )
+        address2 = Address.objects.create(
+            city=habarovsk, street="Ленина", building="56", apartment=123
+        )
 
         deliveryman1 = get_new_deliveryman("deliveryman1")
         deliveryman2 = get_new_deliveryman("deliveryman2")
         deliveryman_team_lead = get_new_deliveryman("deliveryman_team_lead", True)
 
-        get_new_order(client=get_new_client("client1"), deliveryman=deliveryman1, address=address1)
+        get_new_order(
+            client=get_new_client("client1"), deliveryman=deliveryman1, address=address1
+        )
         get_new_order(client=get_new_client("client2"), deliveryman=deliveryman1)
         get_new_order(client=get_new_client("client3"), deliveryman=deliveryman1)
-        get_new_order(client=get_new_client("client4"), deliveryman=deliveryman2, address=address2)
+        get_new_order(
+            client=get_new_client("client4"), deliveryman=deliveryman2, address=address2
+        )
         get_new_order(client=get_new_client("client5"))
         get_new_order(client=get_new_client("client6"))

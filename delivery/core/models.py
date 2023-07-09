@@ -35,7 +35,9 @@ class Client(models.Model):
     patronymic = models.CharField("Отчетство", max_length=150, blank=True, default="")
     last_name = models.CharField("Фамилия", max_length=150, blank=True)
     email = models.EmailField("Почта", blank=True)
-    phone_number = PhoneNumberField(unique=True, region=settings.PHONE_NUMBER_REGION, max_length=12)
+    phone_number = PhoneNumberField(
+        unique=True, region=settings.PHONE_NUMBER_REGION, max_length=12
+    )
 
     def __str__(self):
         patronymic_first_letter = self.patronymic[0:1] if len(self.patronymic) else ""
@@ -74,7 +76,9 @@ class Deliveryman(models.Model):
         unique=True,
         related_name="deliveryman",
     )
-    is_team_lead = models.BooleanField(verbose_name="Является старшим доставщиком", default=False)
+    is_team_lead = models.BooleanField(
+        verbose_name="Является старшим доставщиком", default=False
+    )
 
     def __str__(self):
         return f"{self.user}"
@@ -106,7 +110,9 @@ class Address(models.Model):
     apartment = models.IntegerField(verbose_name="Номер квартиры")
 
     def __str__(self):
-        return f"{self.city} ул. {self.street} дом. {self.building} кв. {self.apartment}"
+        return (
+            f"{self.city} ул. {self.street} дом. {self.building} кв. {self.apartment}"
+        )
 
     class Meta:
         verbose_name = "Адресс"
@@ -168,9 +174,15 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    created = models.DateTimeField(verbose_name="Дата и время создания заявки", default=timezone.now)
-    updated = models.DateTimeField(verbose_name="Дата и время редактирования заявки", auto_now=True)
-    payment_completed = models.BooleanField(verbose_name="Оплала произведена?", default=False)
+    created = models.DateTimeField(
+        verbose_name="Дата и время создания заявки", default=timezone.now
+    )
+    updated = models.DateTimeField(
+        verbose_name="Дата и время редактирования заявки", auto_now=True
+    )
+    payment_completed = models.BooleanField(
+        verbose_name="Оплала произведена?", default=False
+    )
     amount_due_by = models.FloatField(verbose_name="Сумма к оплате", default=0)
 
     def __str__(self):

@@ -13,16 +13,30 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name="deliveryuser",
-            options={"ordering": ["-id"], "verbose_name": "Пользователь", "verbose_name_plural": "Пользователи"},
+            options={
+                "ordering": ["-id"],
+                "verbose_name": "Пользователь",
+                "verbose_name_plural": "Пользователи",
+            },
         ),
         migrations.AlterField(
             model_name="address",
             name="id",
-            field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False, verbose_name="Идентификатор"),
+            field=models.UUIDField(
+                default=uuid.uuid4,
+                primary_key=True,
+                serialize=False,
+                verbose_name="Идентификатор",
+            ),
         ),
         migrations.AlterField(
             model_name="city",
             name="id",
-            field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False, verbose_name="Идентификатор"),
+            field=models.UUIDField(
+                default=uuid.uuid4,
+                primary_key=True,
+                serialize=False,
+                verbose_name="Идентификатор",
+            ),
         ),
     ]

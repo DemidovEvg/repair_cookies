@@ -8,9 +8,13 @@ def create_or_update(service_create: str, service_update: str, data: dict):
 
     response = requests.get(url=service_update)
     if response.status_code == 200:
-        response = requests.patch(url=service_update, data=json.dumps(data), headers=headers)
+        response = requests.patch(
+            url=service_update, data=json.dumps(data), headers=headers
+        )
     elif response.status_code == 404:
-        response = requests.post(url=service_create, data=json.dumps(data), headers=headers)
+        response = requests.post(
+            url=service_create, data=json.dumps(data), headers=headers
+        )
     else:
         raise Exception(response.text)
 

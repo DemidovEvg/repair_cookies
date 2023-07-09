@@ -9,7 +9,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         client = get_user_model()
         for phone, name in enumerate(("admin", "admin1", "admin_cookies")):
-            number = PhoneNumber.from_string(f"8999999999{phone}", region=PHONE_NUMBER_REGION)
+            number = PhoneNumber.from_string(
+                f"8999999999{phone}", region=PHONE_NUMBER_REGION
+            )
             try:
                 client.objects.create_superuser(
                     username=name,

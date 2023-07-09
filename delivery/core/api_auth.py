@@ -35,7 +35,9 @@ class CookiesKeycloakOpenID(KeycloakOpenID):
         return raise_error_from_response(data_raw, KeycloakGetError)
 
 
-def get_keycloak_openid_without_verify(oidc: dict = None, custom_headers: dict = None) -> CookiesKeycloakOpenID:
+def get_keycloak_openid_without_verify(
+    oidc: dict = None, custom_headers: dict = None
+) -> CookiesKeycloakOpenID:
     custom_headers = {} if not custom_headers else custom_headers
     try:
         if oidc:
@@ -64,20 +66,26 @@ def get_keycloak_openid_without_verify(oidc: dict = None, custom_headers: dict =
 
 def remove_api_token():
     user, created = User.objects.get_or_create(
-        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME, id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID
+        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
+        id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
     )
-    token_data, created = TokenData.objects.get_or_create(user=user, defaults=dict(token=""))
+    token_data, created = TokenData.objects.get_or_create(
+        user=user, defaults=dict(token="")
+    )
     token_data.token = ""
     token_data.save()
 
 
 def get_access_token() -> str:
     user, created = User.objects.get_or_create(
-        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME, id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID
+        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
+        id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
     )
 
     access_token = None
-    token_data, created = TokenData.objects.get_or_create(user=user, defaults=dict(token=""))
+    token_data, created = TokenData.objects.get_or_create(
+        user=user, defaults=dict(token="")
+    )
     if not created and token_data.token:
         return token_data.token
 

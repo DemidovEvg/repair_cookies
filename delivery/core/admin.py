@@ -33,7 +33,9 @@ class DeliveryStatusEnum(models.TextChoices):
 
 
 class OrderAdminForm(forms.ModelForm):
-    new_status = forms.fields.ChoiceField(choices=DeliveryStatusEnum.choices, label="Новый статус", required=False)
+    new_status = forms.fields.ChoiceField(
+        choices=DeliveryStatusEnum.choices, label="Новый статус", required=False
+    )
 
     def save(self, commit=True):
         instance = super().save(commit=False)

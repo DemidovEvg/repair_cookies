@@ -13,8 +13,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Category",
             fields=[
-                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("name", models.CharField(default="", max_length=250, verbose_name="Категория Техники")),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        default="", max_length=250, verbose_name="Категория Техники"
+                    ),
+                ),
             ],
             options={
                 "verbose_name": "Гаджет",
@@ -48,7 +61,11 @@ class Migration(migrations.Migration):
             model_name="order",
             name="name",
             field=models.SlugField(
-                choices=[("telephone", "телефон"), ("laptop", "ноутбук"), ("tablet", "планшет")],
+                choices=[
+                    ("telephone", "телефон"),
+                    ("laptop", "ноутбук"),
+                    ("tablet", "планшет"),
+                ],
                 max_length=200,
                 null=True,
                 verbose_name="Техника",
@@ -58,7 +75,10 @@ class Migration(migrations.Migration):
             model_name="client",
             name="phone_number",
             field=phonenumber_field.modelfields.PhoneNumberField(
-                max_length=12, region="RU", unique=True, verbose_name="Номер телефона клиента"
+                max_length=12,
+                region="RU",
+                unique=True,
+                verbose_name="Номер телефона клиента",
             ),
         ),
         migrations.AlterField(
