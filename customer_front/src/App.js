@@ -9,6 +9,7 @@ import LoginForm from './components/loginForm';
 import Repair from './components/repair';
 import Home from './components/home';
 import Status from './components/status';
+import Account from "./components/account";
 import Contacts from "./components/contacts";
 import Cookies from 'universal-cookie';
 
@@ -104,24 +105,30 @@ class App extends Component {
     return (
         <div className="container">
           <BrowserRouter>
-          <Header
-              isAuth={() => this.isAuth()}
-              saveToken={() => {
-                this.saveToken('')
-              }}
-              logOut={() => {
-                this.saveToken('')
-              }}/>
+            <Header
+                isAuth={() => this.isAuth()}
+                saveToken={() => {
+                  this.saveToken('')
+                }}
+                logOut={() => {
+                  this.saveToken('')
+                }}/>
             <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='repair' element={<Repair
+                  isAuth={() => this.isAuth()}
                   makeOrder={(clientNumber) => this.makeOrder(clientNumber)}/>}/>
               <Route path='status' element={<Status
                   checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>
-              <Route path='contacts' element={<Contacts />} />
+              <Route path='contacts' element={<Contacts/>}/>
               <Route path='auth' element={<LoginForm
                   isAuth={() => this.isAuth()}
                   getToken={(username, password) => this.getToken(username, password)}/>}/>
+              <Route path='account' element={<Account
+                  isAuth={() => this.isAuth()}
+                  logOut={() => {
+                    this.saveToken('')
+                  }}/>}/>
               <Route path='auth/register' element={<RegisterForm/>}/>
               <Route path='*' element={<NotFound404/>}/>
             </Routes>

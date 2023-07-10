@@ -10,6 +10,7 @@ import laptopClock from '../img/laptop-clock.svg';
 import biBoxSeam from '../img/bi_box-seam.svg';
 import winLogo from '../img/win-logo.svg';
 import talkingCouple from '../img/talking-couple.svg';
+import {NavLink} from "react-router-dom";
 
 function Home() {
   return (
@@ -21,7 +22,7 @@ function Home() {
             <p className="small-white-text text-to-style">Ремонт любой сложности телефонов, планшетов<br/>и ноутбуков
             </p>
             <p className="small-orange-text text-to-style-orange">Срочный выезд курьера</p>
-            <a className="form-bringer" href="/">ХОЧУ РЕМОНТ</a>
+            <NavLink className="form-bringer" to="../repair">ХОЧУ РЕМОНТ</NavLink>
           </div>
           <div className="guy-with-laptop">
             <img className="quy-closer" src={require('../img/Man note 1.png')} alt=""/>

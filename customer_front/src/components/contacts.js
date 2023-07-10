@@ -2,7 +2,6 @@ import destination from '../img/destination.svg';
 import hourglass from '../img/hourglass.svg';
 import phone from '../img/con_phone.svg';
 import mailto from '../img/mailto.svg';
-import { YMaps, Panorama } from "@pbe/react-yandex-maps";
 
 
 function Contacts() {
@@ -20,7 +19,7 @@ function Contacts() {
             <div className="map-container">
               <iframe
                   src="https://yandex.ru/map-widget/v1/?um=constructor%3A433590ee05406b466ca6632b72d01817145b7ca526c7a8841c6e58bb89d349f9&amp;source=constructor"
-                  width="1080" height="600" ></iframe>
+                  width="1080" height="600"></iframe>
             </div>
 
             <div className="contacts-contacts">

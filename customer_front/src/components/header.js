@@ -6,7 +6,7 @@ import divider from '../img/divider.svg'
 import {NavLink} from "react-router-dom";
 
 
-function Header({ isAuth, logOut }) {
+function Header({isAuth, logOut}) {
   return (
       <header>
         <div className="site-nav">
@@ -24,7 +24,7 @@ function Header({ isAuth, logOut }) {
             </div>
             <div className="links">
               <ul className="linkslist">
-                <li><NavLink className="link" to="../" >ГЛАВНАЯ</NavLink></li>
+                <li><NavLink className="link" to="../">ГЛАВНАЯ</NavLink></li>
                 <li className="divider"><img src={divider} alt=""/></li>
                 <li><a href="/">О НАС</a></li>
                 <li className="divider"><img src={divider} alt=""/></li>
@@ -44,7 +44,7 @@ function Header({ isAuth, logOut }) {
                 <li className="divider"><img src={divider} alt=""/></li>
                 <li><a href="/">ПРАЙС-ЛИСТ</a></li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li><a href="/">ЛИЧНЫЙ&nbsp;КАБИНЕТ</a></li>
+                <li><NavLink to="../account">ЛИЧНЫЙ&nbsp;КАБИНЕТ</NavLink></li>
                 <li className="divider"><img src={divider} alt=""/></li>
                 <li><NavLink to="../contacts">КОНТАКТЫ</NavLink></li>
               </ul>
