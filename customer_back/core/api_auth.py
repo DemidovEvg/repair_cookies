@@ -68,6 +68,7 @@ def remove_api_token():
     user, created = User.objects.get_or_create(
         username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
         id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
+        phone_number="00000",
     )
     token_data, created = TokenData.objects.get_or_create(
         user=user, defaults=dict(token="")
@@ -80,6 +81,8 @@ def get_access_token() -> str:
     user, created = User.objects.get_or_create(
         username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
         id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
+        # add phone-number
+        phone_number="00000",
     )
 
     access_token = None

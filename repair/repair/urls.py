@@ -18,7 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
-from core.views import ServicemanViewSet, OrderViewSet, IndexView, OrderDetail, LoginUser, logout_user
+from core.views import (
+    ServicemanViewSet,
+    OrderViewSet,
+    IndexView,
+    OrderDetail,
+    LoginUser,
+    logout_user,
+)
 
 router = DefaultRouter()
 router.register("servicemans", ServicemanViewSet)
@@ -28,7 +35,7 @@ urlpatterns = [
     path("", IndexView.as_view(), name="home"),
     path("login/", LoginUser.as_view(), name="login"),
     path("logout/", logout_user, name="logout"),
-    path("<uuid:pk>/", OrderDetail.as_view(), name='order_detail'),
+    path("<uuid:pk>/", OrderDetail.as_view(), name="order_detail"),
     path("admin/", admin.site.urls),
     path("api/", include(router.urls), name="api"),
 ]
