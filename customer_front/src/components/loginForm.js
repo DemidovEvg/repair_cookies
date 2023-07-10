@@ -53,7 +53,7 @@ class LoginForm extends Component {
               </Button>
             </Form>
             {this.props.isAuth()
-                ? < Navigate to="/"/>
+                ? < Navigate to="../account"/>
                 : null}
           </div>
         </div>

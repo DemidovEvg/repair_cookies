@@ -20,6 +20,7 @@ class App extends Component {
     this.state = {
       'token': '',
       'username': '',
+      'orders': [],
     }
   }
 
@@ -75,7 +76,7 @@ class App extends Component {
         this.apiPath + 'api/orders/',
         {'headers': headers}
     ).then(response => {
-      console.log(response.data)
+      this.setState({'orders': response.data})
     }).catch(
         error => console.log('Что могло пойти так?'));
   }
@@ -125,11 +126,12 @@ class App extends Component {
                   isAuth={() => this.isAuth()}
                   getToken={(username, password) => this.getToken(username, password)}/>}/>
               <Route path='account' element={<Account
+                  orders={this.state.orders}
                   isAuth={() => this.isAuth()}
                   logOut={() => {
                     this.saveToken('')
                   }}/>}/>
-              <Route path='auth/register' element={<RegisterForm/>}/>
+              <Route path='register' element={<RegisterForm/>}/>
               <Route path='*' element={<NotFound404/>}/>
             </Routes>
           </BrowserRouter>
