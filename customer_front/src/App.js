@@ -9,6 +9,7 @@ import LoginForm from './components/loginForm';
 import Repair from './components/repair';
 import Home from './components/home';
 import Status from './components/status';
+import Contacts from "./components/contacts";
 import Cookies from 'universal-cookie';
 
 class App extends Component {
@@ -102,6 +103,7 @@ class App extends Component {
   render() {
     return (
         <div className="container">
+          <BrowserRouter>
           <Header
               isAuth={() => this.isAuth()}
               saveToken={() => {
@@ -110,19 +112,19 @@ class App extends Component {
               logOut={() => {
                 this.saveToken('')
               }}/>
-          <BrowserRouter>
-              <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='repair' element={<Repair
-                    makeOrder={(clientNumber) => this.makeOrder(clientNumber)}/>}/>
-                <Route path='status' element={<Status
-                    checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>
-                <Route path='auth' element={<LoginForm
-                    isAuth={() => this.isAuth()}
-                    getToken={(username, password) => this.getToken(username, password)}/>}/>
-                <Route path='auth/register' element={<RegisterForm/>}/>
-                <Route path='*' element={<NotFound404/>}/>
-              </Routes>
+            <Routes>
+              <Route path='/' element={<Home/>}/>
+              <Route path='repair' element={<Repair
+                  makeOrder={(clientNumber) => this.makeOrder(clientNumber)}/>}/>
+              <Route path='status' element={<Status
+                  checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>
+              <Route path='contacts' element={<Contacts />} />
+              <Route path='auth' element={<LoginForm
+                  isAuth={() => this.isAuth()}
+                  getToken={(username, password) => this.getToken(username, password)}/>}/>
+              <Route path='auth/register' element={<RegisterForm/>}/>
+              <Route path='*' element={<NotFound404/>}/>
+            </Routes>
           </BrowserRouter>
           <Footer/>
         </div>

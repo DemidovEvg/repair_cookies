@@ -3,6 +3,7 @@ import arrow from '../img/arrow.svg';
 import icon1 from '../img/sn-icon-1.svg'
 import icon2 from '../img/sn-icon-2.svg'
 import divider from '../img/divider.svg'
+import {NavLink} from "react-router-dom";
 
 
 function Header({ isAuth, logOut }) {
@@ -23,7 +24,7 @@ function Header({ isAuth, logOut }) {
             </div>
             <div className="links">
               <ul className="linkslist">
-                <li><a className="link" href="/">ГЛАВНАЯ</a></li>
+                <li><NavLink className="link" to="../" >ГЛАВНАЯ</NavLink></li>
                 <li className="divider"><img src={divider} alt=""/></li>
                 <li><a href="/">О НАС</a></li>
                 <li className="divider"><img src={divider} alt=""/></li>
@@ -45,7 +46,7 @@ function Header({ isAuth, logOut }) {
                 <li className="divider"><img src={divider} alt=""/></li>
                 <li><a href="/">ЛИЧНЫЙ&nbsp;КАБИНЕТ</a></li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li><a href="/">КОНТАКТЫ</a></li>
+                <li><NavLink to="../contacts">КОНТАКТЫ</NavLink></li>
               </ul>
             </div>
           </div>

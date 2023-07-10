@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap';
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 
 class LoginForm extends Component {
@@ -32,7 +32,7 @@ class LoginForm extends Component {
               <Form.Control type="text" name="username" placeholder="Username"
                 onChange={({ target }) => this.handleChange(target)} />
               <Form.Text className="text-muted">
-                Ввеите имя пользователя.
+                Введите имя пользователя.
               </Form.Text>
             </Form.Group>
 
@@ -41,7 +41,7 @@ class LoginForm extends Component {
               <Form.Control type="password" name="password" placeholder="Password"
                 onChange={({ target }) => this.handleChange(target)} />
               <Form.Text className="text-muted">
-                Ввеите пароль.
+                Введите пароль.
               </Form.Text>
             </Form.Group>
 
