@@ -1,24 +1,56 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import logo from '../img/logo.svg';
+import arrow from '../img/arrow.svg';
+import icon1 from '../img/sn-icon-1.svg'
+import icon2 from '../img/sn-icon-2.svg'
+import divider from '../img/divider.svg'
+
 
 function Header({ isAuth, logOut }) {
   return (
-    <Navbar bg="light" expand="lg">
-      <Container>
-        <Navbar.Brand href="/">Смарт Ремонт</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/repair">Услуги ремонта</Nav.Link>
-            <Nav.Link href="/status">Проверка статуса</Nav.Link>
-            {isAuth()
-              ? <Nav.Link className='nav-link' to="/" onClick={() => logOut()}>Выйти</Nav.Link>
-              : <Nav.Link href="/auth">Войти</Nav.Link>}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+      <header>
+        <div className="site-nav">
+          <div className="logo">
+            <img src={logo} alt="logo"/>
+          </div>
+          <div className="phones-and-nav">
+            <div className="phones">
+              <img src={arrow} alt="->"/>
+              <p className="tel-num">+ 7 (789) 456-12-34</p>
+              <img src={arrow} alt="->"/>
+              <p className="tel-num">+ 7 (789) 456-12-34</p>
+              <img src={icon1} alt="WhatsApp_icon"/>
+              <img src={icon2} alt="telegram_icon"/>
+            </div>
+            <div className="links">
+              <ul className="linkslist">
+                <li><a className="link" href="/">ГЛАВНАЯ</a></li>
+                <li className="divider"><img src={divider} alt=""/></li>
+                <li><a href="/">О НАС</a></li>
+                <li className="divider"><img src={divider} alt=""/></li>
+                <li className="services"><a href="/">УСЛУГИ</a>
+                  <ul className="dropdown">
+                    <li><a href="/">Ремонт телефонов</a></li>
+                    <li>
+                      <hr/>
+                    </li>
+                    <li><a href="/">Ремонт планшетов</a></li>
+                    <li>
+                      <hr/>
+                    </li>
+                    <li><a href="/">Ремонт ноутбуков</a></li>
+                  </ul>
+                </li>
+                <li className="divider"><img src={divider} alt=""/></li>
+                <li><a href="/">ПРАЙС-ЛИСТ</a></li>
+                <li className="divider"><img src={divider} alt=""/></li>
+                <li><a href="/">ЛИЧНЫЙ&nbsp;КАБИНЕТ</a></li>
+                <li className="divider"><img src={divider} alt=""/></li>
+                <li><a href="/">КОНТАКТЫ</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
   );
 }
 
