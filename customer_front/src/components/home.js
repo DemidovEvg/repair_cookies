@@ -1,49 +1,176 @@
-import Carousel from 'react-bootstrap/Carousel';
+import phone from '../img/phone.svg';
+import notebook from '../img/notebook.svg';
+import tablet from '../img/tablet.svg';
+import percent from '../img/percent.svg';
+import wallet from '../img/wallet.svg';
+import letter from '../img/letter-1.svg';
+import groupPro from '../img/group-pro.svg';
+import upgrade from '../img/Upgrade.svg';
+import laptopClock from '../img/laptop-clock.svg';
+import biBoxSeam from '../img/bi_box-seam.svg';
+import winLogo from '../img/win-logo.svg';
+import talkingCouple from '../img/talking-couple.svg';
+import {NavLink} from "react-router-dom";
 
 function Home() {
   return (
-    <div className="container-xxl">
-      <Carousel>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="https://wirelesstechcanada.ca/wp-content/uploads/2021/02/slide-11.jpg"
-            alt="First slide"
-          />
-          <Carousel.Caption>
-            <h3>Кто мы такие?</h3>
-            <p>Мы высоко квалифицированные специалисты по доставке и ремонту смартфонов всех мастей</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="https://assets-global.website-files.com/62460a17401634468363604e/631f1b3e59ed43fcec94ec69_tips-for-a-successful-mobile-phone-repair-in-vancouver.jpg"
-            alt="Second slide"
-          />
-
-          <Carousel.Caption>
-            <h3>Чего мы хотим?</h3>
-            <p>Чтобы в мире не осталось ни одного испорченного телефона.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="https://img1.goodfon.com/original/1920x1080/e/65/electrical-circuits-puppets.jpg"
-            alt="Third slide"
-          />
-
-          <Carousel.Caption>
-            <h3>Что нам за это будет?</h3>
-            <p>
-              Хорший вопрос...
+      <div className="site-content-wrap">
+        <div className="background-img"><img src={require('../img/background_strings.jpg')} alt=""/></div>
+        <div className="main-page-top">
+          <div className="main-text-block">
+            <p className="the-biggest-font text-to-style-orange">ОПЕРАТИВНЫЙ<br/>РЕМОНТ<br/>ГАДЖЕТОВ</p>
+            <p className="small-white-text text-to-style">Ремонт любой сложности телефонов, планшетов<br/>и ноутбуков
             </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-    </div>
+            <p className="small-orange-text text-to-style-orange">Срочный выезд курьера</p>
+            <NavLink className="form-bringer" to="../repair">ХОЧУ РЕМОНТ</NavLink>
+          </div>
+          <div className="guy-with-laptop">
+            <img className="quy-closer" src={require('../img/Man note 1.png')} alt=""/>
+          </div>
+        </div>
+        <div className="block-service">
+          <div className="repair-card">
+            <div className="top-card">
+              <img src={phone} alt=""/>
+            </div>
+            <div className="card-heading">РЕМОНТ ТЕЛЕФОНОВ</div>
+            <div className="card-list">
+              <ul>
+                <li className="marked">Замена дисплея (ремонт экрана)</li>
+                <li className="marked">Смена корпуса</li>
+                <li className="marked">Ремонт микрофона</li>
+                <li className="marked">Ремонт динамика</li>
+                <li className="marked">Проблемы с зарядкой</li>
+                <li className="marked">Попадание воды</li>
+                <li>и другое...</li>
+              </ul>
+            </div>
+            <a className="price-list-link" href="/">ПОДРОБНОСТИ И ЦЕНЫ</a>
+          </div>
+          <div className="repair-card">
+            <div className="top-card">
+              <img src={notebook} alt=""/>
+            </div>
+            <div className="card-heading">РЕМОНТ НОУТБУКОВ</div>
+            <div className="card-list">
+              <ul>
+                <li className="marked">Ремонт залитого ноутбука</li>
+                <li className="marked">Замена клавиатуры</li>
+                <li className="marked">Замена экрана</li>
+                <li className="marked">Замена термопасты</li>
+                <li className="marked">Чистка от пыли</li>
+                <li className="marked">Замена жесткого диска</li>
+                <li> и другое...</li>
+              </ul>
+            </div>
+            <a className="price-list-link" href="/">ПОДРОБНОСТИ И ЦЕНЫ</a>
+          </div>
+          <div className="repair-card">
+            <div className="top-card">
+              <img src={tablet} alt=""/>
+            </div>
+            <div className="card-heading">РЕМОНТ ПЛАНШЕТОВ</div>
+            <div className="card-list">
+              <ul>
+                <li className="marked">Замена дисплея (ремонт экрана)</li>
+                <li className="marked">Смена корпуса</li>
+                <li className="marked">Ремонт микрофона</li>
+                <li className="marked">Ремонт динамика</li>
+                <li className="marked">Проблемы с зарядкой</li>
+                <li className="marked">Попадание воды</li>
+                <li>и другое...</li>
+              </ul>
+            </div>
+            <a className="price-list-link" href="/">ПОДРОБНОСТИ И ЦЕНЫ</a>
+          </div>
+        </div>
+        <div className="call-courier-wrap">
+          <div className="call-courier">
+            <p className="big-font">НУЖЕН РЕМОНТ ТЕХНИКИ?</p>
+            <hr/>
+            <div className="call-steps-block">
+              <div className="call-img">
+                <img src={require('../img/call-us.jpg')} alt=""/>
+              </div>
+              <div className="list-style-count">
+                <ul>
+                  <li>
+                    <button className="list-style-count">1</button>
+                  </li>
+                  <li>
+                    <button className="list-style-count">2</button>
+                  </li>
+                  <li>
+                    <button className="list-style-count">3</button>
+                  </li>
+                  <li>
+                    <button className="list-style-count">4</button>
+                  </li>
+                </ul>
+              </div>
 
+
+              <div className="call-steps">
+                <ul>
+                  <li>Вызовите курьера в удобное для вас время</li>
+                  <li>Узнайте причину неисправности, перечень необходимых работ и стоимость ремонта</li>
+                  <li>Платите по окончанию выполнения ремонта и подписания договора</li>
+                  <li>Получите гарантию 1 год на произведенные работы</li>
+                </ul>
+              </div>
+            </div>
+            <hr/>
+          </div>
+        </div>
+        <div className="why-us">
+          <p className="big-font">ПОЧЕМУ СТОИТ ОБРАТИТЬСЯ К НАМ</p>
+          <hr/>
+          <div className="why-us-cards">
+            <div className="row-cards">
+              <div className="one-of-nine">
+                <img src={percent} alt=""/>
+                <p>РЕМОНТНЫХ РАБОТ ВЫПОЛНЯЮТСЯ ОТ&nbsp;ОДНОГО ДО&nbsp;ТРЕХ ДНЕЙ</p>
+              </div>
+              <div className="one-of-nine">
+                <img src={wallet} alt=""/>
+                <p>ДЕМОКРАТИЧНЫЕ ЦЕНЫ, ОТСТУТСТВИЕ СКРЫТЫХ УСЛУГ И&nbsp;ДОПЛАТ</p>
+              </div>
+              <div className="one-of-nine">
+                <img src={letter} alt=""/>
+                <p>ГАРАНТИЯ НА&nbsp;РЕМОНТНЫЕ РАБОТЫ И&nbsp;КОМПЛЕКТУЮЩИЕ ОДИН&nbsp;ГОД</p>
+              </div>
+            </div>
+            <div className="row-cards">
+              <div className="one-of-nine">
+                <img src={groupPro} alt=""/>
+                <p>ВСЕ МАСТЕРА&nbsp;&mdash;ДИПЛОМИРОВАННЫЕ СПЕЦИАЛИСТЫ С ОПЫТОМ РАБОТЫ БОЛЕЕ 8 ЛЕТ </p>
+              </div>
+              <div className="one-of-nine">
+                <img src={upgrade} alt=""/>
+                <p>СОВРЕМЕННОЕ ПРОФЕССИОНАЛЬНОЕ ОБОРУДОВАНИЕ ДЛЯ&mdash;ДИАГНОСТИКИ И&mdash;РЕМОНТА</p>
+              </div>
+              <div className="one-of-nine">
+                <img src={laptopClock} alt=""/>
+                <p>ПРИ&mdash;НЕОБХОДИМОСТИ ПРОВЕДЕМ РЕМОНТ ВЕЧЕРОМ ИЛИ&mdash;ДНЁМ</p>
+              </div>
+            </div>
+            <div className="row-cards">
+              <div className="one-of-nine">
+                <img src={biBoxSeam} alt=""/>
+                <p>ВСЕ ЗАПЧАСТИ ТОЛЬКО&mdash;ОТ ОФИЦИАЛЬНЫХ ДИСТРИБЬЮТОРОВ</p>
+              </div>
+              <div className="one-of-nine">
+                <img src={winLogo} alt=""/>
+                <p>ЛИЦЕНЗИОННЫЕ КЛЮЧИ&mdash;НА ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ПО&mdash;ОПТОВОЙ ЦЕНЕ</p>
+              </div>
+              <div className="one-of-nine">
+                <img src={talkingCouple} alt=""/>
+                <p>9 ИЗ 10 ОБРАТИВШИХСЯ РЕКОМЕНДУЮТ&mdash;НАС ДРУЗЬЯМ И&mdash;ЗНАКОМЫМ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
   );
 }

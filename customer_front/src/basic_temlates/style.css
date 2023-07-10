@@ -741,3 +741,56 @@ a:hover {
     padding: 1em;
     max-width: 500px;
 }
+
+/*404*/
+
+.picture-404 {
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    margin: 20px 0px 40px 0px;
+}
+
+
+
+/* PRICE LIST TABLE */
+
+.price-list-head {
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+}
+
+.price-list-head div {
+    max-width:1080px;
+}
+
+.price-list-heading {
+    height: 58px;
+    margin: 60px 0px 20px 0px;
+    font-size: 48px;
+    color: #E8772E;
+}
+
+.upper-price-part {
+    margin: 100px 0px 100px 0px
+}
+
+.price-tables {
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+}
+
+.price-list-small-heading {
+    font-size: 29px;
+    color: #E8772E;
+    margin: 80px 0px 25px 0px
+}
+
+.empty-space {
+    height: 100px;
+}
+

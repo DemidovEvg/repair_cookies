@@ -10,107 +10,318 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
+        ("auth", "0012_alter_user_first_name_max_length"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DeliveryUser',
+            name="DeliveryUser",
             fields=[
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-                ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')),
-                ('first_name', models.CharField(blank=True, max_length=150, verbose_name='first name')),
-                ('last_name', models.CharField(blank=True, max_length=150, verbose_name='last name')),
-                ('email', models.EmailField(blank=True, max_length=254, verbose_name='email address')),
-                ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
-                ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
-                ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('id', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False, verbose_name='Идентификатор')),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.permission', verbose_name='user permissions')),
+                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
+                ),
+                (
+                    "is_superuser",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Designates that this user has all permissions without explicitly assigning them.",
+                        verbose_name="superuser status",
+                    ),
+                ),
+                (
+                    "username",
+                    models.CharField(
+                        error_messages={
+                            "unique": "A user with that username already exists."
+                        },
+                        help_text="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+                        max_length=150,
+                        unique=True,
+                        validators=[
+                            django.contrib.auth.validators.UnicodeUsernameValidator()
+                        ],
+                        verbose_name="username",
+                    ),
+                ),
+                (
+                    "first_name",
+                    models.CharField(
+                        blank=True, max_length=150, verbose_name="first name"
+                    ),
+                ),
+                (
+                    "last_name",
+                    models.CharField(
+                        blank=True, max_length=150, verbose_name="last name"
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(
+                        blank=True, max_length=254, verbose_name="email address"
+                    ),
+                ),
+                (
+                    "is_staff",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Designates whether the user can log into this admin site.",
+                        verbose_name="staff status",
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(
+                        default=True,
+                        help_text="Designates whether this user should be treated as active. Unselect this instead of deleting accounts.",
+                        verbose_name="active",
+                    ),
+                ),
+                (
+                    "date_joined",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="date joined"
+                    ),
+                ),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="Идентификатор",
+                    ),
+                ),
+                (
+                    "groups",
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text="The groups this user belongs to. A user will get all permissions granted to each of their groups.",
+                        related_name="user_set",
+                        related_query_name="user",
+                        to="auth.group",
+                        verbose_name="groups",
+                    ),
+                ),
+                (
+                    "user_permissions",
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text="Specific permissions for this user.",
+                        related_name="user_set",
+                        related_query_name="user",
+                        to="auth.permission",
+                        verbose_name="user permissions",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'user',
-                'verbose_name_plural': 'users',
-                'abstract': False,
+                "verbose_name": "user",
+                "verbose_name_plural": "users",
+                "abstract": False,
             },
             managers=[
-                ('objects', django.contrib.auth.models.UserManager()),
+                ("objects", django.contrib.auth.models.UserManager()),
             ],
         ),
         migrations.CreateModel(
-            name='Address',
+            name="Address",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('street', models.CharField(max_length=255, verbose_name='Улица')),
-                ('building', models.CharField(max_length=16, verbose_name='Номер дома')),
-                ('apartment', models.IntegerField(verbose_name='Номер квартиры')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("street", models.CharField(max_length=255, verbose_name="Улица")),
+                (
+                    "building",
+                    models.CharField(max_length=16, verbose_name="Номер дома"),
+                ),
+                ("apartment", models.IntegerField(verbose_name="Номер квартиры")),
             ],
             options={
-                'verbose_name': 'Адресс',
-                'verbose_name_plural': 'Адрессы',
-                'ordering': ['-id'],
+                "verbose_name": "Адресс",
+                "verbose_name_plural": "Адрессы",
+                "ordering": ["-id"],
             },
         ),
         migrations.CreateModel(
-            name='City',
+            name="City",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Название города')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(max_length=255, verbose_name="Название города"),
+                ),
             ],
             options={
-                'verbose_name': 'Город',
-                'verbose_name_plural': 'Города',
-                'ordering': ['-id'],
+                "verbose_name": "Город",
+                "verbose_name_plural": "Города",
+                "ordering": ["-id"],
             },
         ),
         migrations.CreateModel(
-            name='Deliveryman',
+            name="Deliveryman",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_team_lead', models.BooleanField(default=False, verbose_name='Является старшим доставщиком')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='deliveryman', to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "is_team_lead",
+                    models.BooleanField(
+                        default=False, verbose_name="Является старшим доставщиком"
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="deliveryman",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Пользователь",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Курьер',
-                'verbose_name_plural': 'Курьеры',
-                'ordering': ['-id'],
+                "verbose_name": "Курьер",
+                "verbose_name_plural": "Курьеры",
+                "ordering": ["-id"],
             },
         ),
         migrations.CreateModel(
-            name='TokenData',
+            name="TokenData",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('token', models.CharField(max_length=1500, verbose_name='Токен')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='token_data', to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("token", models.CharField(max_length=1500, verbose_name="Токен")),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="token_data",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Пользователь",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.UUIDField(primary_key=True, serialize=False, verbose_name='Идентификатор заказа')),
-                ('phone_number', models.CharField(max_length=15, verbose_name='Номер телефона клиента')),
-                ('inner_status', models.CharField(choices=[('CREATED', 'Заявка создана'), ('APPOINTED', 'Заявка назначена'), ('GETTING_FROM_CLIENT', 'Получение техники от клиента'), ('SENDING_TO_REPAIR', 'Доставка в службу ремонта'), ('SENT_TO_REPAIR', 'Передана службе ремонта'), ('GETTING_FROM_REPAIR', 'Получение техники от службы ремонта'), ('SENDING_TO_CLIENT', 'Доставка клиенту'), ('SENT_TO_CLIENT', 'Передана клиенту'), ('CLOSED', 'Заявка закрыта')], default='CREATED', max_length=48, verbose_name='Статус заявки')),
-                ('created', models.DateTimeField(auto_now_add=True, verbose_name='Дата и время создания заявки')),
-                ('updated', models.DateTimeField(auto_now=True, verbose_name='Дата и время редактирования заявки')),
-                ('address', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.address', verbose_name='Адресс клиента')),
-                ('deliveryman', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.deliveryman', verbose_name='Курьер')),
+                (
+                    "id",
+                    models.UUIDField(
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="Идентификатор заказа",
+                    ),
+                ),
+                (
+                    "phone_number",
+                    models.CharField(
+                        max_length=15, verbose_name="Номер телефона клиента"
+                    ),
+                ),
+                (
+                    "inner_status",
+                    models.CharField(
+                        choices=[
+                            ("CREATED", "Заявка создана"),
+                            ("APPOINTED", "Заявка назначена"),
+                            ("GETTING_FROM_CLIENT", "Получение техники от клиента"),
+                            ("SENDING_TO_REPAIR", "Доставка в службу ремонта"),
+                            ("SENT_TO_REPAIR", "Передана службе ремонта"),
+                            (
+                                "GETTING_FROM_REPAIR",
+                                "Получение техники от службы ремонта",
+                            ),
+                            ("SENDING_TO_CLIENT", "Доставка клиенту"),
+                            ("SENT_TO_CLIENT", "Передана клиенту"),
+                            ("CLOSED", "Заявка закрыта"),
+                        ],
+                        default="CREATED",
+                        max_length=48,
+                        verbose_name="Статус заявки",
+                    ),
+                ),
+                (
+                    "created",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата и время создания заявки"
+                    ),
+                ),
+                (
+                    "updated",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="Дата и время редактирования заявки"
+                    ),
+                ),
+                (
+                    "address",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="core.address",
+                        verbose_name="Адресс клиента",
+                    ),
+                ),
+                (
+                    "deliveryman",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="core.deliveryman",
+                        verbose_name="Курьер",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Заявка на доставку',
-                'verbose_name_plural': 'Заявки на доставку',
-                'ordering': ['-created'],
+                "verbose_name": "Заявка на доставку",
+                "verbose_name_plural": "Заявки на доставку",
+                "ordering": ["-created"],
             },
         ),
         migrations.AddField(
-            model_name='address',
-            name='city',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.city', verbose_name='Город'),
+            model_name="address",
+            name="city",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="core.city",
+                verbose_name="Город",
+            ),
         ),
     ]

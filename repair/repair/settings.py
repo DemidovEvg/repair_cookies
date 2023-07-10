@@ -42,7 +42,7 @@ ROOT_URLCONF = "repair.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ['templates'],
+        "DIRS": ["templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -106,12 +106,12 @@ REST_FRAMEWORK = {
     "DEFAULT_PARSER_CLASSES": (
         "djangorestframework_camel_case.parser.CamelCaseJSONParser",
     ),
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'core.api_auth.CookiesKeycloakAuthentication',
-  ]
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "core.api_auth.CookiesKeycloakAuthentication",
+    ],
 }
 
-KEYCLOAK_VERIFY=False
-KEYCLOAK_SERVISE_ACCOUNT_ID=env("KEYCLOAK_SERVISE_ACCOUNT_ID")
-KEYCLOAK_SERVISE_ACCOUNT_NAME=env("KEYCLOAK_SERVISE_ACCOUNT_NAME")
+KEYCLOAK_VERIFY = False
+KEYCLOAK_SERVISE_ACCOUNT_ID = env("KEYCLOAK_SERVISE_ACCOUNT_ID")
+KEYCLOAK_SERVISE_ACCOUNT_NAME = env("KEYCLOAK_SERVISE_ACCOUNT_NAME")
