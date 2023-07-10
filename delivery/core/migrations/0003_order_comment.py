@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0002_remove_order_inner_status_order_status'),
+        ("core", "0002_remove_order_inner_status_order_status"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='order',
-            name='comment',
-            field=models.TextField(default='', verbose_name='Комментарии'),
+            model_name="order",
+            name="comment",
+            field=models.TextField(default="", verbose_name="Комментарии"),
         ),
     ]

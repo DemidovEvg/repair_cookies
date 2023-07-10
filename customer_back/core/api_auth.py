@@ -36,7 +36,7 @@ class CookiesKeycloakOpenID(KeycloakOpenID):
 
 
 def get_keycloak_openid_without_verify(
-        oidc: dict = None, custom_headers: dict = None
+    oidc: dict = None, custom_headers: dict = None
 ) -> CookiesKeycloakOpenID:
     custom_headers = {} if not custom_headers else custom_headers
     try:
@@ -68,7 +68,7 @@ def remove_api_token():
     user, created = User.objects.get_or_create(
         username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
         id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
-        phone_number="00000"
+        phone_number="00000",
     )
     token_data, created = TokenData.objects.get_or_create(
         user=user, defaults=dict(token="")

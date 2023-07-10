@@ -5,35 +5,54 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0004_order_customer_description_and_more'),
+        ("core", "0004_order_customer_description_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='deliveryuser',
-            name='middle_name',
-            field=models.CharField(blank=True, max_length=150, verbose_name='Отчетство'),
+            model_name="deliveryuser",
+            name="middle_name",
+            field=models.CharField(
+                blank=True, max_length=150, verbose_name="Отчетство"
+            ),
         ),
         migrations.AddField(
-            model_name='order',
-            name='amount_due_by',
-            field=models.FloatField(default=0, verbose_name='Сумма к оплате'),
+            model_name="order",
+            name="amount_due_by",
+            field=models.FloatField(default=0, verbose_name="Сумма к оплате"),
         ),
         migrations.AddField(
-            model_name='order',
-            name='payment_completed',
-            field=models.BooleanField(default=False, verbose_name='Оплала произведена?'),
+            model_name="order",
+            name="payment_completed",
+            field=models.BooleanField(
+                default=False, verbose_name="Оплала произведена?"
+            ),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='created',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Дата и время создания заявки'),
+            model_name="order",
+            name="created",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now,
+                verbose_name="Дата и время создания заявки",
+            ),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='status',
-            field=models.CharField(choices=[('CREATED', 'Заявка создана'), ('GETTING_FROM_CLIENT', 'Получение техники от клиента'), ('SENT_TO_REPAIR', 'Доставлен в службу ремонта'), ('REPAIR_IN_PROCESS', 'Ремонт начат'), ('REPAIR_DONE', 'Ремонт закончен'), ('SENDING_TO_CLIENT', 'Доставка техники клиенту'), ('CLOSED', 'Заявка закрыта')], default='CREATED', max_length=48, verbose_name='Статус заявки'),
+            model_name="order",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("CREATED", "Заявка создана"),
+                    ("GETTING_FROM_CLIENT", "Получение техники от клиента"),
+                    ("SENT_TO_REPAIR", "Доставлен в службу ремонта"),
+                    ("REPAIR_IN_PROCESS", "Ремонт начат"),
+                    ("REPAIR_DONE", "Ремонт закончен"),
+                    ("SENDING_TO_CLIENT", "Доставка техники клиенту"),
+                    ("CLOSED", "Заявка закрыта"),
+                ],
+                default="CREATED",
+                max_length=48,
+                verbose_name="Статус заявки",
+            ),
         ),
     ]

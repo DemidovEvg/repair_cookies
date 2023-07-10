@@ -5,24 +5,37 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0006_client_alter_deliveryuser_options_and_more'),
+        ("core", "0006_client_alter_deliveryuser_options_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='deliveryuser',
-            options={'ordering': ['-id'], 'verbose_name': 'Пользователь', 'verbose_name_plural': 'Пользователи'},
+            name="deliveryuser",
+            options={
+                "ordering": ["-id"],
+                "verbose_name": "Пользователь",
+                "verbose_name_plural": "Пользователи",
+            },
         ),
         migrations.AlterField(
-            model_name='address',
-            name='id',
-            field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False, verbose_name='Идентификатор'),
+            model_name="address",
+            name="id",
+            field=models.UUIDField(
+                default=uuid.uuid4,
+                primary_key=True,
+                serialize=False,
+                verbose_name="Идентификатор",
+            ),
         ),
         migrations.AlterField(
-            model_name='city',
-            name='id',
-            field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False, verbose_name='Идентификатор'),
+            model_name="city",
+            name="id",
+            field=models.UUIDField(
+                default=uuid.uuid4,
+                primary_key=True,
+                serialize=False,
+                verbose_name="Идентификатор",
+            ),
         ),
     ]

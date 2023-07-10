@@ -32,12 +32,6 @@ class TokenData(models.Model):
     token = models.CharField(verbose_name="Токен", max_length=1500)
 
 
-class GadgetType(models.TextChoices):
-    TELEPHONE = ("TELEPHONE", "телефон")
-    LAPTOP = ("LAPTOP", "ноутбук")
-    TABLET = ("TABLET", "планшет")
-
-
 class Order(models.Model):
     class StatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
@@ -47,6 +41,11 @@ class Order(models.Model):
         REPAIR_DONE = ("REPAIR_DONE", "Ремонт закончен")
         SENDING_TO_CLIENT = ("SENDING_TO_CLIENT", "Доставка техники клиенту")
         CLOSED = ("CLOSED", "Заявка закрыта")
+
+    class GadgetType(models.TextChoices):
+        TELEPHONE = ("TELEPHONE", "телефон")
+        LAPTOP = ("LAPTOP", "ноутбук")
+        TABLET = ("TABLET", "планшет")
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
