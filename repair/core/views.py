@@ -44,7 +44,7 @@ class IndexView(ListView):
         if self.request.user.is_team_lead and self.request.GET:
             return Order.objects.filter(created__gte=time_filter(self.request.GET))
         elif self.request.user.is_team_lead:
-            return Order.objects.all
+            return Order.objects.all()
 
         if self.request.GET:
             return Order.objects.filter(serviceman=self.request.user.serviceman.id,
@@ -77,7 +77,7 @@ class OrderDetail(UpdateView):
         except Exception as exc:
             messages.add_message(request, messages.ERROR, repr(exc))
 
-        return HttpResponseRedirect(reverse_lazy('home'))
+        return HttpResponseRedirect(reverse_lazy('order_detail', kwargs={'pk': pk}))
 
     def get_success_url(self):
         pass
