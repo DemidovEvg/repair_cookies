@@ -41,14 +41,15 @@ class IndexView(ListView):
     fields = ['serviceman']
 
     def get_queryset(self):
-        if self.request.user.is_team_lead and self.request.GET:
-            return Order.objects.filter(created__gte=time_filter(self.request.GET))
+        fltr = time_filter(self.request.GET)
+        if self.request.user.is_team_lead and fltr:
+            return Order.objects.filter(created__gte=fltr)
         elif self.request.user.is_team_lead:
             return Order.objects.all()
 
-        if self.request.GET:
+        if fltr:
             return Order.objects.filter(serviceman=self.request.user.serviceman.id,
-                                        created__gte=time_filter(self.request.GET))
+                                        created__gte=fltr)
 
         return Order.objects.filter(serviceman=self.request.user.serviceman.id)
 
@@ -57,7 +58,7 @@ class OrderDetail(UpdateView):
     model = Order
     template_name = 'order_detail.html'
     context_object_name = 'order'
-    form_class = OrderUpdateForm
+    fields = ["serviceman", "serviceman_description", "status", "amount_due_by"]
 
     def post(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
