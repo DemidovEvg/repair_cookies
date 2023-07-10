@@ -9,11 +9,13 @@ from django.http import HttpResponseRedirect
 from rest_framework.viewsets import ModelViewSet
 from django.views.generic import UpdateView, ListView
 
-from core.models import ServiceMan, Order
-from core.serializers import ServicemanModelSerializer, OrderModelSerializer
+from .models import ServiceMan, Order
+from .serializers import ServicemanModelSerializer, OrderModelSerializer
 from permissions import ServicemanPermissions, OrderPermissions
-from core.services.order_service import update_outer_order
-from core.serializers import OrderModelSerializer
+from .services.order_service import update_outer_order
+from .serializers import OrderModelSerializer
+from .forms import OrderUpdateForm
+from .services.filter_service import time_filter
 
 
 class OrderViewSet(ModelViewSet):
@@ -38,12 +40,24 @@ class IndexView(ListView):
     context_object_name = "orders"
     fields = ['serviceman']
 
+    def get_queryset(self):
+        if self.request.user.is_team_lead and self.request.GET:
+            return Order.objects.filter(created__gte=time_filter(self.request.GET))
+        elif self.request.user.is_team_lead:
+            return Order.objects.all
+
+        if self.request.GET:
+            return Order.objects.filter(serviceman=self.request.user.serviceman.id,
+                                        created__gte=time_filter(self.request.GET))
+
+        return Order.objects.filter(serviceman=self.request.user.serviceman.id)
+
 
 class OrderDetail(UpdateView):
     model = Order
     template_name = 'order_detail.html'
     context_object_name = 'order'
-    fields = ['serviceman', 'serviceman_description', 'status', 'amount_due_by']
+    form_class = OrderUpdateForm
 
     def post(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
@@ -80,3 +94,7 @@ class LoginUser(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+def change_rm(request, **kwargs):
+    pass

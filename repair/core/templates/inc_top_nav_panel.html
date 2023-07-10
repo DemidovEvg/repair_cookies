@@ -10,6 +10,11 @@
           <li><a href="#">Выполненые ремонты</a></li>
             {% if request.user.is_authenticated %}
                 <li ><a href="{% url 'logout' %}">Выйти</a> </li>
+                <form action="{% url 'home' %}" method="get">
+                    <input type="submit" name="day" value="day" />
+                    <input type="submit" name="week" value="week" />
+                    <input type="submit" name="month" value="month" />
+                </form>
             {% else %}
             <li><a href="{% url 'login' %}">Войти</a></li>
             {% endif %}
