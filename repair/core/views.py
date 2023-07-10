@@ -44,8 +44,9 @@ class IndexView(ListView):
             return Order.objects.all()
 
         if fltr:
-            return Order.objects.filter(serviceman=self.request.user.serviceman.id,
-                                        created__gte=fltr)
+            return Order.objects.filter(
+                serviceman=self.request.user.serviceman.id, created__gte=fltr
+            )
 
         return Order.objects.filter(serviceman=self.request.user.serviceman.id)
 
@@ -53,8 +54,8 @@ class IndexView(ListView):
 class OrderDetail(UpdateView):
     model = Order
 
-    template_name = 'order_detail.html'
-    context_object_name = 'order'
+    template_name = "order_detail.html"
+    context_object_name = "order"
     fields = ["serviceman", "serviceman_description", "status", "amount_due_by"]
 
     def post(self, request, *args, **kwargs):
@@ -75,9 +76,7 @@ class OrderDetail(UpdateView):
         except Exception as exc:
             messages.add_message(request, messages.ERROR, repr(exc))
 
-
-        return HttpResponseRedirect(reverse_lazy('order_detail', kwargs={'pk': pk}))
-
+        return HttpResponseRedirect(reverse_lazy("order_detail", kwargs={"pk": pk}))
 
     def get_success_url(self):
         pass
@@ -94,11 +93,8 @@ class LoginUser(LoginView):
 def logout_user(request):
     logout(request)
 
-    return redirect('login')
+    return redirect("login")
 
 
 def change_rm(request, **kwargs):
     pass
-
-
-
