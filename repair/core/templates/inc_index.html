@@ -12,6 +12,7 @@
                    <tr>
                         <th>Номер заказа</th>
                         <th>Неисправность со слов клиента</th>
+                        <th>Дата создания заказа</th>
                         <th>Статус заказа</th>
                         <th>Ремонтник</th>
                    </tr>
@@ -19,13 +20,21 @@
                    <tr>
                        <td><a href="{{ i.pk }}">{{ i.id }}</a></td>
                     <td>{{ i.customer_description }}</td>
+                    <td>{{ i.created }}</td>
                     <td>{{ i.status }}</td>
+                       {% if user.is_team_lead %}
+
+                       {% else %}
                     <td>{{ i.serviceman }}</td>
+                        {% endif %}
                   </tr>
                   {% endfor %}
              </table>
             {% endif %}
              </table>
+{{ sm }}
+</div>
+
               {% if messages %}
                     <ul class="messages">
                         {% for message in messages %}
@@ -39,6 +48,7 @@
       {% endif %}
       </div>
     </div>
+
     <div id="footer">
       Copyright &copy; Чугунбабай
     </div>
