@@ -1,4 +1,3 @@
-import logo from '../img/logo.svg';
 import arrow from '../img/arrow.svg';
 import icon1 from '../img/sn-icon-1.svg'
 import icon2 from '../img/sn-icon-2.svg'
@@ -11,7 +10,7 @@ function Header({isAuth, logOut}) {
       <header>
         <div className="site-nav">
           <div className="logo">
-            <img src={logo} alt="logo"/>
+            <img src={require('../img/logo.png')} alt="logo"/>
           </div>
           <div className="phones-and-nav">
             <div className="phones">
@@ -24,13 +23,13 @@ function Header({isAuth, logOut}) {
             </div>
             <div className="links">
               <ul className="linkslist">
-                <li><NavLink className="link" to="../">ГЛАВНАЯ</NavLink></li>
+                <li><NavLink className="link" to="../">&nbsp;ГЛАВНАЯ&nbsp;</NavLink></li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li><a href="/">О НАС</a></li>
+                <li><a href="/">&nbsp;О НАС&nbsp;</a></li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li className="services"><a href="/">УСЛУГИ</a>
+                <li className="services"><a href="/">&nbsp;УСЛУГИ&nbsp;</a>
                   <ul className="dropdown">
-                    <li><a href="/">Ремонт телефонов</a></li>
+                    <li><a href="/">&nbsp;Ремонт телефонов&nbsp;</a></li>
                     <li>
                       <hr/>
                     </li>
@@ -42,11 +41,11 @@ function Header({isAuth, logOut}) {
                   </ul>
                 </li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li><a href="/">ПРАЙС-ЛИСТ</a></li>
+                <li><a href="/">&nbsp;ПРАЙС-ЛИСТ&nbsp;</a></li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li><NavLink to="../account">ЛИЧНЫЙ&nbsp;КАБИНЕТ</NavLink></li>
+                <li><NavLink to="../account">&nbsp;ЛИЧНЫЙ&nbsp;КАБИНЕТ&nbsp;</NavLink></li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li><NavLink to="../contacts">КОНТАКТЫ</NavLink></li>
+                <li><NavLink to="../contacts">&nbsp;КОНТАКТЫ&nbsp;</NavLink></li>
               </ul>
             </div>
           </div>
