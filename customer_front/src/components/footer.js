@@ -1,4 +1,3 @@
-import logo from '../img/logo.svg';
 import arrow from '../img/arrow.svg';
 import hourglass from '../img/hourglass.svg';
 import mailto from '../img/mailto.svg';
@@ -14,7 +13,7 @@ function Footer() {
 
             <div className="company-info footer-chld">
               <div className="footer-logo">
-                <img src={logo} alt="logo-small"/>
+                <img src={require('../img/logo.png')} alt="logo-small"/>
               </div>
               <div className="owner-info">
                 <div className="owner-doc">
