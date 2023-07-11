@@ -33,7 +33,7 @@ router.register("servicemans", ServicemanViewSet)
 router.register("orders", OrderViewSet)
 
 urlpatterns = [
-    path("", login_required(IndexView.as_view(), login_url='login'), name="home"),
+    path("", login_required(IndexView.as_view(), login_url="login"), name="home"),
     path("login/", LoginUser.as_view(), name="login"),
     path("logout/", logout_user, name="logout"),
     path("<uuid:pk>/", OrderDetail.as_view(), name="order_detail"),
