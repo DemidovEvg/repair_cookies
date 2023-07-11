@@ -147,25 +147,25 @@ function Home() {
               </div>
               <div className="one-of-nine">
                 <img src={upgrade} alt=""/>
-                <p>СОВРЕМЕННОЕ ПРОФЕССИОНАЛЬНОЕ ОБОРУДОВАНИЕ ДЛЯ&mdash;ДИАГНОСТИКИ И&mdash;РЕМОНТА</p>
+                <p>СОВРЕМЕННОЕ ПРОФЕССИОНАЛЬНОЕ ОБОРУДОВАНИЕ ДЛЯ&nbsp;ДИАГНОСТИКИ И&nbsp;РЕМОНТА</p>
               </div>
               <div className="one-of-nine">
                 <img src={laptopClock} alt=""/>
-                <p>ПРИ&mdash;НЕОБХОДИМОСТИ ПРОВЕДЕМ РЕМОНТ ВЕЧЕРОМ ИЛИ&mdash;ДНЁМ</p>
+                <p>ПРИ&nbsp;НЕОБХОДИМОСТИ ПРОВЕДЕМ РЕМОНТ ВЕЧЕРОМ ИЛИ&nbsp;ДНЁМ</p>
               </div>
             </div>
             <div className="row-cards">
               <div className="one-of-nine">
                 <img src={biBoxSeam} alt=""/>
-                <p>ВСЕ ЗАПЧАСТИ ТОЛЬКО&mdash;ОТ ОФИЦИАЛЬНЫХ ДИСТРИБЬЮТОРОВ</p>
+                <p>ВСЕ ЗАПЧАСТИ ТОЛЬКО&nbsp;ОТ ОФИЦИАЛЬНЫХ ДИСТРИБЬЮТОРОВ</p>
               </div>
               <div className="one-of-nine">
                 <img src={winLogo} alt=""/>
-                <p>ЛИЦЕНЗИОННЫЕ КЛЮЧИ&mdash;НА ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ПО&mdash;ОПТОВОЙ ЦЕНЕ</p>
+                <p>ЛИЦЕНЗИОННЫЕ КЛЮЧИ&nbsp;НА ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ПО&nbsp;ОПТОВОЙ ЦЕНЕ</p>
               </div>
               <div className="one-of-nine">
                 <img src={talkingCouple} alt=""/>
-                <p>9 ИЗ 10 ОБРАТИВШИХСЯ РЕКОМЕНДУЮТ&mdash;НАС ДРУЗЬЯМ И&mdash;ЗНАКОМЫМ</p>
+                <p>9 ИЗ 10 ОБРАТИВШИХСЯ РЕКОМЕНДУЮТ&nbsp;НАС ДРУЗЬЯМ И&nbsp;ЗНАКОМЫМ</p>
               </div>
             </div>
           </div>
