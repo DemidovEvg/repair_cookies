@@ -7,7 +7,7 @@ from core.models import Client, Order
 
 def get_new_client(username: str):
     client = Client.objects.get_or_create(
-        username=username,
+        username=f"{username}@email.ru",
         defaults=dict(
             password=123,
             last_name=random.choice(

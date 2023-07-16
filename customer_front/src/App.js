@@ -12,6 +12,8 @@ import Status from './components/status';
 import Account from "./components/account";
 import Contacts from "./components/contacts";
 import Cookies from 'universal-cookie';
+import {ToastContainer, toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   constructor(props) {
@@ -20,8 +22,28 @@ class App extends Component {
     this.state = {
       'token': '',
       'username': '',
+      'password': '',
       'orders': [],
     }
+  }
+
+  notify(message) {
+    toast(`${message}`);
+  }
+
+
+  createClient(url, data) {
+    const headers = this.getHeaders();
+    axios.post(this.apiPath + url, data, {'headers': headers}).then(response => {
+      this.notify('Вы успешно зарегистрированы!');
+      this.getToken(data.username, data.password)
+    }).catch(error => {
+          console.log('Что вообще могло пойти так?', error);
+          for (const key in error.response.data) {
+            this.notify(`${key}: ${error.response.data[key]}`)
+          }
+        }
+    );
   }
 
   getToken(username, password) {
@@ -35,7 +57,7 @@ class App extends Component {
     ).then(response => {
       this.saveToken(response.data['token'], username)
     })
-        .catch(error => alert('Wrong value of username or password'));
+        .catch(error => this.notify('Wrong value of username or password'));
   }
 
 
@@ -85,17 +107,17 @@ class App extends Component {
   makeOrder(clientNumber) {
     axios.post(this.apiPath, {"clientNumber": clientNumber})
         .then(response => {
-          alert("Взяли и починили.")
+          this.notify("Взяли и починили.")
         })
-        .catch(error => alert('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.'));
+        .catch(error => this.notify('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.'));
   }
 
   checkStatus(orderNumber) {
     axios.get(`${this.apiPath}/status?order=${orderNumber}`)
         .then(response => {
-          alert("Можно забирать.")
+          this.notify("Можно забирать.")
         })
-        .catch(error => alert('Еще не готово.'));
+        .catch(error => this.notify('Еще не готово.'));
   }
 
   componentDidMount() {
@@ -114,6 +136,7 @@ class App extends Component {
                 logOut={() => {
                   this.saveToken('')
                 }}/>
+            <ToastContainer />
             <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='repair' element={<Repair
@@ -131,7 +154,10 @@ class App extends Component {
                   logOut={() => {
                     this.saveToken('')
                   }}/>}/>
-              <Route path='register' element={<RegisterForm/>}/>
+              <Route path='register' element={<RegisterForm
+                  isAuth={() => this.isAuth()}
+                  createClient={(url, data) => this.createClient(url, data)}
+                  getToken={(username, password) => this.getToken(username, password)}/>}/>
               <Route path='*' element={<NotFound404/>}/>
             </Routes>
           </BrowserRouter>

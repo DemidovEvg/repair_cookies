@@ -1,9 +1,16 @@
 from rest_framework.serializers import ModelSerializer
+from django.contrib.auth.hashers import make_password
 
 from core.models import Client, Order
 
 
-class ClientModelSerializer(ModelSerializer):
+class ClientPasswordHashMixin(ModelSerializer):
+    def create(self, validated_data):
+        validated_data["password"] = make_password(validated_data["password"])
+        return super().create(validated_data)
+
+
+class ClientModelSerializer(ClientPasswordHashMixin, ModelSerializer):
     class Meta:
         model = Client
         fields = (
@@ -11,6 +18,7 @@ class ClientModelSerializer(ModelSerializer):
             "phone_number",
             "address",
             "username",
+            "password",
             "email",
             "first_name",
             "patronymic",

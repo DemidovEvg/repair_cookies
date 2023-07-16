@@ -1,7 +1,7 @@
 import {Button} from 'react-bootstrap';
 import React, {Component} from 'react';
 import Form from 'react-bootstrap/Form';
-import {Navigate} from 'react-router-dom';
+import {NavLink, Navigate} from 'react-router-dom';
 
 
 class LoginForm extends Component {
@@ -29,29 +29,23 @@ class LoginForm extends Component {
           <div className="site-content">
             <Form onSubmit={(event) => this.handleSubmit(event)}>
               <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Username</Form.Label>
-                <Form.Control type="text" name="username" placeholder="Username"
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" name="username" placeholder="email@address.com"
                               onChange={({target}) => this.handleChange(target)}/>
-                <Form.Text className="text-muted">
-                  Введите имя пользователя.
-                </Form.Text>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Пароль</Form.Label>
                 <Form.Control type="password" name="password" placeholder="Password"
                               onChange={({target}) => this.handleChange(target)}/>
-                <Form.Text className="text-muted">
-                  Введите пароль.
-                </Form.Text>
               </Form.Group>
 
-              {/* <Link className='btn btn-primary' to='../'
-              onClick={(event) => this.handleSubmit(event)}>Submit</Link> */}
               <Button variant="primary" type="submit">
-                Submit
+                Войти
               </Button>
             </Form>
+            <NavLink to="../register">Регистрация</NavLink>
+
             {this.props.isAuth()
                 ? < Navigate to="../account"/>
                 : null}
