@@ -1,38 +1,24 @@
-<html lang="ru">
 {% extends "base.html" %}
 
 {% block title %}
-	Cookies Serviceman Desk
-{% endblock %}
-
-{% block style %}
-	{% include "inc_style.html" %}
-{% endblock %}
-
-{% block nav_panel %}
-	{% include "inc_top_nav_panel.html" %}
+Авторизация
 {% endblock %}
 
 {% block body %}
 
 <div id="main">
-    <div id="site_content">
+  <div id="site_content">
+    
+    <form method="post">
+      
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Войти</button>
+    
+    </form>
+  </div>
 
-        <form method="post">
-
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Войти</button>
-
-        </form>
-      </div>
-    <div id="footer">
-      Copyright &copy; Чугунбабай
-    </div>
 
 </div>
 
-
-
 {% endblock %}
-</html>

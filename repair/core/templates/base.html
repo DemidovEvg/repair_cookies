@@ -1,28 +1,26 @@
-
-
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>
-
-        {% block title %}
-        {% endblock %}
-
-    </title>
-
-    {% block style %}
+  <meta charset="UTF-8">
+  
+  <title>
+    {% block title %}
+    А вот и СмартРемонт!
     {% endblock %}
+  </title>
+  
+  {% include 'inc_style.html' %}
 
 </head>
+
 <body>
 
-    {% block nav_panel %}
-    {% endblock %}
+{% include 'inc_top_nav_panel.html' %}
 
-    {% block body %}
-    {% endblock %}
+{% block body %}
+{% endblock %}
+
+{% include 'inc_footer.html' %}
 
 </body>
 </html>
