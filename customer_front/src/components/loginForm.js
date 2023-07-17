@@ -8,7 +8,7 @@ class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      "username": "",
+      "email": "",
       "password": ""
     }
   }
@@ -19,7 +19,7 @@ class LoginForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.getToken(this.state.username, this.state.password)
+    this.props.getToken(this.state.email, this.state.password)
   }
 
   render() {
@@ -30,7 +30,7 @@ class LoginForm extends Component {
             <Form onSubmit={(event) => this.handleSubmit(event)}>
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" name="username" placeholder="email@address.com"
+                <Form.Control type="email" name="email" placeholder="email@address.com"
                               onChange={({target}) => this.handleChange(target)}/>
               </Form.Group>
 

@@ -8,6 +8,12 @@ class OrderViewSet(ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderModelSerializer
 
+    def get_queryset(self):
+        email = self.request.query_params.get('email')
+        if email:
+            return Order.objects.filter(client__email=email)
+        return self.queryset
+
 
 class ClientViewSet(ModelViewSet):
     queryset = Client.objects.all()

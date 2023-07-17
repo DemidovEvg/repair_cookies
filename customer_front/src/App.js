@@ -21,9 +21,10 @@ class App extends Component {
     this.apiPath = 'http://localhost:8001/';
     this.state = {
       'token': '',
-      'username': '',
-      'password': '',
+      'email': '',
+      'users': [],
       'orders': [],
+      'endpoints': ['users', 'orders']
     }
   }
 
@@ -36,7 +37,7 @@ class App extends Component {
     const headers = this.getHeaders();
     axios.post(this.apiPath + url, data, {'headers': headers}).then(response => {
       this.notify('Вы успешно зарегистрированы!');
-      this.getToken(data.username, data.password)
+      this.getToken(data.email, data.password)
     }).catch(error => {
           console.log('Что вообще могло пойти так?', error);
           for (const key in error.response.data) {
@@ -46,34 +47,34 @@ class App extends Component {
     );
   }
 
-  getToken(username, password) {
+  getToken(email, password) {
     const data = {
-      'username': username,
+      'username': email,
       'password': password
     };
     axios.post(
         this.apiPath + 'api-token-auth/',
         data
     ).then(response => {
-      this.saveToken(response.data['token'], username)
+      this.saveToken(response.data['token'], email)
     })
-        .catch(error => this.notify('Wrong value of username or password'));
+        .catch(error => this.notify('Wrong value of email or password'));
   }
 
 
-  saveToken(token, username = '') {
+  saveToken(token, email = '') {
     const cookie = new Cookies();
     cookie.set('token', token);
-    cookie.set('username', username);
+    cookie.set('email', email);
     cookie.set('SameSite', 'Lax');
-    this.setState({'token': token, 'username': username}, () => this.pullData());
+    this.setState({'token': token, 'email': email}, () => this.pullData());
   }
 
   restoreToken() {
     const cookie = new Cookies();
     const token = cookie.get('token');
-    const username = cookie.get('username');
-    this.setState({'token': token, 'username': username}, () => this.pullData());
+    const email = cookie.get('email');
+    this.setState({'token': token, 'email': email}, () => this.pullData());
   }
 
   isAuth() {
@@ -93,14 +94,22 @@ class App extends Component {
 
   pullData() {
     const headers = this.getHeaders();
-
-    axios.get(
-        this.apiPath + 'api/orders/',
+    const download = endpoint => {
+      axios.get(
+        this.apiPath + `api/${endpoint}?email=${this.state.email}`,
         {'headers': headers}
     ).then(response => {
-      this.setState({'orders': response.data})
+      this.setState({[endpoint]: response.data})
     }).catch(
-        error => console.log('Что могло пойти так?'));
+        error => console.log(`Что могло пойти так при обращении к ${endpoint}?`));
+    }
+
+    this.state.endpoints.forEach(endpoint => {
+      download(endpoint);
+    })
+
+
+
   }
 
 
@@ -147,7 +156,7 @@ class App extends Component {
               <Route path='contacts' element={<Contacts/>}/>
               <Route path='auth' element={<LoginForm
                   isAuth={() => this.isAuth()}
-                  getToken={(username, password) => this.getToken(username, password)}/>}/>
+                  getToken={(email, password) => this.getToken(email, password)}/>}/>
               <Route path='account' element={<Account
                   orders={this.state.orders}
                   isAuth={() => this.isAuth()}
@@ -157,7 +166,7 @@ class App extends Component {
               <Route path='register' element={<RegisterForm
                   isAuth={() => this.isAuth()}
                   createClient={(url, data) => this.createClient(url, data)}
-                  getToken={(username, password) => this.getToken(username, password)}/>}/>
+                  getToken={(email, password) => this.getToken(email, password)}/>}/>
               <Route path='*' element={<NotFound404/>}/>
             </Routes>
           </BrowserRouter>

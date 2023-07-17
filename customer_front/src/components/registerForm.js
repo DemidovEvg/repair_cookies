@@ -10,7 +10,6 @@ class RegisterForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      'username': '',
       'password': '',
       'phoneNumber': '',
       'firstName': '',
@@ -21,15 +20,8 @@ class RegisterForm extends Component {
   }
 
   handleChange(target) {
-    if (target.name === 'email') {
-      this.setState({
-        'email': target.value,
-        'username': target.value
-      })
-    } else {
       this.setState({[target.name]: target.value});
     }
-  }
 
   handleSubmit(event) {
     event.preventDefault()
