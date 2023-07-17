@@ -1,8 +1,22 @@
-  <div id="main">
+{% extends "base.html" %}
+
+{% block title %}
+	Cookies Serviceman Repair Done
+{% endblock %}
+
+{% block style %}
+	{% include "inc_style.html" %}
+{% endblock %}
+
+{% block nav_panel %}
+	{% include "inc_top_nav_panel.html" %}
+{% endblock %}
+
+{% block body %}
+	  <div id="main">
 
     <div id="site_content">
       <div id="content">
-          {% if request.user.is_authenticated %}
             <h1>Список доступных ремонтов</h1>
             <h2>Ремонтник: {{ user }}</h2>
 
@@ -22,30 +36,14 @@
                     <td>{{ i.customer_description }}</td>
                     <td>{{ i.created }}</td>
                     <td>{{ i.status }}</td>
-                       {% if user.is_team_lead %}
-
-                       {% else %}
                     <td>{{ i.serviceman }}</td>
-                        {% endif %}
                   </tr>
                   {% endfor %}
              </table>
             {% endif %}
              </table>
-{{ sm }}
 </div>
 
-              {% if messages %}
-                    <ul class="messages">
-                        {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-            {% endif %}
-      {% else %}
-      <h1>Доступ только зарегистрирорванным пользователям</h1>
-      <h2><a href="{% url 'login' %}">Войти</a> </h2>
-      {% endif %}
       </div>
     </div>
 
@@ -54,5 +52,4 @@
     </div>
   </div>
 
-
-
+{% endblock %}
