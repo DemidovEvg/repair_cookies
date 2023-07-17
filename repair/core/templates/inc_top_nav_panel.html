@@ -1,23 +1,28 @@
 <div id="header">
-      <div id="logo">
-        <div id="logo_text">
-              <h1><a href="/">Сookies Repair Servicman Desk</a></h1>
-        </div>
-      </div>
-      <div id="menubar">
-        <ul id="menu">
-          <li class="selected"><a href="/">К списку ремонтов</a></li>
-          <li><a href="#">Выполненые ремонты</a></li>
-            {% if request.user.is_authenticated %}
-                <li ><a href="{% url 'logout' %}">Выйти</a> </li>
-                <form action="{% url 'home' %}" method="get">
-                    <input type="submit" name="day" value="day" />
-                    <input type="submit" name="week" value="week" />
-                    <input type="submit" name="month" value="month" />
-                </form>
-            {% else %}
-            <li><a href="{% url 'login' %}">Войти</a></li>
-            {% endif %}
-        </ul>
-      </div>
+  <div id="logo">
+    <div id="logo_text">
+      <h1><a href="/">Сookies Repair Servicman Desk</a></h1>
     </div>
+  </div>
+  <div id="menubar">
+    <ul id="menu">
+      <li class="selected"><a href="/">К списку ремонтов</a></li>
+      <li><a href="#">Выполненые ремонты</a></li>
+      <li>
+        {% if user.is_superuser %}
+        <a href="{% url 'admin:index' %}">Административный раздел</a>
+        {% endif %}
+      </li>
+      {% if request.user.is_authenticated %}
+      <li><a href="{% url 'logout' %}">Выйти</a></li>
+      <form action="{% url 'home' %}" method="get">
+        <input type="submit" name="day" value="day"/>
+        <input type="submit" name="week" value="week"/>
+        <input type="submit" name="month" value="month"/>
+      </form>
+      {% else %}
+      <li><a href="{% url 'login' %}">Войти</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
