@@ -4,21 +4,13 @@ from django.contrib.auth.hashers import make_password
 from core.models import Client, Order
 
 
-class ClientPasswordHashMixin(ModelSerializer):
-    def create(self, validated_data):
-        validated_data["password"] = make_password(validated_data["password"])
-        return super().create(validated_data)
-
-
-class ClientModelSerializer(ClientPasswordHashMixin, ModelSerializer):
+class ClientModelSerializer(ModelSerializer):
     class Meta:
         model = Client
         fields = (
             "id",
             "phone_number",
             "address",
-            "username",
-            "password",
             "email",
             "first_name",
             "patronymic",
@@ -29,6 +21,24 @@ class ClientModelSerializer(ClientPasswordHashMixin, ModelSerializer):
             "id": {"validators": []},
             "phone_number": {"validators": []},
         }
+
+
+class NewClientModelSerializer(ModelSerializer):
+    class Meta:
+        model = Client
+        fields = (
+            "phone_number",
+            "email",
+            "password",
+            "first_name",
+            "patronymic",
+            "last_name",
+        )
+
+    def create(self, validated_data):
+        validated_data["password"] = make_password(validated_data["password"])
+        validated_data["username"] = validated_data["email"]
+        return super().create(validated_data)
 
 
 class OrderModelSerializer(ModelSerializer):
@@ -57,7 +67,8 @@ class OrderModelSerializer(ModelSerializer):
         self.create_or_update_client(validated_data)
         return super().update(instance, validated_data)
 
-    def create_or_update_client(self, validated_data):
+    @staticmethod
+    def create_or_update_client(validated_data):
         if "client" in validated_data:
             client_instance = Client.objects.filter(
                 id=validated_data["client"]["id"]
