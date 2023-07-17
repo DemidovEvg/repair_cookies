@@ -93,31 +93,43 @@ class App extends Component {
 
 
   pullData() {
+    if (!this.isAuth()) return;
     const headers = this.getHeaders();
     const download = endpoint => {
       axios.get(
-        this.apiPath + `api/${endpoint}?email=${this.state.email}`,
-        {'headers': headers}
-    ).then(response => {
-      this.setState({[endpoint]: response.data})
-    }).catch(
-        error => console.log(`Что могло пойти так при обращении к ${endpoint}?`));
+          this.apiPath + `api/${endpoint}?email=${this.state.email}`,
+          {'headers': headers}
+      ).then(response => {
+        this.setState({[endpoint]: response.data})
+      }).catch(
+          error => console.log(`Что могло пойти так при обращении к ${endpoint}?`));
     }
-
     this.state.endpoints.forEach(endpoint => {
       download(endpoint);
-    })
-
-
-
+    });
   }
 
 
-  makeOrder(clientNumber) {
-    axios.post(this.apiPath, {"clientNumber": clientNumber})
-        .then(response => {
-          this.notify("Взяли и починили.")
-        })
+  makeOrder(category, customerDescription) {
+    console.log((category, customerDescription))
+    const headers = this.getHeaders();
+    const user = this.state.users[0]
+    const data = {
+      "client": {
+        "id": user.id,
+        "phoneNumber": user.phoneNumber
+      },
+      "category": category,
+      "customerDescription": customerDescription
+    }
+    axios.post(
+        this.apiPath + `api/orders/`,
+        data,
+        {'headers': headers}
+    ).then(response => {
+      this.notify("Ваша заявка на ремонт отправлена 🙌");
+      this.pullData()
+    })
         .catch(error => this.notify('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.'));
   }
 
@@ -145,12 +157,12 @@ class App extends Component {
                 logOut={() => {
                   this.saveToken('')
                 }}/>
-            <ToastContainer />
+            <ToastContainer/>
             <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='repair' element={<Repair
                   isAuth={() => this.isAuth()}
-                  makeOrder={(clientNumber) => this.makeOrder(clientNumber)}/>}/>
+                  makeOrder={(category, customerDescription) => this.makeOrder(category, customerDescription)}/>}/>
               <Route path='status' element={<Status
                   checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>
               <Route path='contacts' element={<Contacts/>}/>
