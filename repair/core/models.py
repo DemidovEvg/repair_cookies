@@ -75,7 +75,10 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    id = models.UUIDField(verbose_name="Идентификатор заказа", primary_key=True)
+    id = models.UUIDField(
+        verbose_name="Идентификатор заказа",
+        primary_key=True
+    )
     status = models.CharField(
         verbose_name="Статус заявки",
         max_length=48,
@@ -88,7 +91,10 @@ class Order(models.Model):
         choices=GadgetType.choices,
     )
     serviceman_description = models.CharField(
-        verbose_name="Комментарий ремонтника", max_length=1000, default="", blank=True
+        verbose_name="Комментарий ремонтника",
+        max_length=1000,
+        default="",
+        blank=True
     )
     customer_description = models.CharField(
         verbose_name="Неисправность со слов клиента",
