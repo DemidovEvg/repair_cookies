@@ -2,13 +2,17 @@ import {Form, Button} from "react-bootstrap";
 import {Navigate} from "react-router-dom";
 
 function Repair({isAuth, makeOrder}) {
-  let clientNumber = '';
+  let data = {
+      'customerDescription': '',
+      'category': 'TELEPHONE'
+  }
   const handleChange = (event) => {
-    clientNumber = event.target.value
+    data[[event.target.name]] = event.target.value
   };
 
-  const handleSubmit = () => {
-    makeOrder(clientNumber);
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    makeOrder(data["category"], data["customerDescription"]);
   }
 
   return (
@@ -25,16 +29,28 @@ function Repair({isAuth, makeOrder}) {
             <Form onSubmit={event => {
               handleSubmit()
             }}>
+
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Введите Ваш номер телефона</Form.Label>
-                <Form.Control type="text" placeholder="+7XXXXXXXXXX" onChange={event => {
+                <Form.Label>Выберите категорию техники </Form.Label>
+                <select name="category" onChange={event => {
+                  handleChange(event)
+                }}>
+                  <option value="TELEPHONE">Мобильный телефон</option>
+                  <option value="TABLET">Планшет</option>
+                  <option value="LAPTOP">Ноутбук</option>
+                </select>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Введите описание неисправности</Form.Label>
+                <Form.Control type="textarea" name="customerDescription" placeholder="Разбитый экран" onChange={event => {
                   handleChange(event)
                 }}/>
-                <Form.Text className="text-muted">
-                  Мы не передаём информацию третьим лица, наверно.
-                </Form.Text>
               </Form.Group>
-              <Button variant="primary" type="submit">
+
+              <Button variant="primary" type="submit" onClick={event => {
+                handleSubmit(event)
+              }}>
                 Хочу ремонт
               </Button>
             </Form>

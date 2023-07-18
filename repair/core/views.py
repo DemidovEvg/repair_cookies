@@ -42,7 +42,7 @@ class IndexView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = self.filterset.form
+        context["form"] = self.filterset.form
         return context
 
 
@@ -84,7 +84,7 @@ class RepairDone(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        valid_status = ['REPAIR_DONE', 'SENDING_TO_CLIENT', 'CLOSED']
+        valid_status = ["REPAIR_DONE", "SENDING_TO_CLIENT", "CLOSED"]
         queryset = Order.objects.filter(status__in=valid_status)
 
         return queryset

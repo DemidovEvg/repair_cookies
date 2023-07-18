@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0002_order_category_alter_order_customer_description_and_more'),
+        ("core", "0002_order_category_alter_order_customer_description_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='order',
-            name='model',
-            field=models.CharField(blank=True, default='', max_length=1000, verbose_name='Модель техники'),
+            model_name="order",
+            name="model",
+            field=models.CharField(
+                blank=True, default="", max_length=1000, verbose_name="Модель техники"
+            ),
         ),
     ]

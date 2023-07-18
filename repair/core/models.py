@@ -75,10 +75,7 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    id = models.UUIDField(
-        verbose_name="Идентификатор заказа",
-        primary_key=True
-    )
+    id = models.UUIDField(verbose_name="Идентификатор заказа", primary_key=True)
     status = models.CharField(
         verbose_name="Статус заявки",
         max_length=48,
@@ -91,10 +88,7 @@ class Order(models.Model):
         choices=GadgetType.choices,
     )
     serviceman_description = models.CharField(
-        verbose_name="Комментарий ремонтника",
-        max_length=1000,
-        default="",
-        blank=True
+        verbose_name="Комментарий ремонтника", max_length=1000, default="", blank=True
     )
     customer_description = models.CharField(
         verbose_name="Неисправность со слов клиента",
@@ -103,10 +97,7 @@ class Order(models.Model):
         blank=True,
     )
     deliveryman_description = models.CharField(
-        verbose_name="Комментарий доставки",
-        max_length=1000,
-        default="",
-        blank=True
+        verbose_name="Комментарий доставки", max_length=1000, default="", blank=True
     )
     created = models.DateTimeField(
         verbose_name="Дата и время создания заявки",
@@ -128,18 +119,17 @@ class Order(models.Model):
     )
 
     model = models.CharField(
-        verbose_name="Модель техники",
-        max_length=1000,
-        default="",
-        blank=True
+        verbose_name="Модель техники", max_length=1000, default="", blank=True
     )
 
     def get_for_user(user):
-        valid_status = ['SENT_TO_REPAIR', 'REPAIR_IN_PROCESS', 'REPAIR_DONE']
+        valid_status = ["SENT_TO_REPAIR", "REPAIR_IN_PROCESS", "REPAIR_DONE"]
         if user.is_team_lead:
             queryset = Order.objects.all()
         else:
-            queryset = Order.objects.filter(serviceman=user.serviceman, status__in=valid_status)
+            queryset = Order.objects.filter(
+                serviceman=user.serviceman, status__in=valid_status
+            )
 
         return queryset
 
