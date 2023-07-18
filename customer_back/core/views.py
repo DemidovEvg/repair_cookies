@@ -1,7 +1,11 @@
 from rest_framework.viewsets import ModelViewSet
 
 from core.models import Client, Order
-from core.serializers import ClientModelSerializer, OrderModelSerializer, NewClientModelSerializer
+from core.serializers import (
+    ClientModelSerializer,
+    OrderModelSerializer,
+    NewClientModelSerializer,
+)
 
 
 class OrderViewSet(ModelViewSet):
@@ -9,7 +13,7 @@ class OrderViewSet(ModelViewSet):
     serializer_class = OrderModelSerializer
 
     def get_queryset(self):
-        email = self.request.query_params.get('email')
+        email = self.request.query_params.get("email")
         if email:
             return Order.objects.filter(client__email=email)
         return self.queryset
@@ -24,7 +28,7 @@ class ClientViewSet(ModelViewSet):
         return ClientModelSerializer
 
     def get_queryset(self):
-        email = self.request.query_params.get('email')
+        email = self.request.query_params.get("email")
         if email:
             return Client.objects.filter(email=email)
         return self.queryset
