@@ -48,6 +48,7 @@ class OrderSerializer(serializers.ModelSerializer):
             "client",
             "status",
             "category",
+            "model",
             "address",
             "serviceman_description",
             "customer_description",
