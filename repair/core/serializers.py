@@ -20,6 +20,8 @@ class OrderModelSerializer(ModelSerializer):
             "serviceman_description",
             "customer_description",
             "deliveryman_description",
+            "model",
+            "category",
             "amount_due_by",
             "created",
         ]

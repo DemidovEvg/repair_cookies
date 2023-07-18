@@ -14,8 +14,7 @@ from .serializers import ServicemanModelSerializer, OrderModelSerializer
 from permissions import ServicemanPermissions, OrderPermissions
 from .services.order_service import update_outer_order
 from .serializers import OrderModelSerializer
-from .forms import OrderUpdateForm
-from .services.filter_service import time_filter
+from .filters import OrderFilter
 
 
 class OrderViewSet(ModelViewSet):
@@ -34,21 +33,17 @@ class IndexView(ListView):
     model = Order
     template_name = "index.html"
     context_object_name = "orders"
-    fields = ["serviceman"]
+    paginate_by = 5
 
     def get_queryset(self):
-        fltr = time_filter(self.request.GET)
-        if self.request.user.is_team_lead and fltr:
-            return Order.objects.filter(created__gte=fltr)
-        elif self.request.user.is_team_lead:
-            return Order.objects.all()
+        queryset = Order.get_for_user(user=self.request.user)
+        self.filterset = OrderFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs
 
-        if fltr:
-            return Order.objects.filter(
-                serviceman=self.request.user.serviceman.id, created__gte=fltr
-            )
-
-        return Order.objects.filter(serviceman=self.request.user.serviceman.id)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.filterset.form
+        return context
 
 
 class OrderDetail(UpdateView):
@@ -82,6 +77,19 @@ class OrderDetail(UpdateView):
         pass
 
 
+class RepairDone(ListView):
+    model = Order
+    template_name = "repair_done.html"
+    context_object_name = "orders"
+    paginate_by = 5
+
+    def get_queryset(self):
+        valid_status = ['REPAIR_DONE', 'SENDING_TO_CLIENT', 'CLOSED']
+        queryset = Order.objects.filter(status__in=valid_status)
+
+        return queryset
+
+
 class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = "login.html"
@@ -94,7 +102,3 @@ def logout_user(request):
     logout(request)
 
     return redirect("login")
-
-
-def change_rm(request, **kwargs):
-    pass

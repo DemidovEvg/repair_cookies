@@ -7,7 +7,7 @@
   <div id="menubar">
     <ul id="menu">
       <li class="selected"><a href="/">К списку ремонтов</a></li>
-      <li><a href="#">Выполненые ремонты</a></li>
+      <li><a href="{% url 'repair_done' %}">Выполненные ремонты</a></li>
       <li>
         {% if user.is_superuser %}
         <a href="{% url 'admin:index' %}">Административный раздел</a>
@@ -15,11 +15,10 @@
       </li>
       {% if request.user.is_authenticated %}
       <li><a href="{% url 'logout' %}">Выйти</a></li>
-      <form action="{% url 'home' %}" method="get">
-        <input type="submit" name="day" value="day"/>
-        <input type="submit" name="week" value="week"/>
-        <input type="submit" name="month" value="month"/>
-      </form>
+          <form method="GET" action="{% url 'home' %}">
+            {{ form.as_p }}
+            <input type="submit" value="Submit" class="btn-default"/>
+          </form>
       {% else %}
       <li><a href="{% url 'login' %}">Войти</a></li>
       {% endif %}
