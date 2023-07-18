@@ -21,6 +21,7 @@ function Orders({orders}) {
           return (
               <li>
                 <Order key={order.id} order={order}/>
+                <hr/>
               </li>
           );
         })}
@@ -43,6 +44,7 @@ function Account({orders, isAuth, logOut}) {
           <h3>
             Список заказов
           </h3>
+          <hr/>
           <Orders orders={orders}/>
         </div>
       </div>

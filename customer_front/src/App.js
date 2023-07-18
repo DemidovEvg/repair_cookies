@@ -12,6 +12,8 @@ import Status from './components/status';
 import Account from "./components/account";
 import Contacts from "./components/contacts";
 import Cookies from 'universal-cookie';
+import {ToastContainer, toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   constructor(props) {
@@ -19,39 +21,60 @@ class App extends Component {
     this.apiPath = 'http://localhost:8001/';
     this.state = {
       'token': '',
-      'username': '',
+      'email': '',
+      'users': [],
       'orders': [],
+      'endpoints': ['users', 'orders']
     }
   }
 
-  getToken(username, password) {
+  notify(message) {
+    toast(`${message}`);
+  }
+
+
+  createClient(url, data) {
+    const headers = this.getHeaders();
+    axios.post(this.apiPath + url, data, {'headers': headers}).then(response => {
+      this.notify('Вы успешно зарегистрированы!');
+      this.getToken(data.email, data.password)
+    }).catch(error => {
+          console.log('Что вообще могло пойти так?', error);
+          for (const key in error.response.data) {
+            this.notify(`${key}: ${error.response.data[key]}`)
+          }
+        }
+    );
+  }
+
+  getToken(email, password) {
     const data = {
-      'username': username,
+      'username': email,
       'password': password
     };
     axios.post(
         this.apiPath + 'api-token-auth/',
         data
     ).then(response => {
-      this.saveToken(response.data['token'], username)
+      this.saveToken(response.data['token'], email)
     })
-        .catch(error => alert('Wrong value of username or password'));
+        .catch(error => this.notify('Wrong value of email or password'));
   }
 
 
-  saveToken(token, username = '') {
+  saveToken(token, email = '') {
     const cookie = new Cookies();
     cookie.set('token', token);
-    cookie.set('username', username);
+    cookie.set('email', email);
     cookie.set('SameSite', 'Lax');
-    this.setState({'token': token, 'username': username}, () => this.pullData());
+    this.setState({'token': token, 'email': email}, () => this.pullData());
   }
 
   restoreToken() {
     const cookie = new Cookies();
     const token = cookie.get('token');
-    const username = cookie.get('username');
-    this.setState({'token': token, 'username': username}, () => this.pullData());
+    const email = cookie.get('email');
+    this.setState({'token': token, 'email': email}, () => this.pullData());
   }
 
   isAuth() {
@@ -70,32 +93,54 @@ class App extends Component {
 
 
   pullData() {
+    if (!this.isAuth()) return;
     const headers = this.getHeaders();
-
-    axios.get(
-        this.apiPath + 'api/orders/',
-        {'headers': headers}
-    ).then(response => {
-      this.setState({'orders': response.data})
-    }).catch(
-        error => console.log('Что могло пойти так?'));
+    const download = endpoint => {
+      axios.get(
+          this.apiPath + `api/${endpoint}?email=${this.state.email}`,
+          {'headers': headers}
+      ).then(response => {
+        this.setState({[endpoint]: response.data})
+      }).catch(
+          error => console.log(`Что могло пойти так при обращении к ${endpoint}?`));
+    }
+    this.state.endpoints.forEach(endpoint => {
+      download(endpoint);
+    });
   }
 
 
-  makeOrder(clientNumber) {
-    axios.post(this.apiPath, {"clientNumber": clientNumber})
-        .then(response => {
-          alert("Взяли и починили.")
-        })
-        .catch(error => alert('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.'));
+  makeOrder(category, customerDescription) {
+    const headers = this.getHeaders();
+    const user = this.state.users[0]
+    const data = {
+      "client": {
+        "id": user.id,
+        "phoneNumber": user.phoneNumber
+      },
+      "category": category,
+      "customerDescription": customerDescription
+    }
+    axios.post(
+        this.apiPath + `api/orders/`,
+        data,
+        {'headers': headers}
+    ).then(response => {
+      this.notify("Ваша заявка на ремонт отправлена 🙌");
+      this.pullData()
+      setTimeout(() => {
+      window.location.href = '../account'
+      }, 5000)
+    })
+        .catch(error => this.notify('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.'));
   }
 
   checkStatus(orderNumber) {
     axios.get(`${this.apiPath}/status?order=${orderNumber}`)
         .then(response => {
-          alert("Можно забирать.")
+          this.notify("Можно забирать.")
         })
-        .catch(error => alert('Еще не готово.'));
+        .catch(error => this.notify('Еще не готово.'));
   }
 
   componentDidMount() {
@@ -114,24 +159,28 @@ class App extends Component {
                 logOut={() => {
                   this.saveToken('')
                 }}/>
+            <ToastContainer/>
             <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='repair' element={<Repair
                   isAuth={() => this.isAuth()}
-                  makeOrder={(clientNumber) => this.makeOrder(clientNumber)}/>}/>
+                  makeOrder={(category, customerDescription) => this.makeOrder(category, customerDescription)}/>}/>
               <Route path='status' element={<Status
                   checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>
               <Route path='contacts' element={<Contacts/>}/>
               <Route path='auth' element={<LoginForm
                   isAuth={() => this.isAuth()}
-                  getToken={(username, password) => this.getToken(username, password)}/>}/>
+                  getToken={(email, password) => this.getToken(email, password)}/>}/>
               <Route path='account' element={<Account
                   orders={this.state.orders}
                   isAuth={() => this.isAuth()}
                   logOut={() => {
                     this.saveToken('')
                   }}/>}/>
-              <Route path='register' element={<RegisterForm/>}/>
+              <Route path='register' element={<RegisterForm
+                  isAuth={() => this.isAuth()}
+                  createClient={(url, data) => this.createClient(url, data)}
+                  getToken={(email, password) => this.getToken(email, password)}/>}/>
               <Route path='*' element={<NotFound404/>}/>
             </Routes>
           </BrowserRouter>

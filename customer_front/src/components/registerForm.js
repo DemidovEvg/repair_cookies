@@ -1,29 +1,31 @@
 import React, {Component} from 'react';
 import Form from 'react-bootstrap/Form';
-import {Link} from 'react-router-dom';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import {Button} from "react-bootstrap";
+import {Navigate} from "react-router-dom";
 
 
 class RegisterForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      'username': '',
       'password': '',
+      'phoneNumber': '',
       'firstName': '',
-      'phone': '',
+      'patronymic': '',
       'lastName': '',
       'email': ''
     }
   }
 
   handleChange(target) {
-    this.setState({[target.name]: target.value});
-  }
+      this.setState({[target.name]: target.value});
+    }
 
-  handleSubmit() {
-    alert(`Пользователь ${this.state.username} создан`);
+  handleSubmit(event) {
+    event.preventDefault()
+    this.props.createClient('api/users/', this.state);
   }
 
   render() {
@@ -33,68 +35,53 @@ class RegisterForm extends Component {
           <div className="site-content">
             <div className="d-flex justify-content-center">
               <Form>
-                <Form.Group className="mb-3" controlId="formBasicText">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control type="text" name="username" placeholder="Username"
-                                onChange={({target}) => this.handleChange(target)}/>
-                  <Form.Text className="text-muted">
-                    Ввеите имя пользователя.
-                  </Form.Text>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicPhone">
-                  <Form.Label>Phone Number</Form.Label>
-                  <PhoneInput
-                      placeholder="Enter phone number"
-                      defaultCountry="RU"
-                      value={this.state.phone}
-                      name="Phone"
-                      onChange={phone => this.setState({phone})}
-                  />
-                  <Form.Text className="text-muted">
-                    Номер вашего телефона.
-                  </Form.Text>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" name="password" placeholder="Password"
-                                onChange={({target}) => this.handleChange(target)}/>
-                  <Form.Text className="text-muted">
-                    Введите пароль.
-                  </Form.Text>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicFirstName">
-                  <Form.Label>First name</Form.Label>
-                  <Form.Control type="text" name="firstName" placeholder="First Name"
-                                onChange={({target}) => this.handleChange(target)}/>
-                  <Form.Text className="text-muted">
-                    Ваше имя.
-                  </Form.Text>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formLastName">
-                  <Form.Label>Last name</Form.Label>
-                  <Form.Control type="text" name="lastName" placeholder="Last name"
-                                onChange={({target}) => this.handleChange(target)}/>
-                  <Form.Text className="text-muted">
-                    Ваша фамилия.
-                  </Form.Text>
-                </Form.Group>
-
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Email</Form.Label>
                   <Form.Control type="email" name="email" placeholder="user@domain.com"
                                 onChange={({target}) => this.handleChange(target)}/>
-                  <Form.Text className="text-muted">
-                    Адрес электронной почты.
-                  </Form.Text>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPhone">
+                  <Form.Label>Номер вашего телефона</Form.Label>
+                  <PhoneInput
+                      placeholder="+7ХХХХХХХХХХ"
+                      defaultCountry="RU"
+                      value={this.state.phoneNumber}
+                      name="phoneNumber"
+                      onChange={phoneNumber => this.setState({phoneNumber})}
+                  />
                 </Form.Group>
 
-                <Link className='btn btn-primary' to='#'
-                      onClick={(event) => this.handleSubmit(event)}>Submit</Link>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Пароль</Form.Label>
+                  <Form.Control type="password" name="password" placeholder="Password"
+                                onChange={({target}) => this.handleChange(target)}/>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formLastName">
+                  <Form.Label>Фамилия</Form.Label>
+                  <Form.Control type="text" name="lastName" placeholder="Иванов"
+                                onChange={({target}) => this.handleChange(target)}/>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicFirstName">
+                  <Form.Label>Имя</Form.Label>
+                  <Form.Control type="text" name="firstName" placeholder="Иван"
+                                onChange={({target}) => this.handleChange(target)}/>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formPatronymic">
+                  <Form.Label>Отчество</Form.Label>
+                  <Form.Control type="text" name="patronymic" placeholder="Иванович"
+                                onChange={({target}) => this.handleChange(target)}/>
+                </Form.Group>
+                <Button variant="primary" type="submit" onClick={(event) => this.handleSubmit(event)}>
+                  Регистрация
+                </Button>
+
               </Form>
+              {this.props.isAuth()
+                  ? <Navigate to="../account"/>
+                  : null}
             </div>
           </div>
         </div>

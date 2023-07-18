@@ -32,5 +32,5 @@ router.register("orders", OrderViewSet)
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls), name="api"),
-    path("api-token-auth/", views.obtain_auth_token, name="toke_auth"),
+    path("api-token-auth/", views.obtain_auth_token, name="token_auth"),
 ]
