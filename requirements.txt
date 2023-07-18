@@ -9,6 +9,5 @@ python-dotenv==1.0.0
 environs==9.5.0
 drf-keycloak-auth==0.1.0
 
-Django~=4.2.2
 requests~=2.31.0
 django-filter~=23.2

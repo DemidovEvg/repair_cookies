@@ -7,7 +7,7 @@
   <div id="menubar">
     <ul id="menu">
       <li class="selected"><a href="/">К списку ремонтов</a></li>
-      <li><a href="{% url 'repair_done' %}">Выполненые ремонты</a></li>
+      <li><a href="{% url 'repair_done' %}">Выполненные ремонты</a></li>
       <li>
         {% if user.is_superuser %}
         <a href="{% url 'admin:index' %}">Административный раздел</a>

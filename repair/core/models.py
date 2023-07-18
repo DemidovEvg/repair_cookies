@@ -97,7 +97,10 @@ class Order(models.Model):
         blank=True,
     )
     deliveryman_description = models.CharField(
-        verbose_name="Комментарий доставки", max_length=1000, default="", blank=True
+        verbose_name="Комментарий доставки",
+        max_length=1000,
+        default="",
+        blank=True
     )
     created = models.DateTimeField(
         verbose_name="Дата и время создания заявки",
@@ -116,6 +119,13 @@ class Order(models.Model):
     payment_completed = models.BooleanField(
         verbose_name="Оплала произведена?",
         default=False,
+    )
+
+    model = models.CharField(
+        verbose_name="Модель техники",
+        max_length=1000,
+        default="",
+        blank=True
     )
 
     def get_for_user(user):
