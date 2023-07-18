@@ -66,6 +66,7 @@ class OrderAdmin(admin.ModelAdmin):
         "status_common",
         "new_status",
         "category",
+        "model",
         "address",
         "deliveryman",
         "serviceman_description",
