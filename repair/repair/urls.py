@@ -24,6 +24,7 @@ from core.views import (
     OrderViewSet,
     IndexView,
     OrderDetail,
+    RepairDone,
     LoginUser,
     logout_user,
 )
@@ -37,6 +38,7 @@ urlpatterns = [
     path("login/", LoginUser.as_view(), name="login"),
     path("logout/", logout_user, name="logout"),
     path("<uuid:pk>/", OrderDetail.as_view(), name="order_detail"),
+    path("repair_done/", RepairDone.as_view(), name="repair_done"),
     path("admin/", admin.site.urls),
     path("api/", include(router.urls), name="api"),
 ]
