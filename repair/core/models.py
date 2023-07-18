@@ -118,6 +118,15 @@ class Order(models.Model):
         default=False,
     )
 
+    def get_for_user(user):
+        valid_status = ['SENT_TO_REPAIR', 'REPAIR_IN_PROCESS', 'REPAIR_DONE']
+        if user.is_team_lead:
+            queryset = Order.objects.all()
+        else:
+            queryset = Order.objects.filter(serviceman=user.serviceman, status__in=valid_status)
+
+        return queryset
+
     def __str__(self):
         return f"Ремонт id={self.id}"
 

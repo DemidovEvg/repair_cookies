@@ -33,14 +33,10 @@ class IndexView(ListView):
     model = Order
     template_name = "index.html"
     context_object_name = "orders"
+    paginate_by = 5
 
     def get_queryset(self):
-        valid_status = ['SENT_TO_REPAIR', 'REPAIR_IN_PROCESS', 'REPAIR_DONE']
-        if self.request.user.is_team_lead:
-            queryset = Order.objects.all()
-        else:
-            queryset = Order.objects.filter(serviceman=self.request.user.serviceman.id, status__in=valid_status)
-
+        queryset = Order.get_for_user(user=self.request.user)
         self.filterset = OrderFilter(self.request.GET, queryset=queryset)
         return self.filterset.qs
 
@@ -85,6 +81,7 @@ class RepairDone(ListView):
     model = Order
     template_name = "repair_done.html"
     context_object_name = "orders"
+    paginate_by = 5
 
     def get_queryset(self):
         valid_status = ['REPAIR_DONE', 'SENDING_TO_CLIENT', 'CLOSED']
