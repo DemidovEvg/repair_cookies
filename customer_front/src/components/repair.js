@@ -1,7 +1,8 @@
 import {Form, Button} from "react-bootstrap";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 
 function Repair({isAuth, makeOrder}) {
+  const navigate = useNavigate();
   let data = {
       'customerDescription': '',
       'category': 'TELEPHONE'
@@ -13,6 +14,7 @@ function Repair({isAuth, makeOrder}) {
   const handleSubmit = (event) => {
     event.preventDefault()
     makeOrder(data["category"], data["customerDescription"]);
+    navigate("../account");
   }
 
   return (

@@ -1,6 +1,4 @@
 import {Navigate} from "react-router-dom";
-
-
 function Order({order}) {
   if (!order) return
   return (
@@ -17,7 +15,6 @@ function Orders({orders}) {
   return (
       <ol>
         {orders.map(order => {
-          console.log(order)
           return (
               <li>
                 <Order key={order.id} order={order}/>

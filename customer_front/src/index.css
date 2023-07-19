@@ -217,6 +217,9 @@ a:hover {
     color: #E8772E;
 }
 
+.active {
+    color: #E8772E !important;
+}
 
 /* MAIN PAGE */
 
