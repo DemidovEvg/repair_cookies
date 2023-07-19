@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import Header from './components/header';
 import Footer from './components/footer';
 import NotFound404 from './components/notfound';
@@ -133,7 +133,8 @@ class App extends Component {
       this.notify("Ваша заявка на ремонт отправлена 🙌");
       this.pullData()
       setTimeout(() => {
-        window.location.href = '../account'
+        this.props.navigate('../account')
+        // window.location.href = '../account'
       }, 5000)
     })
         .catch(error => this.notify('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.'));
@@ -172,9 +173,10 @@ class App extends Component {
               <Route path='status' element={<Status
                   checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>
               <Route path='contacts' element={<Contacts/>}/>
-              <Route path='phones' element={<Phones/>}/>
-              <Route path='notebooks' element={<Notebooks/>}/>
-              <Route path='tablets' element={<Tablets/>}/>
+              <Route path='services' element={<Navigate to="/services/phones"/>}/>
+              <Route path='/services/phones' element={<Phones/>}/>
+              <Route path='/services/notebooks' element={<Notebooks/>}/>
+              <Route path='/services/tablets' element={<Tablets/>}/>
               <Route path='prices' element={<Prices/>}/>
               <Route path='auth' element={<LoginForm
                   isAuth={() => this.isAuth()}

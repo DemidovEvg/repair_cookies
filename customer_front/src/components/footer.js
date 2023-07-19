@@ -56,16 +56,16 @@ function Footer() {
 
               <ul className="link-list">
                 <li className="link-item">
-                  <NavLink className="text-to-style" to="../prices">УСЛУГИ</NavLink>
+                  <NavLink className="text-to-style" to="../services">УСЛУГИ</NavLink>
                 </li>
                 <li className="link-item">
-                  <NavLink className="text-to-style" to="../notebooks">Ремонт ноутбуков</NavLink>
+                  <NavLink className="text-to-style" to="../services/notebooks">Ремонт ноутбуков</NavLink>
                 </li>
                 <li className="link-item">
-                  <NavLink className="text-to-style" to="../phones">Ремонт телефонов</NavLink>
+                  <NavLink className="text-to-style" to="../services/phones">Ремонт телефонов</NavLink>
                 </li>
                 <li className="link-item">
-                  <NavLink className="text-to-style" to="../tablets">Ремонт планшетов</NavLink>
+                  <NavLink className="text-to-style" to="../services/tablets">Ремонт планшетов</NavLink>
                 </li>
               </ul>
 

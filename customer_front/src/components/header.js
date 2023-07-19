@@ -23,27 +23,27 @@ function Header({isAuth, logOut}) {
             </div>
             <div className="links">
               <ul className="linkslist">
-                <li><NavLink className="link" to="../">&nbsp;ГЛАВНАЯ&nbsp;</NavLink></li>
+                <li><NavLink className="services-link" to="../">&nbsp;ГЛАВНАЯ&nbsp;</NavLink></li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li className="services"><NavLink to="../prices">&nbsp;УСЛУГИ&nbsp;</NavLink>
+                <li className="services"><NavLink className="services-link" to="../services/phones">&nbsp;УСЛУГИ&nbsp;</NavLink>
                   <ul className="dropdown">
-                    <li><NavLink to="../phones">Ремонт телефонов</NavLink></li>
+                    <li><NavLink to="../services/phones">Ремонт телефонов</NavLink></li>
                     <li>
                       <hr/>
                     </li>
-                    <li><NavLink to="../tablets">Ремонт планшетов</NavLink></li>
+                    <li><NavLink to="../services/tablets">Ремонт планшетов</NavLink></li>
                     <li>
                       <hr/>
                     </li>
-                    <li><NavLink to="../notebooks">Ремонт ноутбуков</NavLink></li>
+                    <li><NavLink to="../services/notebooks">Ремонт ноутбуков</NavLink></li>
                   </ul>
                 </li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li><NavLink to="../prices">&nbsp;ПРАЙС-ЛИСТ&nbsp;</NavLink></li>
+                <li><NavLink  className="services-link" to="../prices">&nbsp;ПРАЙС-ЛИСТ&nbsp;</NavLink></li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li><NavLink to="../account">&nbsp;ЛИЧНЫЙ&nbsp;КАБИНЕТ&nbsp;</NavLink></li>
+                <li><NavLink className="services-link" to="../account">&nbsp;ЛИЧНЫЙ&nbsp;КАБИНЕТ&nbsp;</NavLink></li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li><NavLink to="../contacts">&nbsp;КОНТАКТЫ&nbsp;</NavLink></li>
+                <li><NavLink className="services-link" to="../contacts">&nbsp;КОНТАКТЫ&nbsp;</NavLink></li>
               </ul>
             </div>
           </div>
