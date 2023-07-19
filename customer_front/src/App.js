@@ -132,10 +132,6 @@ class App extends Component {
     ).then(response => {
       this.notify("Ваша заявка на ремонт отправлена 🙌");
       this.pullData()
-      setTimeout(() => {
-        // this.props.navigate('../account')
-        window.location.href = '../account'
-      }, 6000)
     })
         .catch(error => this.notify('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.'));
   }
