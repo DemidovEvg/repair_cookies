@@ -25,23 +25,21 @@ function Header({isAuth, logOut}) {
               <ul className="linkslist">
                 <li><NavLink className="link" to="../">&nbsp;ГЛАВНАЯ&nbsp;</NavLink></li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li><a href="/">&nbsp;О НАС&nbsp;</a></li>
-                <li className="divider"><img src={divider} alt=""/></li>
-                <li className="services"><a href="/">&nbsp;УСЛУГИ&nbsp;</a>
+                <li className="services"><NavLink to="../prices">&nbsp;УСЛУГИ&nbsp;</NavLink>
                   <ul className="dropdown">
-                    <li><a href="/">&nbsp;Ремонт телефонов&nbsp;</a></li>
+                    <li><NavLink to="../phones">Ремонт телефонов</NavLink></li>
                     <li>
                       <hr/>
                     </li>
-                    <li><a href="/">Ремонт планшетов</a></li>
+                    <li><NavLink to="../tablets">Ремонт планшетов</NavLink></li>
                     <li>
                       <hr/>
                     </li>
-                    <li><a href="/">Ремонт ноутбуков</a></li>
+                    <li><NavLink to="../notebooks">Ремонт ноутбуков</NavLink></li>
                   </ul>
                 </li>
                 <li className="divider"><img src={divider} alt=""/></li>
-                <li><a href="/">&nbsp;ПРАЙС-ЛИСТ&nbsp;</a></li>
+                <li><NavLink to="../prices">&nbsp;ПРАЙС-ЛИСТ&nbsp;</NavLink></li>
                 <li className="divider"><img src={divider} alt=""/></li>
                 <li><NavLink to="../account">&nbsp;ЛИЧНЫЙ&nbsp;КАБИНЕТ&nbsp;</NavLink></li>
                 <li className="divider"><img src={divider} alt=""/></li>

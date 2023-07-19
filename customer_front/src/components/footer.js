@@ -2,7 +2,7 @@ import arrow from '../img/arrow.svg';
 import hourglass from '../img/hourglass.svg';
 import mailto from '../img/mailto.svg';
 import destination from '../img/destination.svg';
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 
 function Footer() {
@@ -17,8 +17,13 @@ function Footer() {
               </div>
               <div className="owner-info">
                 <div className="owner-doc">
-                  <p className="text-to-style">ИП Иванов И.И.<br/>ИНН/ОГРНИП:<br/>
-                    111111111111/22222222222222</p>
+                  <p className="text-to-style">ИП Ибатуллин Р.Г.
+                    <br/>
+                    ИНН: 19844654754324
+                    <br/>
+                    ОГРНИП: 569239521340
+                    <br/>
+                  </p>
                 </div>
                 <p className="footer-disclaimer text-to-style lower">Обращаем ваше внимание на то, что
                   данный интернет-сайт носит исключительно информационный характер и ни
@@ -32,22 +37,17 @@ function Footer() {
 
               <ul className="link-list">
                 <li className="link-item">
-                  {/*<Link className="text-to-style" to="/" >ГЛАВНАЯ </Link>*/}
+                  <NavLink className="text-to-style" to="../" >ГЛАВНАЯ </NavLink>
                 </li>
                 <li className="link-item">
-                  <a className="text-to-style" href="#">О КОМПАНИИ</a>
+                  <NavLink className="text-to-style" to="../prices">ПРАЙС-ЛИСТ</NavLink>
                 </li>
                 <li className="link-item">
-
-                  <a className="text-to-style" href="forum.html">ПРАЙС-ЛИСТ</a>
+                  <a className="text-to-style"
+                     href="https://otzovik.com/reviews/oficialniy_servisniy_centr_smart-pro_russia_moscow/">ОТЗЫВЫ</a>
                 </li>
                 <li className="link-item">
-
-                  <a className="text-to-style" href="blog-v1.html">ОТЗЫВЫ</a>
-                </li>
-                <li className="link-item">
-
-                  <a className="text-to-style" href="#">КОНТАКТЫ</a>
+                  <NavLink to="../contacts" className="text-to-style" >КОНТАКТЫ</NavLink>
                 </li>
               </ul>
 
@@ -56,19 +56,16 @@ function Footer() {
 
               <ul className="link-list">
                 <li className="link-item">
-                  <a className="text-to-style" href="#">УСЛУГИ</a>
+                  <NavLink className="text-to-style" to="../prices">УСЛУГИ</NavLink>
                 </li>
                 <li className="link-item">
-                  <a className="text-to-style" href="#">Ремонт&nbsp;компьютеров</a>
+                  <NavLink className="text-to-style" to="../notebooks">Ремонт ноутбуков</NavLink>
                 </li>
                 <li className="link-item">
-                  <a className="text-to-style" href="#">Ремонт ноутбуков</a>
+                  <NavLink className="text-to-style" to="../phones">Ремонт телефонов</NavLink>
                 </li>
                 <li className="link-item">
-                  <a className="text-to-style" href="#">Ремонт телефонов</a>
-                </li>
-                <li className="link-item">
-                  <a className="text-to-style" href="#">Ремонт планшетов</a>
+                  <NavLink className="text-to-style" to="../tablets">Ремонт планшетов</NavLink>
                 </li>
               </ul>
 
@@ -100,7 +97,7 @@ function Footer() {
         <div className="footer-bottom-wrap">
           <div className="footer-bottom">
             <hr/>
-            <p><a className="text-to-style" href="http://СМАРТРЕМОНТ.РФ/">&copy;&nbsp;СМАРТ РЕМОНТ</a></p>
+            <p className="text-to-style">&copy;&nbsp;СМАРТ РЕМОНТ</p>
           </div>
         </div>
       </footer>

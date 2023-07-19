@@ -11,9 +11,13 @@ import Home from './components/home';
 import Status from './components/status';
 import Account from "./components/account";
 import Contacts from "./components/contacts";
+import Phones from "./components/phones";
+import Prices from "./components/priceList";
 import Cookies from 'universal-cookie';
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Notebooks from "./components/notebooks";
+import Tablets from "./components/tablets";
 
 class App extends Component {
   constructor(props) {
@@ -129,7 +133,7 @@ class App extends Component {
       this.notify("Ваша заявка на ремонт отправлена 🙌");
       this.pullData()
       setTimeout(() => {
-      window.location.href = '../account'
+        window.location.href = '../account'
       }, 5000)
     })
         .catch(error => this.notify('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.'));
@@ -168,6 +172,10 @@ class App extends Component {
               <Route path='status' element={<Status
                   checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>
               <Route path='contacts' element={<Contacts/>}/>
+              <Route path='phones' element={<Phones/>}/>
+              <Route path='notebooks' element={<Notebooks/>}/>
+              <Route path='tablets' element={<Tablets/>}/>
+              <Route path='prices' element={<Prices/>}/>
               <Route path='auth' element={<LoginForm
                   isAuth={() => this.isAuth()}
                   getToken={(email, password) => this.getToken(email, password)}/>}/>
@@ -183,8 +191,8 @@ class App extends Component {
                   getToken={(email, password) => this.getToken(email, password)}/>}/>
               <Route path='*' element={<NotFound404/>}/>
             </Routes>
+            <Footer/>
           </BrowserRouter>
-          <Footer/>
         </div>
     );
   }
