@@ -41,8 +41,9 @@ class TokenDataModelTestCase(TestCase):
 class OrderModelTestCase(TestCase):
     def test_order_model_creation(self):
         client = Client.objects.create(username="testuser", password="password")
-        order = Order.objects.create(client=client, status="CREATED",
-                                     category="TELEPHONE")
+        order = Order.objects.create(
+            client=client, status="CREATED", category="TELEPHONE"
+        )
         self.assertEqual(order.client, client)
         self.assertEqual(order.status, "CREATED")
         self.assertEqual(order.category, "TELEPHONE")
@@ -55,7 +56,9 @@ class OrderViewSetTestCase(TestCase):
     def setUp(self):
         self.order = Order.objects.create(
             client=Client.objects.create(username="testuser", password="password"),
-            status="CREATED", category="TELEPHONE")
+            status="CREATED",
+            category="TELEPHONE",
+        )
 
     def test_order_list(self):
         url = reverse("order-list")
@@ -142,4 +145,3 @@ class OrderModelSerializerTestCase(TestCase):
     def test_order_model_serializer(self):
         serializer = OrderModelSerializer(data=self.order_data)
         self.assertTrue(serializer.is_valid())
-
