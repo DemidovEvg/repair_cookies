@@ -155,27 +155,16 @@ class Order(models.Model):
 
 
 class Price(models.Model):
-    class GadgetType(models.TextChoices):
-        TELEPHONE = ("TELEPHONE", "телефон")
-        LAPTOP = ("LAPTOP", "ноутбук")
-        TABLET = ("TABLET", "планшет")
-
-    class RepairLvl(models.IntegerChoices):
-        ONE = (1, "внешний осмотр, диагностика")
-        TWO = (2, "Ремонт с разбором телефона, замена не паяных деталей")
-        THREE = (3, "Замена дисплея, тачскрина")
-        FOUR = (4, "Электро-механический ремонт")
-
     category = models.CharField(
         verbose_name="Категория техники",
         max_length=48,
-        choices=GadgetType.choices,
+        choices=Order.GadgetType.choices,
         default="",
     )
     repair_lvl = models.IntegerField(
         verbose_name="Уровень ремонта",
-        choices=RepairLvl.choices,
-        default=0,
+        choices=Order.RepairLvl.choices,
+        default=1,
     )
     price = models.FloatField(
         verbose_name="Стоимость ремонта",
