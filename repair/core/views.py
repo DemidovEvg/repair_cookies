@@ -11,7 +11,11 @@ from rest_framework.viewsets import ModelViewSet
 from django.views.generic import UpdateView, ListView
 
 from .models import ServiceMan, Order, Price
-from .serializers import ServicemanModelSerializer, OrderModelSerializer, PriceModelSerializer
+from .serializers import (
+    ServicemanModelSerializer,
+    OrderModelSerializer,
+    PriceModelSerializer,
+)
 from permissions import ServicemanPermissions, OrderPermissions
 from .services.order_service import update_outer_order
 from .services.get_price import get_repair_price
@@ -64,8 +68,8 @@ class OrderDetail(UpdateView):
         super().post(request, *args, **kwargs)
         self.object = self.get_object()
         payload = OrderModelSerializer(instance=self.object).data
-        price = get_repair_price(payload['category'], payload['repair_lvl'], request)
-        payload['amount_due_by'] = price
+        price = get_repair_price(payload["category"], payload["repair_lvl"], request)
+        payload["amount_due_by"] = price
         self.object.amount_due_by = price
         self.object.save(update_fields=["amount_due_by"])
         pk = self.object.id
