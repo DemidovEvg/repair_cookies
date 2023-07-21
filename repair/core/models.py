@@ -60,7 +60,8 @@ class Order(models.Model):
         TABLET = ("TABLET", "планшет")
 
     class RepairLvl(models.IntegerChoices):
-        ONE = (1, "внешний осмотр, диагностика")
+        UNDEFINED = (0, "Неопределен")
+        ONE = (1, "Внешний осмотр, диагностика")
         TWO = (2, "Ремонт с разбором телефона, замена не паяных деталей")
         THREE = (3, "Замена дисплея, тачскрина")
         FOUR = (4, "Электро-механический ремонт")
@@ -164,7 +165,7 @@ class Price(models.Model):
     repair_lvl = models.IntegerField(
         verbose_name="Уровень ремонта",
         choices=Order.RepairLvl.choices,
-        default=1,
+        default=0,
     )
     price = models.FloatField(
         verbose_name="Стоимость ремонта",
