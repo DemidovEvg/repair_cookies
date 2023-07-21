@@ -4,15 +4,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0004_price'),
+        ("core", "0004_price"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='price',
-            name='repair_lvl',
-            field=models.IntegerField(choices=[(1, 'внешний осмотр, диагностика'), (2, 'Ремонт с разбором телефона, замена не паяных деталей'), (3, 'Замена дисплея, тачскрина'), (4, 'Электро-механический ремонт')], default=0, verbose_name='Уровень ремонта'),
+            model_name="price",
+            name="repair_lvl",
+            field=models.IntegerField(
+                choices=[
+                    (1, "внешний осмотр, диагностика"),
+                    (2, "Ремонт с разбором телефона, замена не паяных деталей"),
+                    (3, "Замена дисплея, тачскрина"),
+                    (4, "Электро-механический ремонт"),
+                ],
+                default=0,
+                verbose_name="Уровень ремонта",
+            ),
         ),
     ]
