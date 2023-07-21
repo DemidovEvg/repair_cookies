@@ -127,6 +127,13 @@ class Order(models.Model):
         LAPTOP = ("LAPTOP", "ноутбук")
         TABLET = ("TABLET", "планшет")
 
+    class RepairLvl(models.IntegerChoices):
+        UNDEFINED = (0, "Неопределен")
+        ONE = (1, "Внешний осмотр, диагностика")
+        TWO = (2, "Ремонт с разбором телефона, замена не паяных деталей")
+        THREE = (3, "Замена дисплея, тачскрина")
+        FOUR = (4, "Электро-механический ремонт")
+
     class StatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
         GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
@@ -188,6 +195,9 @@ class Order(models.Model):
         verbose_name="Оплала произведена?", default=False
     )
     amount_due_by = models.FloatField(verbose_name="Сумма к оплате", default=0)
+    repair_lvl = models.IntegerField(
+        verbose_name="Уровень ремонта", choices=RepairLvl.choices, default=0
+    )
 
     def __str__(self):
         return f"Заявка id={self.id}"

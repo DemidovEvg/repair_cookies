@@ -54,6 +54,7 @@ class OrderSerializer(serializers.ModelSerializer):
             "customer_description",
             "deliveryman_description",
             "payment_completed",
+            "repair_lvl",
             "amount_due_by",
             "created",
         ]

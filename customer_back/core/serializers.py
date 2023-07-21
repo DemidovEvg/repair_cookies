@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.hashers import make_password
 
-from core.models import Client, Order
+from core.models import Client, Order, Price, RepairKind
 
 
 class ClientModelSerializer(ModelSerializer):
@@ -79,3 +79,28 @@ class OrderModelSerializer(ModelSerializer):
             client_serializer.is_valid(raise_exception=True)
             client_instance = client_serializer.save()
             validated_data["client"] = client_instance
+
+
+class RepairKindSerializer(ModelSerializer):
+    class Meta:
+        model = RepairKind
+        fields = (
+            "id",
+            "name",
+        )
+
+
+class PriceSerializer(ModelSerializer):
+    repair_kind = RepairKindSerializer()
+    repair_subkind = RepairKindSerializer()
+
+    class Meta:
+        model = Price
+        fields = (
+            "id",
+            "equipment_category",
+            "repair_kind",
+            "repair_subkind",
+            "name",
+            "value",
+        )

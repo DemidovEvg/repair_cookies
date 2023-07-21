@@ -74,6 +74,7 @@ class OrderAdmin(admin.ModelAdmin):
         "deliveryman_description",
         "created",
         "updated",
+        "repair_lvl",
         "payment_completed",
         "amount_due_by",
     ]

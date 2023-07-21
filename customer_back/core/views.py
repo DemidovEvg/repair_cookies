@@ -1,10 +1,11 @@
 from rest_framework.viewsets import ModelViewSet
 
-from core.models import Client, Order
+from core.models import Client, Order, Price
 from core.serializers import (
     ClientModelSerializer,
     OrderModelSerializer,
     NewClientModelSerializer,
+    PriceSerializer,
 )
 
 
@@ -32,3 +33,8 @@ class ClientViewSet(ModelViewSet):
         if email:
             return Client.objects.filter(email=email)
         return self.queryset
+
+
+class PriceViewSet(ModelViewSet):
+    queryset = Price.objects.all()
+    serializer_class = PriceSerializer
