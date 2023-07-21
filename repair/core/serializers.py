@@ -1,6 +1,12 @@
 from rest_framework.serializers import ModelSerializer
 
-from core.models import ServiceMan, Order
+from core.models import ServiceMan, Order, Price
+
+
+class PriceModelSerializer(ModelSerializer):
+    class Meta:
+        model = Price
+        fields = "__all__"
 
 
 class ServicemanModelSerializer(ModelSerializer):
@@ -22,6 +28,7 @@ class OrderModelSerializer(ModelSerializer):
             "deliveryman_description",
             "model",
             "category",
+            "repair_lvl",
             "amount_due_by",
             "created",
         ]

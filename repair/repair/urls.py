@@ -27,6 +27,7 @@ from core.views import (
     RepairDone,
     LoginUser,
     logout_user,
+    PriceApiList,
 )
 
 router = DefaultRouter()
@@ -40,5 +41,6 @@ urlpatterns = [
     path("<uuid:pk>/", OrderDetail.as_view(), name="order_detail"),
     path("repair_done/", RepairDone.as_view(), name="repair_done"),
     path("admin/", admin.site.urls),
+    path("api/prices/", PriceApiList.as_view()),
     path("api/", include(router.urls), name="api"),
 ]
