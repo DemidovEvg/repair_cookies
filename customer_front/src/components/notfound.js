@@ -1,22 +1,21 @@
-import Modal from 'react-bootstrap/Modal';
-import { useLocation } from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 
 function NotFound404() {
   const location = useLocation()
   return (
-    <div className="container-xxl">
-      <div className="d-flex justify-content-center">
-        <Modal.Dialog>
-          <Modal.Header>
-            <Modal.Title>Ошибка 404</Modal.Title>
-          </Modal.Header>
+      <div className="site-content-wrap">
+        <div className="nav-background"></div>
+        <div className="site-content">
 
-          <Modal.Body>
-            <p>Страница по адресу"{location.pathname}" не найдена</p>
-          </Modal.Body>
-        </Modal.Dialog>
+          <div className="picture-404">
+            <div>
+              <big>404</big>
+              <p>Страница по адресу <big>{location.pathname}</big> не найдена</p>
+            </div>
+            <img src={require('../img/Man note 1.png')} alt="Страница по адресу не найдена"/>
+          </div>
+        </div>
       </div>
-    </div>
   );
 }
 

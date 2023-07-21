@@ -149,6 +149,9 @@ class Order(models.Model):
         choices=GadgetType.choices,
         default=GadgetType.TELEPHONE,
     )
+    model = models.CharField(
+        verbose_name="Модель техники", max_length=1000, default="", blank=True
+    )
     address = models.ForeignKey(
         Address,
         verbose_name="Адресс клиента",
