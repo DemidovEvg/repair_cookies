@@ -59,6 +59,12 @@ class Order(models.Model):
         LAPTOP = ("LAPTOP", "ноутбук")
         TABLET = ("TABLET", "планшет")
 
+    class RepairLvl(models.IntegerChoices):
+        ONE = (1, "внешний осмотр, диагностика")
+        TWO = (2, "Ремонт с разбором телефона, замена не паяных деталей")
+        THREE = (3, "Замена дисплея, тачскрина")
+        FOUR = (4, "Электро-механический ремонт")
+
     class StatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
         GETTING_FROM_CLIENT = ("GETTING_FROM_CLIENT", "Получение техники от клиента")
@@ -121,7 +127,13 @@ class Order(models.Model):
     model = models.CharField(
         verbose_name="Модель техники", max_length=1000, default="", blank=True
     )
+    repair_lvl = models.IntegerField(
+        verbose_name="Уровень ремонта",
+        choices=RepairLvl.choices,
+        default=0,
+    )
 
+    @staticmethod
     def get_for_user(user):
         valid_status = ["SENT_TO_REPAIR", "REPAIR_IN_PROCESS", "REPAIR_DONE"]
         if user.is_team_lead:
@@ -140,3 +152,40 @@ class Order(models.Model):
         verbose_name = "Ремонт"
         verbose_name_plural = "Ремонты"
         ordering = ["-created"]
+
+
+class Price(models.Model):
+    class GadgetType(models.TextChoices):
+        TELEPHONE = ("TELEPHONE", "телефон")
+        LAPTOP = ("LAPTOP", "ноутбук")
+        TABLET = ("TABLET", "планшет")
+
+    class RepairLvl(models.IntegerChoices):
+        ONE = (1, "внешний осмотр, диагностика")
+        TWO = (2, "Ремонт с разбором телефона, замена не паяных деталей")
+        THREE = (3, "Замена дисплея, тачскрина")
+        FOUR = (4, "Электро-механический ремонт")
+
+    category = models.CharField(
+        verbose_name="Категория техники",
+        max_length=48,
+        choices=GadgetType.choices,
+        default="",
+    )
+    repair_lvl = models.IntegerField(
+        verbose_name="Уровень ремонта",
+        choices=RepairLvl.choices,
+        default=0,
+    )
+    price = models.FloatField(
+        verbose_name="Стоимость ремонта",
+        max_length=10,
+        default=0,
+    )
+
+    def __str__(self):
+        return f"Стоимость ремонта {self.repair_lvl} уровня для {self.category}"
+
+    class Meta:
+        verbose_name = "Стоимость ремонта"
+        verbose_name_plural = "Стоимость ремонтов"
