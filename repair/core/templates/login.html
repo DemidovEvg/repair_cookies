@@ -1,24 +1,22 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
 Авторизация
 {% endblock %}
 
-{% block body %}
+{% block content %}
 
-<div id="main">
-  <div id="site_content">
-    
-    <form method="post">
-      
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Войти</button>
-    
-    </form>
-  </div>
+<h4>Для продолжения работы, пожалуйста, войдите в систему.</h4>
 
+<form class="col-4" method="post">
+  
+  {% csrf_token %}
+  {{ form|crispy }}
+  
+  <button type="submit" class="btn btn-outline-dark">Войти</button>
 
-</div>
+</form>
 
 {% endblock %}

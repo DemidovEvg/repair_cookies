@@ -1,41 +1,63 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
 Детали заказа
 {% endblock %}
 
-{% block body %}
+{% block content %}
 
-<div id="main">
-  <div id="site_content">
-    <div id="content">
-      <h1>Детали заказа № {{ order.id }}</h1>
-      <table border="1">
-        <tr>
-          <th>Номер заказа</th>
-          <th>Неисправность со слов клиента</th>
-          <th>Статус заказа</th>
-          <th>Ремонтник</th>
-        </tr>
-        <tr>
-          <td>{{ order.id }}</td>
-          <td>{{ order.customer_description }}</td>
-          <td>{{ order.status }}</td>
-          <td>{{ order.serviceman }}</td>
-        </tr>
-      </table>
-      <h1>Изменение заказа</h1>
-      
-      <form action="" method="post">
-        
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Update"/>
-        
-      </form>
-      
+<!--<h1 class="display-4 text-center">Детали заказа</h1>-->
+
+<!--Таблица-->
+<h4 class="m-3">Детали заказа № {{ order.id|truncatechars:20 }}</h4>
+
+<table class="table table-sm table-striped table-bordered border-primary">
+  <!--Заголовок таблицы-->
+  <thead class="table-dark">
+  <tr>
+    <th scope="col">Номер заказа</th>
+    <th scope="col">Неисправность со слов клиента</th>
+    <th scope="col">Дата создания заказа</th>
+    <th scope="col">Статус заказа</th>
+    <th scope="col">Ремонтник</th>
+  </tr>
+  </thead>
+  <!--Конец заголовка таблицы-->
+  <!--Заполнение данными-->
+  <tbody>
+  <tr>
+    <td>{{ order.id }}</td>
+    <td>{{ order.customer_description }}</td>
+    <td>{{ order.status }}</td>
+    <td>{{ order.serviceman|default:"Не назначен" }}</td>
+    <!--  чтобы назначить, нужно зайти в заявку  -->
+  </tr>
+  </tbody>
+  <!--Конец ввода данных-->
+</table>
+<!--Конец таблицы-->
+<!--выбирать ремонтника только тим-лиду и админу-->
+<h4 class="m-3">Изменение заказа</h4>
+<form action="" method="post">
+  {% csrf_token %}
+  <div class="form-row">
+    {% for name in form %}
+    <div class="form-group col-md-6">
+      {{ name|as_crispy_field }}
     </div>
+    {% endfor %}
   </div>
+  <button type="submit" class="btn btn-outline-dark mb-3">Изменить</button>
+</form>
+
+<div>
+  <h4 class="m-3">Стоимость ремонта
+    <span class="badge badge-pill badge-dark">
+      {{ order.amount_due_by }}
+    </span>
+  </h4>
 </div>
 
 {% endblock %}
