@@ -27,28 +27,24 @@ class LoginForm extends Component {
         <div className="site-content-wrap">
           <div className="nav-background"></div>
           <div className="site-content">
-            <Form onSubmit={(event) => this.handleSubmit(event)}>
-              <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" name="email" placeholder="email@address.com"
-                              onChange={({target}) => this.handleChange(target)}/>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Пароль</Form.Label>
-                <Form.Control type="password" name="password" placeholder="Password"
-                              onChange={({target}) => this.handleChange(target)}/>
-              </Form.Group>
-
-              <Button variant="primary" type="submit">
-                Войти
-              </Button>
-            </Form>
-            <NavLink to="../register">Регистрация</NavLink>
-
-            {this.props.isAuth()
-                ? < Navigate to="../account"/>
-                : null}
+            <div className="form-holder">
+              <div id="login-form">
+                <h1>АВТОРИЗАЦИЯ</h1>
+                <fieldset>
+                  <form onSubmit={(event) => this.handleSubmit(event)}>
+                    <input type="text" name='email' placeholder="email"
+                           onChange={({target}) => this.handleChange(target)}/>
+                    <input type="password" name='password' placeholder="пароль"
+                           onChange={({target}) => this.handleChange(target)}/>
+                    <input type="submit" value="ВОЙТИ"/>
+                  </form>
+                  <p>Впервые у нас? <NavLink to="../register">Зарегистрируйтесь</NavLink></p>
+                </fieldset>
+                {this.props.isAuth()
+                    ? < Navigate to="../account"/>
+                    : null}
+              </div>
+            </div>
           </div>
         </div>
     );

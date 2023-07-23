@@ -797,3 +797,441 @@ a:hover {
     height: 100px;
 }
 
+/* Acount page - Login */
+
+.form-holder {
+    display: flex;
+    padding: 150px 0px 150px 0px;
+    background-image: url("img/wallpaper-4.svg");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+
+}
+
+#login-form {
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 5px;
+    margin: auto;
+    width: 300px;
+    font-size: 16px;
+    box-shadow:  0px 10px 20px 0px rgba(0, 0, 0, 0.3);
+
+}
+
+#login-form h1 {
+	background-color: #0B1427;
+	border-radius: 5px 5px 0px 0px;
+	color: #E7742E;
+	padding: 20px;
+	text-align: center;
+	text-transform: uppercase;
+	font-size:24px;
+}
+
+#login-form fieldset {
+	border: none;
+	padding: 30px;
+	position: relative;
+}
+
+
+#login-form fieldset form {
+	overflow: hidden;
+	width: 238px;
+}
+
+#login-form fieldset form input {
+	font-size: 14px;
+	outline: none;
+    appearance:none;
+    position: center;
+}
+
+
+#login-form fieldset form input[type="text"] {
+	border: 1px solid #292829;
+	border-radius: 3px 3px 0px 0px;
+	padding: 12px 10px;
+	width: 238px;
+    appearance:none;
+}
+
+#login-form fieldset form input[type="password"] {
+	border: 1px solid #292829;
+	border-top: none;
+	border-radius: 0px 0px 3px 3px;
+	padding: 12px 10px;
+	width: 238px;
+    appearance:none;
+}
+
+#login-form fieldset form input[type="submit"] {
+	background-color: #E7742E;
+	border: none;
+	border-radius: 3px;
+	color: #0B1427;
+    width:238px;
+	cursor: pointer;
+	float: none;
+	font-weight: bold;
+	margin-top: 30px;
+	padding: 12px 12px;
+    appearance: none;
+}
+
+#login-form fieldset form input[type="submit"]:hover {
+	color: white;
+    transition: color 0.5s;
+}
+
+#login-form fieldset form span:before {
+	background-color: #c9c9c9;
+	border-radius: 50%;
+	content: "?";
+	display: inline-block;
+	height: 20px;
+	line-height: 20px;
+	margin-right: 10px;
+	text-align: center;
+	width: 20px;
+}
+
+#login-form fieldset form span {
+	font-size: 12px;
+	margin-top: 40px;
+}
+
+#login-form fieldset form span a{
+	color: #eb6d1a;
+	text-decoration: none;
+}
+
+#login-form fieldset form span a:hover {
+	color: #eb6d1a;
+}
+
+#login-form p {
+    font-size: smaller;
+    margin: 30px 0px 0px 0px;
+    text-align: center;
+}
+
+#login-form p a {
+    background-color: #E8772E;
+    color:#0B1427;
+    border-radius: 3px;
+    padding:3px;
+    border:#0B1427;
+    text-decoration: none;
+}
+
+#login-form p a:hover {
+    color: white;
+}
+
+/* here you can delete row {display:none} to see the warning */
+.wrong-pass {
+    color:red;
+    display: none;
+}
+
+/* Acount page - main */
+
+.account-page-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 0px 0px 0px;
+    background-image: url("img/wallpaper-4.svg");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+}
+
+.user-name-and-user-phone {
+    display: flex;
+    max-width: 1080px;
+    width: 100%;
+    justify-content: space-between;
+    background-color: #0B1427;
+    color:#E7742E;
+    border-radius: 10px 10px 0px 0px;
+    text-transform:uppercase;
+    box-shadow:  0px 10px 20px 0px rgba(0, 0, 0, 0.3);
+    margin: 0px 0px 0px 0px;
+}
+
+.user-icon {
+    display: flex;
+    padding: 0px 0px 0px 30px;
+    align-items: center;
+}
+
+/* for short screen */
+.user-icon img {
+    max-height: 100px;
+    display: none;
+}
+
+.user-info {
+    padding: 20px;
+    text-align: right;
+}
+
+.user-info-name {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.links-edit-or-call {
+    margin-top: 10px;
+    font-size: 13px
+}
+
+.links-edit-or-call a:hover{
+    color: white;
+}
+
+.account-link {
+    background-color: #E8772E;
+    color:#0B1427;
+    border-radius: 3px;
+    padding:4px;
+    border:#0B1427;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.order-history {
+    display: flex;
+    flex-direction: column;
+    max-width: 1080px;
+    width: 100%;
+    margin: 0px 40px 100px 40px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 0px 0px 10px 10px;
+    box-shadow:  0px 10px 20px 0px rgba(0, 0, 0, 0.3);
+}
+.order-history-heading {
+    background-color: #E7742E;
+    text-align: center;
+    border: 1px solid #0B1427;
+    text-transform: uppercase;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0.5em;
+
+}
+
+.order-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.order-number {
+    font-size: 20px;
+    margin: 20px 0px 0px 0px;
+    padding: 0px 0px 0px 5px;
+    background-color: rgba(200, 200, 200, 0.7);
+
+}
+
+.order-date {
+    max-width: 110px;
+    width: 100%;
+    padding-left: 5px
+}
+
+.device-name {
+    max-width: 190px;
+    width: 100%;
+}
+
+.order-description {
+    max-width: 510px;
+    padding-right: 15px;
+    width: 100%;
+}
+
+.order-status {
+    max-width: 170px;
+    width: 100%;
+}
+
+.order-price {
+    max-width: 100px;
+    width: 100%;
+}
+
+/*Account page - CREATE*/
+
+#signup-form {
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 5px;
+    margin: auto;
+    width: 400px;
+    font-size: 16px;
+    box-shadow:  0px 10px 20px 0px rgba(0, 0, 0, 0.3);
+
+}
+
+#signup-form h1 {
+	background-color: #0B1427;
+	border-radius: 5px 5px 0px 0px;
+	color: #E7742E;
+	padding: 20px;
+	text-align: center;
+	text-transform: uppercase;
+	font-size:24px;
+}
+
+#signup-form fieldset {
+	border: none;
+	padding: 30px;
+	position: relative;
+}
+
+
+#signup-form fieldset form {
+	overflow: hidden;
+	width: 338px;
+}
+
+#signup-form fieldset form input {
+	font-size: 14px;
+	outline: none;
+    appearance:none;
+    position: center;
+}
+
+
+#signup-form fieldset form input[type="email"] {
+	padding: 12px 10px;
+	width: 338px;
+    appearance:none;
+}
+
+#signup-form fieldset form input[type="password"] {
+	padding: 12px 10px;
+	width: 338px;
+    appearance:none;
+}
+
+#signup-form fieldset form input[type="submit"] {
+	background-color: #E7742E;
+	border: none;
+	border-radius: 3px;
+	color: #0B1427;
+    width: 338px;
+	cursor: pointer;
+	float: none;
+	font-weight: bold;
+	margin-top: 30px;
+	padding: 12px 12px;
+    appearance: none;
+}
+
+#signup-form fieldset form input[type="submit"]:hover {
+	color: white;
+    transition: color 0.5s;
+}
+
+#signup-form fieldset form span:before {
+	background-color: #c9c9c9;
+	border-radius: 50%;
+	content: "?";
+	display: inline-block;
+	height: 20px;
+	line-height: 20px;
+	margin-right: 10px;
+	text-align: center;
+	width: 20px;
+}
+
+#signup-form fieldset form span {
+	font-size: 12px;
+	margin-top: 40px;
+}
+
+#signup-form fieldset form span a{
+	color: #eb6d1a;
+	text-decoration: none;
+}
+
+#signup-form fieldset form span a:hover {
+	color: #eb6d1a;
+}
+
+#signup-form p {
+    font-size: smaller;
+    margin: 30px 0px 0px 0px;
+    text-align: center;
+}
+
+#signup-form p a {
+    background-color: #E8772E;
+    color:#0B1427;
+    border-radius: 3px;
+    padding:3px;
+    border:#0B1427;
+    text-decoration: none;
+}
+
+#signup-form p a:hover {
+    color: white;
+}
+
+#signup-form fieldset form input[type="text"] {
+	padding: 12px 10px;
+	width: 338px;
+    appearance:none;
+}
+
+#signup-form fieldset form input[type="tel"] {
+	padding: 12px 10px;
+	width: 338px;
+    appearance: none;
+}
+
+.upper-field {
+    border: 1px solid #292829;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.middle-field {
+    border: 1px solid #292829;
+    border-top: none;
+}
+
+.lower-field {
+    border: 1px solid #292829;
+    border-radius: 0px 0px 5px 5px;
+    border-top: none;
+}
+
+/* ORDER FORM */
+
+.device-type {
+    width:338px;
+    background-color:white;
+    border: 1px solid;
+    border-radius: 5px 5px 5px 5px;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.what-to-fix {
+    width: 338px;
+    resize: vertical;
+    margin-top: 20px;
+    border-radius: 5px 5px 5px 5px;
+    border: 1px solid;
+    padding: 5px;
+}
+
+.what-to-fix:focus {
+    border: 1px solid orange;
+}
