@@ -44,8 +44,17 @@ class App extends Component {
       this.getToken(data.email, data.password)
     }).catch(error => {
           console.log('Что вообще могло пойти так?', error);
+          let fieldName = ''
           for (const key in error.response.data) {
-            this.notify(`${key}: ${error.response.data[key]}`)
+            if (key === 'phoneNumber') {
+              fieldName = 'номер телефона'
+            } else if (key === 'email') {
+              fieldName = 'email'
+            } else if (key === "username") {
+              continue;
+            }
+
+            this.notify(`${fieldName}: ${error.response.data[key]}`)
           }
         }
     );
@@ -186,7 +195,8 @@ class App extends Component {
               <Route path='register' element={<RegisterForm
                   isAuth={() => this.isAuth()}
                   createClient={(url, data) => this.createClient(url, data)}
-                  getToken={(email, password) => this.getToken(email, password)}/>}/>
+                  getToken={(email, password) => this.getToken(email, password)}
+                  notify={(message) => this.notify(message)}/>}/>
               <Route path='*' element={<NotFound404/>}/>
             </Routes>
             <Footer/>
