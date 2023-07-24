@@ -7,7 +7,6 @@ function Repair({isAuth, makeOrder, notify}) {
     'category': ''
   }
   const handleChange = (event) => {
-    console.log(event.target.value)
     data[[event.target.name]] = event.target.value
   };
 
