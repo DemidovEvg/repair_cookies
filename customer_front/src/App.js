@@ -44,8 +44,17 @@ class App extends Component {
       this.getToken(data.email, data.password)
     }).catch(error => {
           console.log('Что вообще могло пойти так?', error);
+          let fieldName = ''
           for (const key in error.response.data) {
-            this.notify(`${key}: ${error.response.data[key]}`)
+            if (key === 'phoneNumber') {
+              fieldName = 'номер телефона'
+            } else if (key === 'email') {
+              fieldName = 'email'
+            } else if (key === "username") {
+              continue;
+            }
+
+            this.notify(`${fieldName}: ${error.response.data[key]}`)
           }
         }
     );
@@ -165,6 +174,7 @@ class App extends Component {
               <Route path='/' element={<Home/>}/>
               <Route path='repair' element={<Repair
                   isAuth={() => this.isAuth()}
+                  notify={(message) => this.notify(message)}
                   makeOrder={(category, customerDescription) => this.makeOrder(category, customerDescription)}/>}/>
               <Route path='status' element={<Status
                   checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>
@@ -180,13 +190,15 @@ class App extends Component {
               <Route path='account' element={<Account
                   orders={this.state.orders}
                   isAuth={() => this.isAuth()}
-                  logOut={() => {
-                    this.saveToken('')
-                  }}/>}/>
+                  logOut={() => {this.saveToken('')}}
+                  user={this.state.users[0]}
+
+              />}/>
               <Route path='register' element={<RegisterForm
                   isAuth={() => this.isAuth()}
                   createClient={(url, data) => this.createClient(url, data)}
-                  getToken={(email, password) => this.getToken(email, password)}/>}/>
+                  getToken={(email, password) => this.getToken(email, password)}
+                  notify={(message) => this.notify(message)}/>}/>
               <Route path='*' element={<NotFound404/>}/>
             </Routes>
             <Footer/>
