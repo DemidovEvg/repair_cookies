@@ -174,6 +174,7 @@ class App extends Component {
               <Route path='/' element={<Home/>}/>
               <Route path='repair' element={<Repair
                   isAuth={() => this.isAuth()}
+                  notify={(message) => this.notify(message)}
                   makeOrder={(category, customerDescription) => this.makeOrder(category, customerDescription)}/>}/>
               <Route path='status' element={<Status
                   checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>

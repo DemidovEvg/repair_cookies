@@ -14,7 +14,7 @@ from customer.settings import PHONE_NUMBER_REGION
 
 class Client(AbstractUser):
     id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
-    email = models.EmailField("email", blank=False, unique=True, validators=(EmailValidator,))
+    email = models.EmailField("email", unique=True, validators=[EmailValidator])
     patronymic = models.CharField("Отчество", max_length=150, blank=True, default="")
     address = models.TextField("Адрес клиента", default="")
     location = models.CharField(max_length=30, blank=True)
