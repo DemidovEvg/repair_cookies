@@ -190,9 +190,10 @@ class App extends Component {
               <Route path='account' element={<Account
                   orders={this.state.orders}
                   isAuth={() => this.isAuth()}
-                  logOut={() => {
-                    this.saveToken('')
-                  }}/>}/>
+                  logOut={() => {this.saveToken('')}}
+                  user={this.state.users[0]}
+
+              />}/>
               <Route path='register' element={<RegisterForm
                   isAuth={() => this.isAuth()}
                   createClient={(url, data) => this.createClient(url, data)}

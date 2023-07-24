@@ -62,6 +62,9 @@ class Order(models.Model):
         max_length=15,
         choices=GadgetType.choices,
     )
+    model = models.CharField(
+        verbose_name="Модель техники", max_length=1000, default="", blank=True
+    )
     serviceman_description = models.CharField(
         verbose_name="Комментарий ремонтника", max_length=1000, default="", blank=True
     )

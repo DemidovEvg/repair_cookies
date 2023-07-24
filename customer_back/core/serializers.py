@@ -1,6 +1,5 @@
 from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.hashers import make_password
-from django.core.validators import EmailValidator
 
 from core.models import Client, Order, Price, RepairKind
 
@@ -50,6 +49,7 @@ class OrderModelSerializer(ModelSerializer):
             "id",
             "client",
             "category",
+            "model",
             "serviceman_description",
             "customer_description",
             "deliveryman_description",
