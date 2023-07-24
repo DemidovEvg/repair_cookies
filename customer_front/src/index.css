@@ -1235,3 +1235,18 @@ a:hover {
 .what-to-fix:focus {
     border: 1px solid orange;
 }
+
+.sub-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
+.sub-top {
+  flex-grow: 1;
+}
+
+.sub-footer {
+  flex-shrink: 0;
+}
