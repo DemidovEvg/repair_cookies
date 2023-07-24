@@ -159,48 +159,53 @@ class App extends Component {
 
   render() {
     return (
-        <div className="container">
+        <div className="container sub-body">
           <BrowserRouter>
-            <Header
-                isAuth={() => this.isAuth()}
-                saveToken={() => {
-                  this.saveToken('')
-                }}
-                logOut={() => {
-                  this.saveToken('')
-                }}/>
-            <ToastContainer/>
-            <Routes>
-              <Route path='/' element={<Home/>}/>
-              <Route path='repair' element={<Repair
-                  isAuth={() => this.isAuth()}
-                  notify={(message) => this.notify(message)}
-                  makeOrder={(category, customerDescription) => this.makeOrder(category, customerDescription)}/>}/>
-              <Route path='status' element={<Status
-                  checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>
-              <Route path='contacts' element={<Contacts/>}/>
-              <Route path='services' element={<Navigate to="/services/phones"/>}/>
-              <Route path='/services/phones' element={<Phones/>}/>
-              <Route path='/services/notebooks' element={<Notebooks/>}/>
-              <Route path='/services/tablets' element={<Tablets/>}/>
-              <Route path='prices' element={<Prices/>}/>
-              <Route path='auth' element={<LoginForm
-                  isAuth={() => this.isAuth()}
-                  getToken={(email, password) => this.getToken(email, password)}/>}/>
-              <Route path='account' element={<Account
-                  orders={this.state.orders}
-                  isAuth={() => this.isAuth()}
-                  logOut={() => {this.saveToken('')}}
-                  user={this.state.users[0]}
+            <div className="sub-top">
 
-              />}/>
-              <Route path='register' element={<RegisterForm
+              <Header
                   isAuth={() => this.isAuth()}
-                  createClient={(url, data) => this.createClient(url, data)}
-                  getToken={(email, password) => this.getToken(email, password)}
-                  notify={(message) => this.notify(message)}/>}/>
-              <Route path='*' element={<NotFound404/>}/>
-            </Routes>
+                  saveToken={() => {
+                    this.saveToken('')
+                  }}
+                  logOut={() => {
+                    this.saveToken('')
+                  }}/>
+              <ToastContainer/>
+              <Routes>
+                <Route path='/' element={<Home/>}/>
+                <Route path='repair' element={<Repair
+                    isAuth={() => this.isAuth()}
+                    notify={(message) => this.notify(message)}
+                    makeOrder={(category, customerDescription) => this.makeOrder(category, customerDescription)}/>}/>
+                <Route path='status' element={<Status
+                    checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>
+                <Route path='contacts' element={<Contacts/>}/>
+                <Route path='services' element={<Navigate to="/services/phones"/>}/>
+                <Route path='/services/phones' element={<Phones/>}/>
+                <Route path='/services/notebooks' element={<Notebooks/>}/>
+                <Route path='/services/tablets' element={<Tablets/>}/>
+                <Route path='prices' element={<Prices/>}/>
+                <Route path='auth' element={<LoginForm
+                    isAuth={() => this.isAuth()}
+                    getToken={(email, password) => this.getToken(email, password)}/>}/>
+                <Route path='account' element={<Account
+                    orders={this.state.orders}
+                    isAuth={() => this.isAuth()}
+                    logOut={() => {
+                      this.saveToken('')
+                    }}
+                    user={this.state.users[0]}
+
+                />}/>
+                <Route path='register' element={<RegisterForm
+                    isAuth={() => this.isAuth()}
+                    createClient={(url, data) => this.createClient(url, data)}
+                    getToken={(email, password) => this.getToken(email, password)}
+                    notify={(message) => this.notify(message)}/>}/>
+                <Route path='*' element={<NotFound404/>}/>
+              </Routes>
+            </div>
             <Footer/>
           </BrowserRouter>
         </div>

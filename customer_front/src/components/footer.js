@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 
 function Footer() {
   return (
-      <footer>
+      <footer className="sub-footer">
         <div className="footer-top-wrap">
           <div className="footer-top">
 

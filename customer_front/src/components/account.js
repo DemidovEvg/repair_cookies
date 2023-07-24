@@ -1,6 +1,22 @@
 import {Navigate, NavLink} from "react-router-dom";
 import avatar from '../img/account-icon.svg'
 
+function User({user, logOut}) {
+  if (!user) return
+  return <div className="user-info">
+    <p className="user-info-name">{user.lastName} {user.firstName} {user.patronymic}</p>
+    <p className="user-mail">{user.email}</p>
+    <p className="user-phone">{user.phoneNumber}</p>
+    <div className="links-edit-or-call">
+      <NavLink className="account-link" to="../repair">Создать заказ</NavLink>
+      &nbsp;
+      <NavLink className="account-link" to="../"
+               onClick={() => logOut()}
+      >Выйти</NavLink>
+    </div>
+  </div>
+}
+
 function Order({order}) {
   if (!order) return
   return (
@@ -21,6 +37,17 @@ function Order({order}) {
   );
 }
 
+function Empty() {
+  return (
+      <div className="order order-open">
+        <p className="order-number"></p>
+        <div className="order-details">
+          &nbsp;&nbsp;Вы еще ничего не заказали ;)
+        </div>
+      </div>
+  );
+}
+
 function Orders({orders}) {
   return (
       <div>
@@ -36,9 +63,6 @@ function Orders({orders}) {
 }
 
 function Account({orders, isAuth, logOut, user}) {
-  if (!user) {
-    return
-      }
   return (
       <div className="site-content-wrap">
         {isAuth()
@@ -51,21 +75,13 @@ function Account({orders, isAuth, logOut, user}) {
               <div className="user-icon">
                 <img src={avatar} alt="icon"/>
               </div>
-              <div className="user-info">
-                <p className="user-info-name">{user.lastName} {user.firstName} {user.patronymic}</p>
-                <p className="user-mail">{user.email}</p>
-                <p className="user-phone">{user.phoneNumber}</p>
-                <div className="links-edit-or-call">
-                  <NavLink className="account-link" to="../repair">Создать заказ</NavLink>
-                  <NavLink className="account-link" to="../"
-                           onClick={() => logOut()}
-                  >Выйти</NavLink>
-                </div>
-              </div>
+              <User user={user} logOut={logOut}/>
             </div>
             <div className="order-history">
               <div className="order-history-heading">История обслуживания</div>
-              <Orders orders={orders}/>
+              {orders.length > 0
+              ? <Orders orders={orders} />
+              : <Empty />}
             </div>
           </div>
         </div>
