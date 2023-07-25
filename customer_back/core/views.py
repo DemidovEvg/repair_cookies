@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
+from django.shortcuts import render
 
 from core.models import Client, Order, Price
 from core.serializers import (
@@ -51,3 +52,7 @@ class ClientViewSet(ModelViewSet):
 class PriceViewSet(ModelViewSet):
     queryset = Price.objects.all()
     serializer_class = PriceSerializer
+
+
+def client_orders(request, email):
+    return render(request, "core/client_orders.html", {"email": email})

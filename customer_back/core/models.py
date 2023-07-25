@@ -50,7 +50,7 @@ class Order(models.Model):
         TABLET = ("TABLET", "планшет")
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="orders")
     status = models.CharField(
         verbose_name="Статус заказа",
         max_length=48,
