@@ -170,7 +170,9 @@ class App extends Component {
                   }}
                   logOut={() => {
                     this.saveToken('')
-                  }}/>
+                  }}
+                  users={this.state.users}
+                  />
               <ToastContainer/>
               <Routes>
                 <Route path='/' element={<Home/>}/>
@@ -195,8 +197,8 @@ class App extends Component {
                     logOut={() => {
                       this.saveToken('')
                     }}
-                    user={this.state.users[0]}
-
+                    user={this.state.users}
+                    email={this.state.email}
                 />}/>
                 <Route path='register' element={<RegisterForm
                     isAuth={() => this.isAuth()}
