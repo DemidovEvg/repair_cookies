@@ -1,7 +1,11 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework.exceptions import APIException
 from django.contrib.auth.hashers import make_password
+from django.conf import settings
+from requests.exceptions import ConnectionError
 
 from core.models import Client, Order, Price, RepairKind
+from core.services.order_service import create_or_update
 
 
 class ClientModelSerializer(ModelSerializer):
@@ -61,11 +65,13 @@ class OrderModelSerializer(ModelSerializer):
 
     def create(self, validated_data):
         self.create_or_update_client(validated_data)
-        return super().create(validated_data)
+        instance = super().create(validated_data)
+        return instance
 
     def update(self, instance, validated_data):
         self.create_or_update_client(validated_data)
-        return super().update(instance, validated_data)
+        instance = super().update(instance, validated_data)
+        return instance
 
     @staticmethod
     def create_or_update_client(validated_data):
@@ -79,6 +85,31 @@ class OrderModelSerializer(ModelSerializer):
             client_serializer.is_valid(raise_exception=True)
             client_instance = client_serializer.save()
             validated_data["client"] = client_instance
+
+    @classmethod
+    def create_or_update_outer_order(cls, order: Order):
+        exceptions = []
+        try:
+            service_create = f"{settings.DELIVERY_SERVICE}/api/orders/"
+            service_update = f"{service_create}{order.id}/"
+            data = cls(instance=order).data
+
+            create_or_update(service_create, service_update, data)
+        except ConnectionError as exc:
+            exceptions.append(exc)
+
+        try:
+            service_create = f"{settings.REPAIR_SERVICE}/api/orders/"
+            service_update = f"{service_create}{order.id}/"
+            create_or_update(service_create, service_update, data)
+        except ConnectionError as exc:
+            exceptions.append(exc)
+
+        if exceptions:
+            raise APIException(
+                "Не получилось отправить заказ в службу доставки, "
+                "пожалуйста обратитесь в службу поддержки!"
+            )
 
 
 class RepairKindSerializer(ModelSerializer):

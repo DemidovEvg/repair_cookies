@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.decorators import action
 
 from core.models import Client, Order, Price
 from core.serializers import (
@@ -16,8 +17,20 @@ class OrderViewSet(ModelViewSet):
     def get_queryset(self):
         email = self.request.query_params.get("email")
         if email:
-            return Order.objects.filter(client__email=email)
+            return self.queryset.filter(client__email=email)
         return self.queryset
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        OrderModelSerializer.create_or_update_outer_order(instance)
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        OrderModelSerializer.create_or_update_outer_order(instance)
+
+    @action(methods=["patch"], detail=True, url_path="sync", url_name="sync_update")
+    def action_sync_update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
 
 
 class ClientViewSet(ModelViewSet):

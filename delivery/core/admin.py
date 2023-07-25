@@ -129,9 +129,8 @@ class OrderAdmin(admin.ModelAdmin):
         exceptions = []
         try:
             service_create = f"{settings.CLIENT_SERVICE}/api/orders/"
-            service_update = f"{service_create}{order.id}/"
+            service_update = f"{service_create}{order.id}/sync/"
             data = OrderSerializer(instance=order).data
-
             create_or_update(service_create, service_update, data)
         except Exception as exc:
             exceptions.append(exc)
