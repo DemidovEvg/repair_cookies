@@ -40,13 +40,10 @@ class ClientConsumer(AsyncJsonWebsocketConsumer):
             await self.send(text_data=json.dumps(self.client_data))
 
         while True:
-            try:
-                client = await self.get_client(self.email)
-                orders = await self.get_orders(client)
-                new_client_data = await self.serialize_orders(orders)
-                if self.client_data != new_client_data:
-                    self.client_data = new_client_data
-                    await self.send(text_data=json.dumps(self.client_data))
-                await asyncio.sleep(1)
-            except KeyboardInterrupt:
-                sys.exit()
+            client = await self.get_client(self.email)
+            orders = await self.get_orders(client)
+            new_client_data = await self.serialize_orders(orders)
+            if self.client_data != new_client_data:
+                self.client_data = new_client_data
+                await self.send(text_data=json.dumps(self.client_data))
+            await asyncio.sleep(1)
