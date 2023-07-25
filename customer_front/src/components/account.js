@@ -1,11 +1,11 @@
 import {Navigate, NavLink} from "react-router-dom";
 import avatar from '../img/account-icon.svg'
 
-function User({user, logOut}) {
+function User({user, logOut, email}) {
   if (!user) return
   return <div className="user-info">
     <p className="user-info-name">{user.lastName} {user.firstName} {user.patronymic}</p>
-    <p className="user-mail">{user.email}</p>
+    <p className="user-mail">{email}</p>
     <p className="user-phone">{user.phoneNumber}</p>
     <div className="links-edit-or-call">
       <NavLink className="account-link" to="../repair">Создать заказ</NavLink>
@@ -30,8 +30,8 @@ function Order({order}) {
               : 'Отправлено на диагностику'}</p>
           <p className="order-status">{order.status}</p>
           <p className="order-price">{order.price
-              ? order.price
-              : (Math.random() * 1000).toFixed(2)}</p>
+              ? order.price + ' руб.'
+              : '-'}</p>
         </div>
       </div>
   );
@@ -62,7 +62,7 @@ function Orders({orders}) {
   );
 }
 
-function Account({orders, isAuth, logOut, user}) {
+function Account({orders, isAuth, logOut, user, email}) {
   return (
       <div className="site-content-wrap">
         {isAuth()
@@ -75,7 +75,7 @@ function Account({orders, isAuth, logOut, user}) {
               <div className="user-icon">
                 <img src={avatar} alt="icon"/>
               </div>
-              <User user={user} logOut={logOut}/>
+              <User user={user[0]} logOut={logOut} email={email}/>
             </div>
             <div className="order-history">
               <div className="order-history-heading">История обслуживания</div>
