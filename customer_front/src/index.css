@@ -24,6 +24,11 @@ a {
     justify-content: center;
 }
 
+.background-img{
+    background-color: #0B1427;
+    width: 100%;
+}
+
 .site-nav {
     height: 114px;
     margin-top: 40px;
@@ -183,6 +188,10 @@ a {
 
 .foot-contact-item img {
     margin-right: 10px;
+    width: 15px;
+    height: 20px;
+    align-self: center;
+    
 }
 
 .foot-tel-num p {
@@ -211,6 +220,10 @@ a {
 
 .footer-bottom a {
     text-decoration: none;
+}
+
+.footer-bottom p {
+    text-align: center;
 }
 
 a:hover {
@@ -283,6 +296,8 @@ a:hover {
     background: radial-gradient(circle, rgba(232, 119, 46, 0.6012605725884104) 0%, rgba(255, 255, 255, 0) 70%);
 
 }
+
+
 
 /* service */
 
@@ -1249,4 +1264,126 @@ a:hover {
 
 .sub-footer {
   flex-shrink: 0;
+}
+
+
+/*ADAPTIVE*/
+
+@media (max-width: 1080px){
+    .guy-with-laptop {
+        display: none;
+    }
+}
+
+@media (max-width: 500px){
+    .list-style-count {
+        display: none;
+    }
+    .call-steps li {
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        list-style: square inside;
+    }
+    .footer-logo {
+        display: none;
+    }
+    .footer-top {
+        flex-direction: column-reverse;
+        padding-left: 5px;
+    }
+    .footer-bottom p {
+        text-align: center;
+    }
+}
+
+@media (max-width: 900px) {
+    .site-nav {
+        flex-direction: column;
+        margin-top: 4px;
+    }
+    .logo img {
+        max-height: 80px;
+    }
+    .links {
+        width: 100%;
+        padding-left: 5px;
+        font-size: 0.6em;
+        justify-content: center;
+        
+    }
+    .phones { 
+        padding-left: 5px;
+        justify-content: center;
+    }
+    .phones img {
+        display: none;
+    }
+    .tel-num {
+        font-size: 0.8em;
+        margin: 0px 10px 0px 10px
+    }
+    
+
+    .divider img {
+        height: 0.8em;
+    }
+    .background-img img {
+        max-height: 38em;
+    }
+    .guy-with-laptop {
+        display: none;
+    }
+    .main-text-block {
+        width: 100%;
+        padding-left: 5px;
+        padding-bottom: 5px;
+    }
+    .the-biggest-font {
+        font-size: 2em;
+        
+    }
+    .main-page-top {
+        top: 10em;   
+    }
+    
+    .block-service {
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+    }
+    .repair-card {
+        max-width: 100%;
+    }
+    .card-list {
+        text-align: center;
+        font-size: 0.7em;
+    }
+    .price-list-link {
+        font-size: 0.6em;
+    }
+    .call-img {
+        display: none;
+    }
+    .big-font {
+        font-size: 1.5rem;
+    }
+    .call-steps {
+        padding-left: 5px;
+    }
+    .one-of-nine img {
+        max-width: 80px;
+        max-height: 50px;
+    }
+    .one-of-nine p {
+        font-size: 0.45em;
+        line-height: 1.2em;
+    }
+    .row-cards {
+        padding: 5px;
+    }
+    .link-info {
+        display: none;
+    }
+    
+    
 }
