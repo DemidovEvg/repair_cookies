@@ -162,3 +162,12 @@ KEYCLOAK_SERVISE_ACCOUNT_NAME = env("KEYCLOAK_SERVISE_ACCOUNT_NAME")
 SESSION_COOKIE_NAME = "_customer"
 
 ASGI_APPLICATION = "customer.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
