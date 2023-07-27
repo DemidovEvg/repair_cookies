@@ -34,10 +34,10 @@ services:
   customer-front:
     image: "base_front"
     ports:
-      - "3000:3000"
+      - "80:3000"
     networks:
       - cookies_network
-    command: ["npm", "start", "0.0.0.0:3000"]
+    command: ["npm", "start"]
 
   websocket-layer:
     image: redis:latest
