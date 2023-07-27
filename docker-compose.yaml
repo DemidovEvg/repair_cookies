@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  delivery:
+    build:
+      context: .
+      dockerfile: delivery/.Dockerfile
+    ports:
+      - "8002:8002"
+    networks:
+      - cookies_network
+    command: ["python3", "manage.py", "runserver", "0.0.0.0:8002"]
+
+  repair:
+    build:
+      context: .
+      dockerfile: repair/.Dockerfile
+    ports:
+      - "8003:8003"
+    networks:
+      - cookies_network
+    command: ["python3", "manage.py", "runserver", "0.0.0.0:8003"]
+
+  customer-back:
+    build:
+      context: .
+      dockerfile: customer_back/.Dockerfile
+    ports:
+      - "8001:8001"
+    networks:
+      - cookies_network
+    command: ["python3", "manage.py", "runserver", "0.0.0.0:8001"]
+
+  customer-front:
+    image: "base_front"
+    ports:
+      - "3000:3000"
+    networks:
+      - cookies_network
+    command: ["npm", "start", "0.0.0.0:3000"]
+
+  websocket-layer:
+    image: redis:latest
+    restart: always
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - cookies_network
+
+networks:
+  cookies_network:

@@ -138,3 +138,8 @@ npm start
 - Мусор обязательно игнорим в .gitignore
 - админ пусть будет по следующим реквизитам login: gbdev1_admin, password: gbdev1_2023
 
+## Старт проекта в докере
+
+docker build -f .Dockerfile_back_base -t base_back .
+docker build -f .Dockerfile_front_base -t base_front .
+docker-compose up --build 
