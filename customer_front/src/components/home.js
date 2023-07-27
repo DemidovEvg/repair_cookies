@@ -143,7 +143,7 @@ function Home() {
             <div className="row-cards">
               <div className="one-of-nine">
                 <img src={groupPro} alt=""/>
-                <p>ВСЕ МАСТЕРА&nbsp;&mdash;ДИПЛОМИРОВАННЫЕ СПЕЦИАЛИСТЫ С ОПЫТОМ РАБОТЫ БОЛЕЕ 8 ЛЕТ </p>
+                <p>ВСЕ МАСТЕРА&mdash;ДИПЛОМИРОВАННЫЕ СПЕЦИАЛИСТЫ С ОПЫТОМ РАБОТЫ БОЛЕЕ 8 ЛЕТ </p>
               </div>
               <div className="one-of-nine">
                 <img src={upgrade} alt=""/>
