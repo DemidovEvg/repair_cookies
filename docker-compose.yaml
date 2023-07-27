@@ -32,7 +32,9 @@ services:
     command: ["python3", "manage.py", "runserver", "0.0.0.0:8001"]
 
   customer-front:
-    image: "base_front"
+    build:
+      context: .
+      dockerfile: customer_front/.Dockerfile
     ports:
       - "80:3000"
     networks:
