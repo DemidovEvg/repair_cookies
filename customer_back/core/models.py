@@ -2,11 +2,12 @@ from uuid import uuid4
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import EmailValidator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 from customer.settings import PHONE_NUMBER_REGION
+
+from core.curse_word import func_curse_word
 
 
 # Create your models here.
@@ -14,8 +15,8 @@ from customer.settings import PHONE_NUMBER_REGION
 
 class Client(AbstractUser):
     id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
-    email = models.EmailField("email", unique=True, validators=[EmailValidator])
-    patronymic = models.CharField("Отчество", max_length=150, blank=True, default="")
+    patronymic = models.CharField("Отчетство", max_length=150, blank=True, default="")
+    first_name = models.CharField(max_length=30, blank=True, validators=[func_curse_word])
     address = models.TextField("Адрес клиента", default="")
     location = models.CharField(max_length=30, blank=True)
     phone_number = PhoneNumberField(
@@ -50,7 +51,7 @@ class Order(models.Model):
         TABLET = ("TABLET", "планшет")
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="orders")
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     status = models.CharField(
         verbose_name="Статус заказа",
         max_length=48,
@@ -61,9 +62,6 @@ class Order(models.Model):
         "Техника",
         max_length=15,
         choices=GadgetType.choices,
-    )
-    model = models.CharField(
-        verbose_name="Модель техники", max_length=1000, default="", blank=True
     )
     serviceman_description = models.CharField(
         verbose_name="Комментарий ремонтника", max_length=1000, default="", blank=True
