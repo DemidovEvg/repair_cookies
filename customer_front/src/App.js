@@ -39,6 +39,7 @@ class App extends Component {
 
 
   createClient(url, data) {
+    console.log(this.apiPath + url);
     const headers = this.getHeaders();
     axios.post(this.apiPath + url, data, { 'headers': headers }).then(response => {
       this.notify('Вы успешно зарегистрированы!');
