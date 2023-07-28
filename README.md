@@ -145,3 +145,6 @@ docker build -f .Dockerfile_back_base -t base_back .
 docker build -f .Dockerfile_front_base -t base_front .
 docker-compose up --build 
 ```
+## Сервер
+
+37.220.80.27
