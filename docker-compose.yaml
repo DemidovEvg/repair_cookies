@@ -41,7 +41,7 @@ services:
       - cookies_network
     command: ["npm", "start"]
     environment:
-      REACT_APP_API_BACK: http://188.225.43.230:8001
+      REACT_APP_API_BACK: http://188.225.43.230:8001/
 
   websocket-layer:
     image: redis:latest
