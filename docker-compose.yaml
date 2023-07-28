@@ -36,7 +36,7 @@ services:
       context: .
       dockerfile: customer_front/.Dockerfile
     ports:
-      - "80:3000"
+      - "3000:3000"
     networks:
       - cookies_network
     command: ["npm", "start"]
@@ -50,16 +50,58 @@ services:
       - cookies_network
 
   keycloak:
-    image: "quay.io/keycloak/keycloak:22.0.1"
+    image: quay.io/keycloak/keycloak:22.0.0
     ports:
       - "8080:8080"
       - "8443:8443"
+    depends_on:
+      keycloak-db:
+        condition: service_healthy
     environment:
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - KEYCLOAK_ADMIN=admin
-      - KC_HOSTNAME_STRICT_HTTPS=false
-      - KC_HTTP_ENABLED=true
-    command: ["start-dev"]
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KEYCLOAK_ADMIN: admin
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/conf/server.crt.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/conf/server.key.pem
+
+      KC_DB: postgres
+      KC_DB_SCHEMA: public
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+      KC_HTTP_ENABLED: "true"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_FEATURES: preview
+
+
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/postgres
+      
+    networks:
+      - cookies_network
+    volumes:
+      ./tls/server.crt.pem: /opt/keycloak/conf/server.crt.pem
+      ./tls/server.key.pem: /opt/keycloak/conf/server.key.pem
+    command: ["start"]
+
+  keycloak-db:
+    image: "postgres:latest"
+    restart: unless-stopped
+    ports:
+      - "5100:5432"
+    volumes:
+        - ./postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: keycloak
+      PGUSER: postgres
+    networks:
+      - cookies_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
 networks:
   cookies_network:
