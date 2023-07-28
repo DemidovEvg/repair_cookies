@@ -79,6 +79,8 @@ class OrderModelSerializer(ModelSerializer):
             client_instance = Client.objects.filter(
                 id=validated_data["client"]["id"]
             ).first()
+            print(1111111111111)
+            print(client_instance)
             client_serializer = ClientModelSerializer(
                 instance=client_instance, data=validated_data["client"], partial=True
             )
