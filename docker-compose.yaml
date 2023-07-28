@@ -78,8 +78,7 @@ services:
     networks:
       - cookies_network
     volumes:
-      ./tls/server.crt.pem: /opt/keycloak/conf/server.crt.pem
-      ./tls/server.key.pem: /opt/keycloak/conf/server.key.pem
+      - ./tls:/opt/keycloak/conf
     command: ["start"]
 
   keycloak-db:
