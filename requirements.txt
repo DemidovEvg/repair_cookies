@@ -13,3 +13,5 @@ requests~=2.31.0
 django-filter~=23.2
 channels[daphne]==4.0.0
 channels_redis==4.1.0
+django-crispy-forms==2.0
+crispy-bootstrap4==2022.1

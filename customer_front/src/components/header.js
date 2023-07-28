@@ -16,7 +16,7 @@ function Header({isAuth, logOut, users}) {
           <div className="phones-and-nav">
             <div className="phones">
               <img src={arrow} alt="->"/>
-              <p className="tel-num">+ 7 (789) 456-12-34</p>
+              <p className="tel-num">+ 7 (789) 456-12-33</p>
               <img src={arrow} alt="->"/>
               <p className="tel-num">+ 7 (789) 456-12-34</p>
               <img src={icon1} alt="WhatsApp_icon"/>

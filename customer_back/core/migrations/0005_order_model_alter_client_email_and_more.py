@@ -5,25 +5,33 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0004_repairkind_price'),
+        ("core", "0004_repairkind_price"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='order',
-            name='model',
-            field=models.CharField(blank=True, default='', max_length=1000, verbose_name='Модель техники'),
+            model_name="order",
+            name="model",
+            field=models.CharField(
+                blank=True, default="", max_length=1000, verbose_name="Модель техники"
+            ),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='email',
-            field=models.EmailField(max_length=254, unique=True, validators=[django.core.validators.EmailValidator], verbose_name='email'),
+            model_name="client",
+            name="email",
+            field=models.EmailField(
+                max_length=254,
+                unique=True,
+                validators=[django.core.validators.EmailValidator],
+                verbose_name="email",
+            ),
         ),
         migrations.AlterField(
-            model_name='client',
-            name='patronymic',
-            field=models.CharField(blank=True, default='', max_length=150, verbose_name='Отчество'),
+            model_name="client",
+            name="patronymic",
+            field=models.CharField(
+                blank=True, default="", max_length=150, verbose_name="Отчество"
+            ),
         ),
     ]

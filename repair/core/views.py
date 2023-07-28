@@ -68,14 +68,15 @@ class OrderDetail(UpdateView):
         super().post(request, *args, **kwargs)
         self.object = self.get_object()
         payload = OrderModelSerializer(instance=self.object).data
-        price = get_repair_price(payload["category"], payload["repair_lvl"], request)
+        # price = get_repair_price(payload["category"], payload["repair_lvl"], request)
+        price = 100
         payload["amount_due_by"] = price
         self.object.amount_due_by = price
         self.object.save(update_fields=["amount_due_by"])
         pk = self.object.id
 
         try:
-            service_update = f"{settings.CLIENT_SERVICE}/api/orders/{pk}/"
+            service_update = f"{settings.CLIENT_SERVICE}/api/orders/{pk}/sync/"
             update_outer_order(service_update, payload)
         except Exception as exc:
             messages.add_message(request, messages.ERROR, repr(exc))

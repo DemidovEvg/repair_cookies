@@ -83,10 +83,10 @@ function Footer() {
                   <img src={destination} alt=""/><p>г.Москва, ул. Строителей, 3 </p>
                 </li>
                 <li className="foot-contact-item text-to-style">
-                  <img src={mailto} alt=""/><p>info@смартремонт.рф </p>
+                  <img src={mailto} alt=""/><p>info@смартремонт.рф</p>
                 </li>
                 <li className="foot-contact-item text-to-style">
-                  <img src={hourglass} alt=""/><p>10:00 - 20:00 (без выходных) </p>
+                  <img src={hourglass} alt=""/><p>10:00 - 20:00 (без выходных)</p>
                 </li>
               </ul>
 

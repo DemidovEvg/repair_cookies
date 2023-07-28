@@ -72,7 +72,7 @@ def remove_api_token():
             username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
             id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
             phone_number="00000",
-            mail="api@api.ru",
+            email="api@api.ru",
         )
     token_data, created = TokenData.objects.get_or_create(
         user=api_user, defaults=dict(token="")
@@ -89,7 +89,7 @@ def get_access_token() -> str:
             username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
             id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
             phone_number="00000",
-            mail="api@api.ru",
+            email="api@api.ru",
         )
 
     access_token = None
