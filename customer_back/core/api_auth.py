@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from drf_keycloak_auth.authentication import KeycloakAuthentication
 from django.conf import settings
 from drf_keycloak_auth.settings import api_settings
@@ -68,6 +69,12 @@ def remove_api_token():
     try:
         api_user = User.objects.get(id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID)
     except User.DoesNotExist:
+        User.objects.filter(
+            Q(username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME)
+            | Q(phone_number="00000")
+            | Q(email="api@api.ru")
+        ).delete()
+        User.objects.filter().delete()
         api_user = User.objects.create(
             username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
             id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
@@ -85,6 +92,11 @@ def get_access_token() -> str:
     try:
         api_user = User.objects.get(id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID)
     except User.DoesNotExist:
+        User.objects.filter(
+            Q(username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME)
+            | Q(phone_number="00000")
+            | Q(email="api@api.ru")
+        ).delete()
         api_user = User.objects.create(
             username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
             id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
