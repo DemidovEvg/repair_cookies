@@ -23,6 +23,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.apiPath = process.env.REACT_APP_API_BACK;
+    console.log(this.apiPath);
     this.state = {
       'token': '',
       'email': '',
