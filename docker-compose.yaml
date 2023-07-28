@@ -78,9 +78,9 @@ services:
       - KEYCLOAK_SERVER_URL=https://keycloak:8443/
       - KEYCLOAK_REALM=cookies_realm
       - KEYCLOAK_CLIENT_ID=cookies_client
-      - KEYCLOAK_SERVISE_ACCOUNT_ID=3f7291dd621e4407af5e7de523c2d7ff
+      - KEYCLOAK_SERVISE_ACCOUNT_ID=02dd76abf17d4550bfa8fab01e0800d3
       - KEYCLOAK_SERVISE_ACCOUNT_NAME=service-account-cookies_client
-      - KEYCLOAK_CLIENT_SECRET_KEY=X4AxTY5VMcqNQSJtVeZgHc6Kr9F6uflp
+      - KEYCLOAK_CLIENT_SECRET_KEY=WbpxXAXFuAXLGgUlQIofXZhJJP6boOPO
 
     command: ["python3", "manage.py", "runserver", "0.0.0.0:8001"]
 
