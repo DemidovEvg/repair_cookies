@@ -9,6 +9,21 @@ services:
       - "8002:8002"
     networks:
       - cookies_network
+    environment:
+      - SECRET_KEY="django-insecure-vbi)w@#u7-hbl@6y$kcm$1+swy0a_=sy+$u8w*ct&46nr+uanz"
+      - DEBUG=true
+      - ALLOWED_HOSTS=*
+
+      - CLIENT_SERVICE=http://customer-back:8001
+      - DELIVERY_SERVICE=http://delivery:8002
+      - REPAIR_SERVICE=http://repair:8003
+
+      - KEYCLOAK_SERVER_URL=https://keycloak:8443/
+      - KEYCLOAK_REALM=cookies_realm
+      - KEYCLOAK_CLIENT_ID=cookies_client
+      - KEYCLOAK_SERVISE_ACCOUNT_ID=02dd76abf17d4550bfa8fab01e0800d3
+      - EYCLOAK_SERVISE_ACCOUNT_NAME=service-account-cookies_client
+      - KEYCLOAK_CLIENT_SECRET_KEY=WbpxXAXFuAXLGgUlQIofXZhJJP6boOPO
     command: ["python3", "manage.py", "runserver", "0.0.0.0:8002"]
 
   repair:
@@ -19,6 +34,21 @@ services:
       - "8003:8003"
     networks:
       - cookies_network
+    environment:
+      - SECRET_KEY="django-insecure-vbi)w@#u7-hbl@6y$kcm$1+swy0a_=sy+$u8w*ct&46nr+uanz"
+      - DEBUG=true
+      - ALLOWED_HOSTS=*
+
+      - CLIENT_SERVICE=http://customer-back:8001
+      - DELIVERY_SERVICE=http://delivery:8002
+      - REPAIR_SERVICE=http://repair:8003
+
+      - KEYCLOAK_SERVER_URL=https://keycloak:8443/
+      - KEYCLOAK_REALM=cookies_realm
+      - KEYCLOAK_CLIENT_ID=cookies_client
+      - KEYCLOAK_SERVISE_ACCOUNT_ID=02dd76abf17d4550bfa8fab01e0800d3
+      - EYCLOAK_SERVISE_ACCOUNT_NAME=service-account-cookies_client
+      - KEYCLOAK_CLIENT_SECRET_KEY=WbpxXAXFuAXLGgUlQIofXZhJJP6boOPO
     command: ["python3", "manage.py", "runserver", "0.0.0.0:8003"]
 
   customer-back:
@@ -29,6 +59,29 @@ services:
       - "8001:8001"
     networks:
       - cookies_network
+    environment:
+      - SECRET_KEY="django-insecure-vbi)w@#u7-hbl@6y$kcm$1+swy0a_=sy+$u8w*ct&46nr+uanz"
+      - DEBUG=true
+      - ALLOWED_HOSTS=localhost,127.0.0.1,customer-back,delivery,repair
+
+      - CSRF_TRUSTED_ORIGINS=http://127.0.0.1:3000,http://localhost:3000,http://188.225.43.230
+      - CORS_ALLOWED_ORIGINS=http://127.0.0.1:3000,http://localhost:3000,http://188.225.43.230
+
+
+      - CLIENT_SERVICE=http://customer-back:8001
+      - DELIVERY_SERVICE=http://delivery:8002
+      - REPAIR_SERVICE=http://repair:8003
+
+      - REDIS_HOST="websocket-layer"
+      - REDIS_PORT=6379
+
+      - KEYCLOAK_SERVER_URL=https://keycloak:8443/
+      - KEYCLOAK_REALM=cookies_realm
+      - KEYCLOAK_CLIENT_ID=cookies_client
+      - KEYCLOAK_SERVISE_ACCOUNT_ID=3f7291dd621e4407af5e7de523c2d7ff
+      - KEYCLOAK_SERVISE_ACCOUNT_NAME=service-account-cookies_client
+      - KEYCLOAK_CLIENT_SECRET_KEY=X4AxTY5VMcqNQSJtVeZgHc6Kr9F6uflp
+
     command: ["python3", "manage.py", "runserver", "0.0.0.0:8001"]
 
   customer-front:
