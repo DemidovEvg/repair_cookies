@@ -22,7 +22,7 @@ import Tablets from "./components/tablets";
 class App extends Component {
   constructor(props) {
     super(props)
-    this.apiPath = 'http://37.220.80.27:8001/';
+    this.apiPath = process.env.REACT_APP_API_BACK;
     this.state = {
       'token': '',
       'email': '',
