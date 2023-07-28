@@ -24,6 +24,16 @@ a {
     justify-content: center;
 }
 
+.background-img {
+    display: flex;
+    background-color: #0B1427;
+    max-width: 100%;
+}
+.background-img img {
+    max-width: 100%;
+    height: 855px;
+}
+
 .site-nav {
     height: 114px;
     margin-top: 40px;
@@ -183,6 +193,10 @@ a {
 
 .foot-contact-item img {
     margin-right: 10px;
+    width: 15px;
+    height: 20px;
+    align-self: center;
+    
 }
 
 .foot-tel-num p {
@@ -201,16 +215,21 @@ a {
 
 .footer-bottom hr {
     color: #E8772E;
-    width: 1080px;
+    max-width: 1080px;
     margin-bottom: 10px;
 }
 
 .footer-bottom {
     max-width: 1080px;
+    width: 100%;
 }
 
 .footer-bottom a {
     text-decoration: none;
+}
+
+.footer-bottom p {
+    text-align: center;
 }
 
 a:hover {
@@ -283,6 +302,8 @@ a:hover {
     background: radial-gradient(circle, rgba(232, 119, 46, 0.6012605725884104) 0%, rgba(255, 255, 255, 0) 70%);
 
 }
+
+
 
 /* service */
 
@@ -586,7 +607,7 @@ a:hover {
 
 .text-1-2-3-4 li {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     padding-top: 32px;
 
 }
@@ -596,11 +617,13 @@ a:hover {
 }
 
 .text-1-2-3-4 li img {
-    display: flex;
     max-width: 100px;
-    width: 100%;
     max-height: 80px;
     margin-right: 20px;
+    
+}
+.text-1-2-3-4 p {
+    max-width: 90%;
 }
 
 .only-details-1-2-3-4 {
@@ -1249,4 +1272,221 @@ a:hover {
 
 .sub-footer {
   flex-shrink: 0;
+}
+
+
+/*ADAPTIVE*/
+
+@media (max-width: 1080px){
+    .guy-with-laptop {
+        display: none;
+    }
+    .short-price-only {
+        padding-right: 10px;
+    }
+    .price-list-head {
+        padding-left: 10px;
+    }
+    .about-device {
+        padding-left: 10px;
+    }
+    .picture-from-reasons {
+        margin-right: 10px;
+    }
+    .user-name-and-user-phone {
+        border-radius: 0px;
+    }
+    .order-history {
+        border-radius: 0px;
+    }
+    .why-us-cards {
+        padding: 0px 5px 0px 5px;
+    }
+    .footer-top {
+        padding: 0px 5px 0px 5px;
+    }
+}
+
+@media (max-width: 500px){
+    .list-style-count {
+        display: none;
+    }
+    .call-steps li {
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        list-style: square inside;
+    }
+    .footer-logo {
+        display: none;
+    }
+    .footer-top {
+        flex-direction: column-reverse;
+        padding-left: 10px;
+    }
+    .footer-bottom p {
+        text-align: center;
+    }
+    .short-price-only {
+        font-size: 0.7em;
+    }
+    .price-list-small-heading {
+        padding-left: 5px;
+    }
+    .contacts-contacts {
+        flex-direction: column;
+    }
+    .repair-details-icon {
+        display: none;
+    }
+    .repair-details-header p {
+        text-align: center;
+    }
+    .text-1-2-3-4 li img {
+        max-width: 10%;
+        height: 3.5em;
+    }
+    .text-1-2-3-4 li p {
+        max-width: 80%;
+        font-size: 0.9em;
+    }
+    .short-price-header-hr p {
+        font-size: 0.8em;
+    }
+    .form-bringer {
+        font-size: 1em;
+    }
+    .reason-heading {
+        font-size: 1em;
+        
+    }
+
+    
+    #signup-form {
+        width: 365px;
+    }
+    #signup-form fieldset {
+        padding: 15px;
+    }
+    .order-details {
+        font-size: 0.7em;
+        line-height: 1.5em;
+    }
+}
+
+@media (max-width: 900px) {
+    .site-nav {
+        flex-direction: column;
+        margin-top: 4px;
+    }
+    .nav-background {
+        height: 195px;
+    }
+    .logo img {
+        max-height: 80px;
+    }
+    .links {
+        width: 100%;
+        padding-left: 5px;
+        font-size: 0.6em;
+        justify-content: center;
+        
+    }
+    .phones { 
+        padding-left: 5px;
+        justify-content: center;
+    }
+    .phones img {
+        display: none;
+    }
+    .tel-num {
+        font-size: 0.8em;
+        margin: 0px 10px 0px 10px
+    }
+    
+
+    .divider img {
+        height: 0.8em;
+    }
+    .background-img img {
+        max-height: 38em;
+    }
+    .guy-with-laptop {
+        display: none;
+    }
+    .main-text-block {
+        width: 100%;
+        padding-left: 5px;
+        padding-bottom: 5px;
+    }
+    .the-biggest-font {
+        font-size: 2em;
+        
+    }
+    .main-page-top {
+        top: 12em;   
+    }
+    
+    .block-service {
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+    }
+    .repair-card {
+        max-width: 100%;
+    }
+    .card-list {
+        text-align: center;
+        font-size: 0.7em;
+    }
+    .price-list-link {
+        font-size: 0.6em;
+    }
+    .call-img {
+        display: none;
+    }
+    .big-font {
+        font-size: 1.5rem;
+    }
+    .call-steps {
+        padding-left: 10px;
+    }
+    .call-steps ul{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-between; 
+    }
+    
+    .one-of-nine img {
+        max-width: 80px;
+        max-height: 50px;
+    }
+    .one-of-nine p {
+        font-size: 0.45em;
+        line-height: 1.2em;
+    }
+    .row-cards {
+        padding: 5px;
+    }
+    .link-info {
+        display: none;
+    }
+
+    
+    
+    .price-list-heading {
+        font-size: 32px;
+    }
+    
+    .contacts-list li img {
+        height: 1.3em;
+        align-self: center;
+    }
+    
+    .repair-details-header p {
+        font-size: 2em;
+    }
+    .picture-from-reasons {
+        display: none;
+    }  
 }
