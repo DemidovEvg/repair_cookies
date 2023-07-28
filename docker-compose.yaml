@@ -64,8 +64,8 @@ services:
       - DEBUG=true
       - ALLOWED_HOSTS=*
 
-      - CSRF_TRUSTED_ORIGINS=http://188.225.43.230
-      - CORS_ALLOWED_ORIGINS=http://188.225.43.230
+      - CSRF_TRUSTED_ORIGINS=http://188.225.43.230:3000
+      - CORS_ALLOWED_ORIGINS=http://188.225.43.230:3000
 
 
       - CLIENT_SERVICE=http://customer-back:8001
