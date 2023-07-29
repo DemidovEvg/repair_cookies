@@ -21,7 +21,7 @@ services:
       - KEYCLOAK_SERVER_URL=https://keycloak:8443/
       - KEYCLOAK_REALM=cookies_realm
       - KEYCLOAK_CLIENT_ID=cookies_client
-      - KEYCLOAK_SERVISE_ACCOUNT_ID=02dd76abf17d4550bfa8fab01e0800d3
+      - KEYCLOAK_SERVISE_ACCOUNT_ID=2d0ba3605133416790c0f7e787350101
       - EYCLOAK_SERVISE_ACCOUNT_NAME=service-account-cookies_client
       - KEYCLOAK_CLIENT_SECRET_KEY=WbpxXAXFuAXLGgUlQIofXZhJJP6boOPO
     command: ["python3", "manage.py", "runserver", "0.0.0.0:8002"]
@@ -46,7 +46,7 @@ services:
       - KEYCLOAK_SERVER_URL=https://keycloak:8443/
       - KEYCLOAK_REALM=cookies_realm
       - KEYCLOAK_CLIENT_ID=cookies_client
-      - KEYCLOAK_SERVISE_ACCOUNT_ID=02dd76abf17d4550bfa8fab01e0800d3
+      - KEYCLOAK_SERVISE_ACCOUNT_ID=2d0ba3605133416790c0f7e787350101
       - EYCLOAK_SERVISE_ACCOUNT_NAME=service-account-cookies_client
       - KEYCLOAK_CLIENT_SECRET_KEY=WbpxXAXFuAXLGgUlQIofXZhJJP6boOPO
     command: ["python3", "manage.py", "runserver", "0.0.0.0:8003"]
@@ -78,7 +78,7 @@ services:
       - KEYCLOAK_SERVER_URL=https://keycloak:8443/
       - KEYCLOAK_REALM=cookies_realm
       - KEYCLOAK_CLIENT_ID=cookies_client
-      - KEYCLOAK_SERVISE_ACCOUNT_ID=02dd76abf17d4550bfa8fab01e0800d3
+      - KEYCLOAK_SERVISE_ACCOUNT_ID=2d0ba3605133416790c0f7e787350101
       - KEYCLOAK_SERVISE_ACCOUNT_NAME=service-account-cookies_client
       - KEYCLOAK_CLIENT_SECRET_KEY=WbpxXAXFuAXLGgUlQIofXZhJJP6boOPO
 
