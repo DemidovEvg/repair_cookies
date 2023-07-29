@@ -1,61 +1,57 @@
-import {Form, Button} from "react-bootstrap";
 import {Navigate, useNavigate} from "react-router-dom";
 
-function Repair({isAuth, makeOrder}) {
+function Repair({isAuth, makeOrder, notify}) {
   const navigate = useNavigate();
   let data = {
-      'customerDescription': '',
-      'category': 'TELEPHONE'
+    'customerDescription': '',
+    'category': ''
   }
   const handleChange = (event) => {
     data[[event.target.name]] = event.target.value
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
+    if (!data["category"]) {
+      notify("Выберите категорию техники");
+      return;
+    }
     makeOrder(data["category"], data["customerDescription"]);
     navigate("../account");
   }
 
   return (
       <div className="site-content-wrap">
+        {isAuth()
+            ? null
+            : <Navigate to="/auth"/>}
         <div className="nav-background"></div>
         <div className="site-content">
-          <h3 className="text-center">
-            Оставить заявку на ремонт
-          </h3>
-          {isAuth()
-              ? null
-              : <Navigate to="/auth"/>}
-          <div className="d-flex justify-content-center">
-            <Form onSubmit={event => {
-              handleSubmit()
-            }}>
-
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Выберите категорию техники </Form.Label>
-                <select name="category" onChange={event => {
-                  handleChange(event)
+          <div className="form-holder">
+            <div id="signup-form">
+              <h1>ОСТАВИТЬ ЗАЯВКУ НА РЕМОНТ</h1>
+              <fieldset>
+                <form onSubmit={(event) => {
+                  handleSubmit(event)
                 }}>
-                  <option value="TELEPHONE">Мобильный телефон</option>
-                  <option value="TABLET">Планшет</option>
-                  <option value="LAPTOP">Ноутбук</option>
-                </select>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Введите описание неисправности</Form.Label>
-                <Form.Control type="textarea" name="customerDescription" placeholder="Разбитый экран" onChange={event => {
-                  handleChange(event)
-                }}/>
-              </Form.Group>
-
-              <Button variant="primary" type="submit" onClick={event => {
-                handleSubmit(event)
-              }}>
-                Хочу ремонт
-              </Button>
-            </Form>
+                  <select className="device-type" name="category" onChange={event => {
+                    handleChange(event)
+                  }}>
+                    <option value="" className="grey-letters">Выберите категорию техники</option>
+                    <option value="TELEPHONE">Мобильный телефон</option>
+                    <option value="TABLET">Планшет</option>
+                    <option value="LAPTOP">Ноутбук</option>
+                  </select>
+                  <textarea className="what-to-fix" name="customerDescription"
+                            rows="6" placeholder="Описание неисправности"
+                            onChange={event => {
+                              handleChange(event)
+                            }}>
+                </textarea>
+                  <input type="submit" value="ОТПРАВИТЬ"/>
+                </form>
+              </fieldset>
+            </div>
           </div>
         </div>
       </div>

@@ -4,14 +4,16 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0005_alter_price_repair_lvl'),
+        ("core", "0005_alter_price_repair_lvl"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='price',
-            options={'verbose_name': 'Стоимость ремонта', 'verbose_name_plural': 'Стоимость ремонтов'},
+            name="price",
+            options={
+                "verbose_name": "Стоимость ремонта",
+                "verbose_name_plural": "Стоимость ремонтов",
+            },
         ),
     ]

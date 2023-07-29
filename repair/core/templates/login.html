@@ -1,38 +1,22 @@
-<html lang="ru">
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
-	Cookies Serviceman Desk
+Авторизация
 {% endblock %}
 
-{% block style %}
-	{% include "inc_style.html" %}
-{% endblock %}
+{% block content %}
 
-{% block nav_panel %}
-	{% include "inc_top_nav_panel.html" %}
-{% endblock %}
+<h4>Для продолжения работы, пожалуйста, войдите в систему.</h4>
 
-{% block body %}
+<form class="col-4" method="post">
+  
+  {% csrf_token %}
+  {{ form|crispy }}
+  
+  <button type="submit" class="btn btn-outline-dark">Войти</button>
 
-<div id="main">
-    <div id="site_content">
-
-        <form method="post">
-
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Войти</button>
-
-        </form>
-      </div>
-    <div id="footer">
-      Copyright &copy; Чугунбабай
-    </div>
-
-</div>
-
-
+</form>
 
 {% endblock %}
-</html>

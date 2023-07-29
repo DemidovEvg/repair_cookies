@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 
 function Footer() {
   return (
-      <footer>
+      <footer className="sub-footer">
         <div className="footer-top-wrap">
           <div className="footer-top">
 
@@ -74,13 +74,13 @@ function Footer() {
 
               <ul className="foot-contacts-list">
                 <li className="foot-contact-item foot-tel-num text-to-style">
-                  <img src={arrow} alt=""/><p>+7 (969) 518-82-48</p>
+                  <img src={arrow} alt=""/><p>+ 7 (789) 456-12-33 </p>
                 </li>
                 <li className="foot-contact-item foot-tel-num text-to-style">
-                  <img src={arrow} alt=""/><p>+7 (969) 518-82-48</p>
+                  <img src={arrow} alt=""/><p>+ 7 (789) 456-12-34 </p>
                 </li>
                 <li className="foot-contact-item text-to-style">
-                  <img src={destination} alt=""/><p>г.Москва, ул. Строителей 42</p>
+                  <img src={destination} alt=""/><p>г.Москва, ул. Строителей, 3 </p>
                 </li>
                 <li className="foot-contact-item text-to-style">
                   <img src={mailto} alt=""/><p>info@смартремонт.рф</p>
