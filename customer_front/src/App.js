@@ -20,7 +20,7 @@ import Tablets from "./components/tablets";
 
 function App() {
   const apiPath = process.env.REACT_APP_API_BACK;
-  // const endpoints = ['users', 'orders', 'prices']
+  const url = new URL(apiPath)
   const [token, setToken] = useState('')
   const [email, setEmail] = useState('')
   const [users, setUsers] = useState([])
@@ -141,7 +141,7 @@ function App() {
   }
 
   useEffect(() => {
-        const headers = getHeaders()
+    const headers = getHeaders()
     axios.get(
         apiPath + `api/prices`,
         {'headers': headers}
@@ -152,6 +152,16 @@ function App() {
 
   useEffect(() => {
     pullData();
+    if (!!token) {
+      const path = `ws://${url.host}/ws/client-orders/${email}/`
+      console.log(path)
+      const socket = new WebSocket(path)
+
+      socket.onmessage = ( (event) => {
+        const data = JSON.parse(event.data);
+        setOrders(data)
+      })
+    }
   }, [token]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
