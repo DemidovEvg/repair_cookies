@@ -18,6 +18,7 @@ function Contacts() {
           <div className="map-and-contacts">
             <div className="map-container">
               <iframe
+                  title="map"
                   src="https://yandex.ru/map-widget/v1/?um=constructor%3A433590ee05406b466ca6632b72d01817145b7ca526c7a8841c6e58bb89d349f9&amp;source=constructor"
                   width="1080" height="600"></iframe>
             </div>

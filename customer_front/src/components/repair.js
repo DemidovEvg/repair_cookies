@@ -1,23 +1,18 @@
 import {Navigate, useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 function Repair({isAuth, makeOrder, notify}) {
   const navigate = useNavigate();
-  let data = {
-    'customerDescription': '',
-    'category': ''
-  }
-  const handleChange = (event) => {
-    data[[event.target.name]] = event.target.value
-  };
+  const [category, setCategory] = useState('')
+  const [customerDescription, setCustomerDescription] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!data["category"]) {
-      notify("Выберите категорию техники");
-      return;
-    }
-    makeOrder(data["category"], data["customerDescription"]);
-    navigate("../account");
+    if (!category) {
+     notify("Выберите категорию техники");
+     return;
+    }    makeOrder(category, customerDescription);
+    navigate("/account");
   }
 
   return (
@@ -35,7 +30,7 @@ function Repair({isAuth, makeOrder, notify}) {
                   handleSubmit(event)
                 }}>
                   <select className="device-type" name="category" onChange={event => {
-                    handleChange(event)
+                    setCategory(event.target.value)
                   }}>
                     <option value="" className="grey-letters">Выберите категорию техники</option>
                     <option value="TELEPHONE">Мобильный телефон</option>
@@ -45,7 +40,7 @@ function Repair({isAuth, makeOrder, notify}) {
                   <textarea className="what-to-fix" name="customerDescription"
                             rows="6" placeholder="Описание неисправности"
                             onChange={event => {
-                              handleChange(event)
+                              setCustomerDescription((event.target.value))
                             }}>
                 </textarea>
                   <input type="submit" value="ОТПРАВИТЬ"/>

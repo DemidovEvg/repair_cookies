@@ -114,7 +114,7 @@ function Notebooks() {
                   </ul>
                 </div>
               </div>
-              <NavLink className="form-bringer" to="../repair">ВЫЗВАТЬ КУРЬЕРА</NavLink>
+              <NavLink className="form-bringer" to="/repair">ВЫЗВАТЬ КУРЬЕРА</NavLink>
             </div>
           </div>
           <div className="short-price-for-cathegory-wrap">
@@ -158,7 +158,7 @@ function Notebooks() {
                 <div className="short-price-row"><p>Установка антивируса</p><p>350 руб.</p></div>
                 <div className="short-price-row"><p>Установка драйверов</p><p>150 руб.</p></div>
               </div>
-              <NavLink className="form-bringer" to="../prices">ПОЛНЫЙ ПРАЙС-ЛИСТ</NavLink>
+              <NavLink className="form-bringer" to="/prices">ПОЛНЫЙ ПРАЙС-ЛИСТ</NavLink>
             </div>
             <div className="we-fix-everything">
               <div className="we-fix-everything-head">МЫ&nbsp;РЕМОНТИРУЕМ НОУТБУКИ ЛЮБЫХ МАРОК И&nbsp;УСТРАНЯЕМ

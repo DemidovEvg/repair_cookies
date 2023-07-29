@@ -8,9 +8,9 @@ function User({user, logOut, email}) {
     <p className="user-mail">{email}</p>
     <p className="user-phone">{user.phoneNumber}</p>
     <div className="links-edit-or-call">
-      <NavLink className="account-link" to="../repair">Создать заказ</NavLink>
+      <NavLink className="account-link" to="/repair">Создать заказ</NavLink>
       &nbsp;
-      <NavLink className="account-link" to="../"
+      <NavLink className="account-link" to="/"
                onClick={() => logOut()}
       >Выйти</NavLink>
     </div>
