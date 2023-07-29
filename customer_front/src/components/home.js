@@ -45,7 +45,7 @@ function Home() {
                 <li>и другое...</li>
               </ul>
             </div>
-            <NavLink className="price-list-link" to="../services/phones">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
+            <NavLink className="price-list-link" to="/services/phones">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
           </div>
           <div className="repair-card">
             <div className="top-card">
@@ -63,7 +63,7 @@ function Home() {
                 <li> и другое...</li>
               </ul>
             </div>
-            <NavLink className="price-list-link" to="../services/notebooks">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
+            <NavLink className="price-list-link" to="/services/notebooks">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
           </div>
           <div className="repair-card">
             <div className="top-card">
@@ -81,7 +81,7 @@ function Home() {
                 <li>и другое...</li>
               </ul>
             </div>
-            <NavLink className="price-list-link" to="../services/tablets">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
+            <NavLink className="price-list-link" to="/services/tablets">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
           </div>
         </div>
         <div className="call-courier-wrap">

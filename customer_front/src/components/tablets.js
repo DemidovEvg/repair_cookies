@@ -89,7 +89,7 @@ function Tablets() {
                   </ul>
                 </div>
               </div>
-              <NavLink className="form-bringer" to="../repair">ВЫЗВАТЬ КУРЬЕРА</NavLink>
+              <NavLink className="form-bringer" to="/repair">ВЫЗВАТЬ КУРЬЕРА</NavLink>
             </div>
           </div>
           <div className="short-price-for-cathegory-wrap">
@@ -155,7 +155,7 @@ function Tablets() {
                   <p>БЕСЦЕННО</p>
                 </div>
               </div>
-              <NavLink className="form-bringer" to="../prices">ПОЛНЫЙ ПРАЙС-ЛИСТ</NavLink>
+              <NavLink className="form-bringer" to="/prices">ПОЛНЫЙ ПРАЙС-ЛИСТ</NavLink>
             </div>
           </div>
         </div>

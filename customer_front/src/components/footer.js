@@ -10,7 +10,6 @@ function Footer() {
       <footer className="sub-footer">
         <div className="footer-top-wrap">
           <div className="footer-top">
-
             <div className="company-info footer-chld">
               <div className="footer-logo">
                 <img src={require('../img/logo.png')} alt="logo-small"/>
@@ -32,46 +31,40 @@ function Footer() {
                   кодекса Российской Федерации.</p>
               </div>
             </div>
-
             <div className="link-info footer-chld">
-
               <ul className="link-list">
                 <li className="link-item">
-                  <NavLink className="text-to-style" to="../" >ГЛАВНАЯ </NavLink>
+                  <NavLink className="text-to-style" to="/" >ГЛАВНАЯ </NavLink>
                 </li>
                 <li className="link-item">
-                  <NavLink className="text-to-style" to="../prices">ПРАЙС-ЛИСТ</NavLink>
+                  <NavLink className="text-to-style" to="/prices">ПРАЙС-ЛИСТ</NavLink>
                 </li>
                 <li className="link-item">
                   <a className="text-to-style"
                      href="https://otzovik.com/reviews/oficialniy_servisniy_centr_smart-pro_russia_moscow/">ОТЗЫВЫ</a>
                 </li>
                 <li className="link-item">
-                  <NavLink to="../contacts" className="text-to-style" >КОНТАКТЫ</NavLink>
+                  <NavLink to="/contacts" className="text-to-style" >КОНТАКТЫ</NavLink>
                 </li>
               </ul>
-
             </div>
             <div className="link-info footer-chld">
-
               <ul className="link-list">
                 <li className="link-item">
-                  <NavLink className="text-to-style" to="../services">УСЛУГИ</NavLink>
+                  <NavLink className="text-to-style" to="/services">УСЛУГИ</NavLink>
                 </li>
                 <li className="link-item">
-                  <NavLink className="text-to-style" to="../services/notebooks">Ремонт ноутбуков</NavLink>
+                  <NavLink className="text-to-style" to="/services/notebooks">Ремонт ноутбуков</NavLink>
                 </li>
                 <li className="link-item">
-                  <NavLink className="text-to-style" to="../services/phones">Ремонт телефонов</NavLink>
+                  <NavLink className="text-to-style" to="/services/phones">Ремонт телефонов</NavLink>
                 </li>
                 <li className="link-item">
-                  <NavLink className="text-to-style" to="../services/tablets">Ремонт планшетов</NavLink>
+                  <NavLink className="text-to-style" to="/services/tablets">Ремонт планшетов</NavLink>
                 </li>
               </ul>
-
             </div>
             <div className="contacts-info footer-chld">
-
               <ul className="foot-contacts-list">
                 <li className="foot-contact-item foot-tel-num text-to-style">
                   <img src={arrow} alt=""/><p>+ 7 (789) 456-12-33 </p>
@@ -89,9 +82,7 @@ function Footer() {
                   <img src={hourglass} alt=""/><p>10:00 - 20:00 (без выходных)</p>
                 </li>
               </ul>
-
             </div>
-
           </div>
         </div>
         <div className="footer-bottom-wrap">
