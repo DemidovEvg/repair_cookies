@@ -42,7 +42,7 @@ function Order({ order }) {
         <p className="order-price">{order.amountDueBy
           ? order.amountDueBy + ' руб.'
           : '-'}</p>
-        <p className="order-price">{order.paymentCompleted
+        <p className="order-payment-completed">{order.paymentCompleted
           ? "Оплата произведена"
           : ''}</p>
       </div>
