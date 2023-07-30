@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from drf_keycloak_auth.authentication import KeycloakAuthentication
 from django.conf import settings
 from drf_keycloak_auth.settings import api_settings

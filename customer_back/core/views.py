@@ -35,10 +35,10 @@ class OrderViewSet(ModelViewSet):
         instance = serializer.save()
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
-            f"sync_client_orders_channel_group_{instance.client_id}",
+            f"sync_client_orders_channel_group_{instance.client_id.hex}",
             {
                 "type": "websocket.receive",
-                "text": f"update_order order_id={instance.id}",
+                "text": f"update_order order_id={instance.id.hex}",
             },
         )
         if self.need_create_or_update_outer_order:
