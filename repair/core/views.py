@@ -70,11 +70,13 @@ class OrderDetail(UpdateView):
         super().post(request, *args, **kwargs)
         self.object = self.get_object()
         payload = OrderModelSerializer(instance=self.object).data
-        if "category" in request.POST and "repair_lvl" in request.POST:
+
+        if payload["repair_lvl"] != Order.RepairLvl.UNDEFINED.value:
             price = get_repair_price(payload["category"], payload["repair_lvl"])
-            payload["amount_due_by"] = price
-            self.object.amount_due_by = price
+            payload["amount_due_by"] = price.price
+            self.object.amount_due_by = price.price
             self.object.save(update_fields=["amount_due_by"])
+
         pk = self.object.id
 
         try:
