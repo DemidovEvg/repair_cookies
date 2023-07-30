@@ -115,14 +115,14 @@ function Tablets({prices}) {
                     prices={prices}
                     category='TABLET'
                     kind={['Аппаратная часть']}
-                    subKind={['Электромеханический ремонт', 'Прошивка и настройка']}
+                    subKind={['Электромеханический ремонт', undefined]}
                 />
                 <div className="short-price-part">ПРОГРАММНАЯ ЧАСТЬ</div>
                 <PricesList
                     prices={prices}
                     category='TABLET'
                     kind={['Программная часть']}
-                    subKind={['Электромеханический ремонт', 'Прошивка и настройка']}
+                    subKind={['Прошивка и настройка', undefined]}
                 />
               </div>
               <NavLink className="form-bringer" to="/prices">ПОЛНЫЙ ПРАЙС-ЛИСТ</NavLink>

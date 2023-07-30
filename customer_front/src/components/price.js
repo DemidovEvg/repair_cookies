@@ -10,8 +10,8 @@ function Price({price}) {
 function PricesList({prices, category, kind, subKind=[null]}) {
   return (prices.map(price => {
     if (price['equipmentCategory'] === category
-        && kind.includes(price.repairKind.name)
-        && subKind.includes(price.repairSubkind.name))
+        && kind.includes(price?.repairKind?.name)
+        && subKind.includes(price?.repairSubkind?.name))
     {
       return <Price key={price.id} price={price}/>
     }

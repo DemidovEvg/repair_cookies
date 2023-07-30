@@ -109,7 +109,7 @@ function Phones({prices}) {
                     prices={prices}
                     category='TELEPHONE'
                     kind={['Аппаратная часть']}
-                    subKind={['Электромеханический ремонт', 'Прошивка и настройка']}
+                    subKind={['Электромеханический ремонт', undefined]}
                 />
 
 
@@ -118,7 +118,7 @@ function Phones({prices}) {
                     prices={prices}
                     category='TELEPHONE'
                     kind={['Программная часть']}
-                    subKind={['Электромеханический ремонт', 'Прошивка и настройка']}
+                    subKind={['Прошивка и настройка', undefined]}
                 />
               </div>
               <NavLink className="form-bringer" to="/prices">ПОЛНЫЙ ПРАЙС-ЛИСТ</NavLink>

@@ -27,7 +27,7 @@ function Prices({prices}) {
                   prices={prices}
                   category='TELEPHONE'
                   kind={['Аппаратная часть']}
-                  subKind={['Электромеханический ремонт', 'Прошивка и настройка']}
+                  subKind={['Электромеханический ремонт', 'Прошивка и настройка', undefined]}
               />
 
               <div className="short-price-part">РЕМОНТ ПЛАНШЕТОВ</div>
@@ -35,7 +35,7 @@ function Prices({prices}) {
                   prices={prices}
                   category='TABLET'
                   kind={['Аппаратная часть']}
-                  subKind={['Электромеханический ремонт', 'Прошивка и настройка']}
+                  subKind={['Электромеханический ремонт', 'Прошивка и настройка', undefined]}
               />
 
               <div className="short-price-part">РЕМОНТ НОУТБУКОВ</div>
@@ -43,7 +43,7 @@ function Prices({prices}) {
                   prices={prices}
                   category='LAPTOP'
                   kind={['Аппаратная часть']}
-                  subKind={['Электромеханический ремонт', 'Прошивка и настройка']}
+                  subKind={['Электромеханический ремонт', 'Прошивка и настройка', undefined]}
               />
             </div>
 
@@ -71,7 +71,7 @@ function Prices({prices}) {
                   prices={prices}
                   category='LAPTOP'
                   kind={['Восстановление данных']}
-                  subKind={['Электромеханический ремонт', 'Прошивка и настройка']}
+                  subKind={['Электромеханический ремонт', 'Прошивка и настройка', undefined]}
               />
             </div>
           </div>
