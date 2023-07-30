@@ -30,6 +30,7 @@
   <tr>
     <td>{{ order.id }}</td>
     <td>{{ order.customer_description }}</td>
+    <td>{{ order.created }}</td>
     <td>{{ order.status }}</td>
     <td>{{ order.serviceman|default:"Не назначен" }}</td>
     <!--  чтобы назначить, нужно зайти в заявку  -->
@@ -59,5 +60,18 @@
     </span>
   </h4>
 </div>
+    <!--Сообщения-->
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li class="{% if message.tags %}
+            {{ message.tags }}
+            {% endif %}">
+    {{ message }}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+<!--Конец блока сообщений-->
 
 {% endblock %}
