@@ -12,12 +12,10 @@ class OrderUpdateForm(forms.ModelForm):
 
 
 class ServicemanUpdateForm(forms.ModelForm):
-
     class Meta:
         model = ServiceMan
-        fields = '__all__'
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['user'].empty_label = "Ремонтник не выбран"
-
+        self.fields["user"].empty_label = "Ремонтник не выбран"
