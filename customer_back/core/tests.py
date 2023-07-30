@@ -55,27 +55,25 @@ class OrderModelTestCase(TestCase):
 class ModelsTestCase(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
-            username='testuser',
-            email='testuser@example.com',
-            password='testpassword'
+            username="testuser", email="testuser@example.com", password="testpassword"
         )
-        self.repair_kind = RepairKind.objects.create(name='Test Repair Kind')
+        self.repair_kind = RepairKind.objects.create(name="Test Repair Kind")
         self.price = Price.objects.create(
             equipment_category=Price.GadgetType.TELEPHONE,
             repair_kind=self.repair_kind,
             repair_subkind=self.repair_kind,
-            name='Test Repair',
-            value=10.0
+            name="Test Repair",
+            value=10.0,
         )
 
     def test_repair_kind_model(self):
-        self.assertEqual(self.repair_kind.name, 'Test Repair Kind')
+        self.assertEqual(self.repair_kind.name, "Test Repair Kind")
 
     def test_price_model(self):
         self.assertEqual(self.price.equipment_category, Price.GadgetType.TELEPHONE)
         self.assertEqual(self.price.repair_kind, self.repair_kind)
         self.assertEqual(self.price.repair_subkind, self.repair_kind)
-        self.assertEqual(self.price.name, 'Test Repair')
+        self.assertEqual(self.price.name, "Test Repair")
         self.assertEqual(self.price.value, 10.0)
 
 
@@ -85,15 +83,15 @@ class ModelsTestCase(TestCase):
 class OrderViewSetTest(unittest.TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
-        self.view = OrderViewSet.as_view({'get': 'list'})
+        self.view = OrderViewSet.as_view({"get": "list"})
 
     def test_get_queryset_with_email(self):
-        request = self.factory.get('/orders/', {'email': 'test@example.com'})
+        request = self.factory.get("/orders/", {"email": "test@example.com"})
         response = self.view(request)
         self.assertEqual(response.status_code, 200)
 
     def test_get_queryset_without_email(self):
-        request = self.factory.get('/orders/')
+        request = self.factory.get("/orders/")
         response = self.view(request)
         self.assertEqual(response.status_code, 200)
 
@@ -116,15 +114,15 @@ class ClientViewSetTestCase(TestCase):
 class PriceViewSetTest(unittest.TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
-        self.view = PriceViewSet.as_view({'get': 'list'})
+        self.view = PriceViewSet.as_view({"get": "list"})
 
     def test_get_queryset_with_category(self):
-        request = self.factory.get('/prices/', {'category': 'electronics'})
+        request = self.factory.get("/prices/", {"category": "electronics"})
         response = self.view(request)
         self.assertEqual(response.status_code, 200)
 
     def test_get_queryset_without_category(self):
-        request = self.factory.get('/prices/')
+        request = self.factory.get("/prices/")
         response = self.view(request)
         self.assertEqual(response.status_code, 200)
 
@@ -195,16 +193,10 @@ class PriceSerializerTest(unittest.TestCase):
         data = {
             "id": 1,
             "equipment_category": "Electronics",
-            "repair_kind": {
-                "id": 1,
-                "name": "Screen Replacement"
-            },
-            "repair_subkind": {
-                "id": 1,
-                "name": "iPhone"
-            },
+            "repair_kind": {"id": 1, "name": "Screen Replacement"},
+            "repair_subkind": {"id": 1, "name": "iPhone"},
             "name": "Screen Replacement for iPhone",
-            "value": 100.00
+            "value": 100.00,
         }
         serializer = PriceSerializer(data=data)
         self.assertFalse(serializer.is_valid())
@@ -213,16 +205,10 @@ class PriceSerializerTest(unittest.TestCase):
         data = {
             "id": 1,
             "equipment_category": "Electronics",
-            "repair_kind": {
-                "id": 1,
-                "name": "Screen Replacement"
-            },
-            "repair_subkind": {
-                "id": 1,
-                "name": "iPhone"
-            },
+            "repair_kind": {"id": 1, "name": "Screen Replacement"},
+            "repair_subkind": {"id": 1, "name": "iPhone"},
             "name": "Screen Replacement for iPhone",
-            "value": "Invalid Value"
+            "value": "Invalid Value",
         }
         serializer = PriceSerializer(data=data)
         self.assertFalse(serializer.is_valid())
