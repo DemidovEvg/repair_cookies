@@ -11,13 +11,15 @@
 <!--<h1 class="display-4 text-center">Детали заказа</h1>-->
 
 <!--Таблица-->
-<h4 class="m-3">Детали заказа № {{ order.id|truncatechars:20 }}</h4>
+<h4 class="m-3">Детали заказа № {{ order.id }}</h4>
 
 <table class="table table-sm table-striped table-bordered border-primary">
   <!--Заголовок таблицы-->
   <thead class="table-dark">
   <tr>
     <th scope="col">Номер заказа</th>
+    <th scope="col">Вид техники</th>
+    <th scope="col">Модель техники</th>
     <th scope="col">Неисправность со слов клиента</th>
     <th scope="col">Дата создания заказа</th>
     <th scope="col">Статус заказа</th>
@@ -29,6 +31,8 @@
   <tbody>
   <tr>
     <td>{{ order.id }}</td>
+    <td>{{ order.category }}</td>
+    <td>{{ order.model }}</td>
     <td>{{ order.customer_description }}</td>
     <td>{{ order.created }}</td>
     <td>{{ order.status }}</td>
