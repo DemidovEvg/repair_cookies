@@ -1,6 +1,15 @@
 import {Navigate, NavLink} from "react-router-dom";
 import avatar from '../img/account-icon.svg'
 
+const googleTranslateApi = {
+        "CREATED": "Заявка создана",
+        "GETTING_FROM_CLIENT": "Получение техники от клиента",
+        "SENT_TO_REPAIR": "Доставлен в службу ремонта",
+        "REPAIR_IN_PROCESS": "Ремонт начат",
+        "REPAIR_DONE": "Ремонт закончен",
+        "SENDING_TO_CLIENT": "Доставка техники клиенту",
+        "CLOSED": "Заявка закрыта"
+}
 function User({user, logOut, email}) {
   if (!user) return
   return <div className="user-info">
@@ -8,9 +17,9 @@ function User({user, logOut, email}) {
     <p className="user-mail">{email}</p>
     <p className="user-phone">{user.phoneNumber}</p>
     <div className="links-edit-or-call">
-      <NavLink className="account-link" to="../repair">Создать заказ</NavLink>
+      <NavLink className="account-link" to="/repair">Создать заказ</NavLink>
       &nbsp;
-      <NavLink className="account-link" to="../"
+      <NavLink className="account-link" to="/"
                onClick={() => logOut()}
       >Выйти</NavLink>
     </div>
@@ -28,7 +37,7 @@ function Order({order}) {
           <p className="order-description">{order.servicemanDescription
               ? order.servicemanDescription
               : 'Отправлено на диагностику'}</p>
-          <p className="order-status">{order.status}</p>
+          <p className="order-status">{googleTranslateApi[order.status]}</p>
           <p className="order-price">{order.price
               ? order.price + ' руб.'
               : '-'}</p>

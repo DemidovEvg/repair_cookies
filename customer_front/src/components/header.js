@@ -50,10 +50,10 @@ function Header({isAuth, logOut, users}) {
                     ? <div>
                       <li className="divider"></li>
 
-                      <Link className='' to='#'>&nbsp;{username}</Link>
-                      <li><NavLink className="services-link" to="../auth"
+                      <Link className='' to='/account'>&nbsp;{username}</Link>
+                      <li><NavLink className="services-link" to="/auth"
                                    onClick={() => logOut()}
-                      >&nbsp;, на выход!&nbsp;</NavLink></li>
+                      >, а это ВЫХОД!&nbsp;</NavLink></li>
                     </div>
                     : null}
               </ul>
