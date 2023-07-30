@@ -42,17 +42,23 @@ class NewClientModelSerializer(ModelSerializer):
         )
 
     def validate(self, data):
-        my_str = data['last_name']
-        if not bool(re.match('^[А-яа-я0-9 -]+$', my_str)):
-            raise serializers.ValidationError('Можно вводить только русские буквы, тире и пробел, строка: ' + my_str)
+        my_str = data["last_name"]
+        if not bool(re.match("^[А-яа-я0-9 -]+$", my_str)):
+            raise serializers.ValidationError(
+                "Можно вводить только русские буквы, тире и пробел, строка: " + my_str
+            )
 
-        my_str = data['first_name']
-        if not bool(re.match('^[А-яа-я0-9 -]+$', my_str)):
-            raise serializers.ValidationError('Можно вводить только русские буквы, тире и пробел, строка: ' + my_str)
+        my_str = data["first_name"]
+        if not bool(re.match("^[А-яа-я0-9 -]+$", my_str)):
+            raise serializers.ValidationError(
+                "Можно вводить только русские буквы, тире и пробел, строка: " + my_str
+            )
 
-        my_str = data['patronymic']
-        if not bool(re.match('^[А-яа-я0-9 -]+$', my_str)):
-            raise serializers.ValidationError('Можно вводить только русские буквы, тире и пробел, строка: ' + my_str)
+        my_str = data["patronymic"]
+        if not bool(re.match("^[А-яа-я0-9 -]+$", my_str)):
+            raise serializers.ValidationError(
+                "Можно вводить только русские буквы, тире и пробел, строка: " + my_str
+            )
 
         return data
 
