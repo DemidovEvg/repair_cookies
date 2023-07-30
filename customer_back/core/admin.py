@@ -17,13 +17,6 @@ admin.site.site_header = "Клиентская служба"
 class ClientAdmin(admin.ModelAdmin):
     list_display = ("first_name", "phone_number")
 
-    def save_model(self, request, obj, form, change):
-        obj.save()
-        try:
-            self.create_or_update_outer_order(obj)
-        except Exception as exc:
-            messages.add_message(request, messages.ERROR, repr(exc))
-
     def has_delete_permission(self, request, obj=None):
         return request.user.is_superuser
 

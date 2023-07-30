@@ -127,7 +127,7 @@ class PriceViewSetTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-"""тестирование сериализатора заказа и клиента"""
+"""тестирование сериализатора заказа, клиента, прайса"""
 
 
 class ClientModelSerializerTestCase(TestCase):
