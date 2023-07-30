@@ -17,7 +17,6 @@ class Client(AbstractUser):
     email = models.EmailField("email", unique=True, validators=[EmailValidator])
     patronymic = models.CharField("Отчество", max_length=150, blank=True, default="")
     address = models.TextField("Адрес клиента", default="")
-    location = models.CharField(max_length=30, blank=True)
     phone_number = PhoneNumberField(
         "Номер телефона клиента", unique=True, region=PHONE_NUMBER_REGION, max_length=12
     )

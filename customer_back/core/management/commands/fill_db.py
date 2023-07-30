@@ -1,6 +1,8 @@
 import random
 
 from django.core.management.base import BaseCommand
+from phonenumber_field.phonenumber import PhoneNumber
+from django.conf import settings
 
 from core.models import Client, Order
 
@@ -19,9 +21,12 @@ def get_new_client(username: str):
             patronymic=random.choice(
                 ["Иванович", "Петрович", "Сидорович", "Егорович", "Олегович"]
             ),
-            location=get_address(),
+            address=get_address(),
             email=f"{username}@email.ru",
-            phone_number=str(random.randint(80000000000, 89999999999)),
+            phone_number=PhoneNumber.from_string(
+                str(random.randint(89210000000, 89219999999)),
+                region=settings.PHONE_NUMBER_REGION,
+            ),
         ),
     )[0]
     client.set_password(username)
