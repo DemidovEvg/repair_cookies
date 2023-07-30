@@ -29,9 +29,10 @@ class ClientConsumer(AsyncJsonWebsocketConsumer):
             raise Exception(f"No client with {self.email}")
         self.client_data = None
         await self.channel_layer.group_add(
-            f"sync_client_orders_channel_group_{self.client.id.hex}", self.channel_name
+            f"sync_client_orders_channel_group__{self.client.id.hex}",
+            self.channel_name,
         )
-        self.groups.append(f"sync_client_orders_channel_group:{self.client.id.hex}")
+        self.groups.append(f"sync_client_orders_channel_group__{self.client.id.hex}")
 
         await self.accept()
 
