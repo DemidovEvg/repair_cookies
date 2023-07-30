@@ -42,8 +42,8 @@ function App() {
           for (const key in error.response.data) {
             if (key === 'phoneNumber') {
               fieldName = 'Номер телефона '
-            } else if (key === 'email ') {
-              fieldName = 'Email'
+            } else if (key === 'email') {
+              fieldName = 'Email '
             } else if (key === "username") {
               continue;
             }
