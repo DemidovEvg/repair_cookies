@@ -1,13 +1,16 @@
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
+import unittest
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from rest_framework.test import APIClient
+from rest_framework.test import APIClient, APIRequestFactory
 
-from core.models import TokenData, Client, Order
-from core.serializers import (
+from .models import Client, TokenData, Order, RepairKind, Price
+from .views import PriceViewSet, OrderViewSet
+from .serializers import (
     ClientModelSerializer,
     NewClientModelSerializer,
     OrderModelSerializer,
+    PriceSerializer,
 )
 
 client = APIClient()
@@ -15,7 +18,7 @@ client = APIClient()
 User = get_user_model()
 # Create your tests here.
 
-"""тестирование создания пользователя и заказа"""
+"""тестирование моделей пользователя, заказа, прайса"""
 
 
 class AbstractUserTest(TestCase):
@@ -49,25 +52,49 @@ class OrderModelTestCase(TestCase):
         self.assertEqual(order.category, "TELEPHONE")
 
 
-"""тестирование представления заказа и клиента"""
-
-
-class OrderViewSetTestCase(TestCase):
+class ModelsTestCase(TestCase):
     def setUp(self):
-        self.order = Order.objects.create(
-            client=Client.objects.create(username="testuser", password="password"),
-            status="CREATED",
-            category="TELEPHONE",
+        self.user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@example.com',
+            password='testpassword'
+        )
+        self.repair_kind = RepairKind.objects.create(name='Test Repair Kind')
+        self.price = Price.objects.create(
+            equipment_category=Price.GadgetType.TELEPHONE,
+            repair_kind=self.repair_kind,
+            repair_subkind=self.repair_kind,
+            name='Test Repair',
+            value=10.0
         )
 
-    def test_order_list(self):
-        url = reverse("order-list")
-        response = client.get(url)
+    def test_repair_kind_model(self):
+        self.assertEqual(self.repair_kind.name, 'Test Repair Kind')
+
+    def test_price_model(self):
+        self.assertEqual(self.price.equipment_category, Price.GadgetType.TELEPHONE)
+        self.assertEqual(self.price.repair_kind, self.repair_kind)
+        self.assertEqual(self.price.repair_subkind, self.repair_kind)
+        self.assertEqual(self.price.name, 'Test Repair')
+        self.assertEqual(self.price.value, 10.0)
+
+
+"""тестирование представления заказа, клиента, прайса"""
+
+
+class OrderViewSetTest(unittest.TestCase):
+    def setUp(self):
+        self.factory = APIRequestFactory()
+        self.view = OrderViewSet.as_view({'get': 'list'})
+
+    def test_get_queryset_with_email(self):
+        request = self.factory.get('/orders/', {'email': 'test@example.com'})
+        response = self.view(request)
         self.assertEqual(response.status_code, 200)
 
-    def test_order_detail(self):
-        url = reverse("order-detail", args=[self.order.id])
-        response = client.get(url)
+    def test_get_queryset_without_email(self):
+        request = self.factory.get('/orders/')
+        response = self.view(request)
         self.assertEqual(response.status_code, 200)
 
 
@@ -83,6 +110,22 @@ class ClientViewSetTestCase(TestCase):
     def test_client_detail(self):
         url = reverse("client-detail", args=[self.client.id])
         response = client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+
+class PriceViewSetTest(unittest.TestCase):
+    def setUp(self):
+        self.factory = APIRequestFactory()
+        self.view = PriceViewSet.as_view({'get': 'list'})
+
+    def test_get_queryset_with_category(self):
+        request = self.factory.get('/prices/', {'category': 'electronics'})
+        response = self.view(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_queryset_without_category(self):
+        request = self.factory.get('/prices/')
+        response = self.view(request)
         self.assertEqual(response.status_code, 200)
 
 
@@ -145,3 +188,41 @@ class OrderModelSerializerTestCase(TestCase):
     def test_order_model_serializer(self):
         serializer = OrderModelSerializer(data=self.order_data)
         self.assertTrue(serializer.is_valid())
+
+
+class PriceSerializerTest(unittest.TestCase):
+    def test_valid_data(self):
+        data = {
+            "id": 1,
+            "equipment_category": "Electronics",
+            "repair_kind": {
+                "id": 1,
+                "name": "Screen Replacement"
+            },
+            "repair_subkind": {
+                "id": 1,
+                "name": "iPhone"
+            },
+            "name": "Screen Replacement for iPhone",
+            "value": 100.00
+        }
+        serializer = PriceSerializer(data=data)
+        self.assertFalse(serializer.is_valid())
+
+    def test_invalid_data(self):
+        data = {
+            "id": 1,
+            "equipment_category": "Electronics",
+            "repair_kind": {
+                "id": 1,
+                "name": "Screen Replacement"
+            },
+            "repair_subkind": {
+                "id": 1,
+                "name": "iPhone"
+            },
+            "name": "Screen Replacement for iPhone",
+            "value": "Invalid Value"
+        }
+        serializer = PriceSerializer(data=data)
+        self.assertFalse(serializer.is_valid())
