@@ -35,16 +35,12 @@ function Order({ order }) {
       <div className="order-details">
         <p className="order-date">{order.created.slice(0, 10)}</p>
         <p className="device-name">{order.model}</p>
-        <p className="order-description">{order.servicemanDescription
-          ? order.servicemanDescription
-          : 'Отправлено на диагностику'}</p>
+        <p className="order-description">
+          {order.servicemanDescription ? order.servicemanDescription : 'Отправлено на диагностику'}
+        </p>
         <p className="order-status">{googleTranslateApi[order.status]}</p>
-        <p className="order-price">{order.amountDueBy
-          ? order.amountDueBy + ' руб.'
-          : '-'}</p>
-        <p className="order-payment-completed">{order.paymentCompleted
-          ? "Оплата произведена"
-          : ''}</p>
+        <p className="order-price">{order.amountDueBy ? order.amountDueBy + ' руб.' : '-'}</p>
+        <p className="order-payment-completed">{order.paymentCompleted ? "Оплата произведена" : ''}</p>
       </div>
     </div>
   );

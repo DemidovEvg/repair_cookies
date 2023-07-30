@@ -1072,6 +1072,7 @@ a:hover {
 }
 
 .order-price {
+    padding-right: 10px;
     max-width: 70px;
     width: 100%;
 }
