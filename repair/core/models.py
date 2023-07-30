@@ -38,7 +38,7 @@ class TokenData(models.Model):
 class ServiceMan(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
-        verbose_name="User",
+        verbose_name="Ремонтник",
         on_delete=models.CASCADE,
         unique=True,
         related_name="serviceman",

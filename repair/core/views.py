@@ -21,6 +21,7 @@ from .services.order_service import update_outer_order
 from .services.get_price import get_repair_price
 from .serializers import OrderModelSerializer
 from .filters import OrderFilter
+from .forms import ServicemanUpdateForm
 
 
 class PriceApiList(ListAPIView):
@@ -54,6 +55,7 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = self.filterset.form
+        context["f"] = ServicemanUpdateForm
         return context
 
 
@@ -62,14 +64,13 @@ class OrderDetail(UpdateView):
 
     template_name = "order_detail.html"
     context_object_name = "order"
-    fields = ["serviceman", "serviceman_description", "status", "repair_lvl"]
+    fields = ["serviceman_description", "status", "repair_lvl"]
 
     def post(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
         self.object = self.get_object()
         payload = OrderModelSerializer(instance=self.object).data
-        # price = get_repair_price(payload["category"], payload["repair_lvl"], request)
-        price = 100
+        price = get_repair_price(payload["category"], payload["repair_lvl"])
         payload["amount_due_by"] = price
         self.object.amount_due_by = price
         self.object.save(update_fields=["amount_due_by"])
@@ -118,3 +119,13 @@ def logout_user(request):
     logout(request)
 
     return redirect("login")
+
+
+def change_serviceman(request):
+    serviceman = ServiceMan.objects.get(user=request.GET.get("user"))
+    obj = Order.objects.get(id=request.GET.get("order_id"))
+    obj.serviceman = serviceman
+    obj.save()
+
+    return redirect("home")
+
