@@ -7,6 +7,9 @@ from requests.exceptions import ConnectionError
 from core.models import Client, Order, Price, RepairKind
 from core.services.order_service import create_or_update
 
+from rest_framework import serializers
+import re
+
 
 class ClientModelSerializer(ModelSerializer):
     class Meta:
@@ -37,6 +40,21 @@ class NewClientModelSerializer(ModelSerializer):
             "patronymic",
             "last_name",
         )
+
+    def validate(self, data):
+        my_str = data['last_name']
+        if not bool(re.match('^[А-яа-я0-9 -]+$', my_str)):
+            raise serializers.ValidationError('Можно вводить только русские буквы, тире и пробел, строка: ' + my_str)
+
+        my_str = data['first_name']
+        if not bool(re.match('^[А-яа-я0-9 -]+$', my_str)):
+            raise serializers.ValidationError('Можно вводить только русские буквы, тире и пробел, строка: ' + my_str)
+
+        my_str = data['patronymic']
+        if not bool(re.match('^[А-яа-я0-9 -]+$', my_str)):
+            raise serializers.ValidationError('Можно вводить только русские буквы, тире и пробел, строка: ' + my_str)
+
+        return data
 
     def create(self, validated_data):
         validated_data["password"] = make_password(validated_data["password"])
