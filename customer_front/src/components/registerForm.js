@@ -15,9 +15,20 @@ function RegisterForm({isAuth, createClient, getToken, notify}) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const regexp = "[^A-Za-z][А-Яа-яЁё]{2,20}-?[А-Яа-яЁё]{0,20}[$А-Яа-яЁё]{1}"
+    const regexp = "[^A-Za-z][А-Яа-яЁё]{2,20}-?[А-Яа-яЁё]{0,20}[$А-Яа-яЁё]{1}$";
+
     if (password2 !== password) {
       notify('Пароли не совпадают');
+      return;
+    }
+
+    if (!email) {
+      notify('Поле email не может быть пустым');
+      return;
+    }
+
+    if (!phoneNumber) {
+      notify('Обязательно оставьте ваш номер телефона или нам придется спамить прямо на почту');
       return;
     }
 
