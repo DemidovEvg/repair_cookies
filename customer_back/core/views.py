@@ -56,7 +56,7 @@ class OrderViewSet(ModelViewSet):
     @action(methods=["patch"], detail=True, url_path="sync", url_name="sync_update")
     def action_sync_update(self, request, *args, **kwargs):
         self.need_create_or_update_outer_order = False
-        return super().update(request, *args, **kwargs)
+        return super().partial_update(request, *args, **kwargs)
 
 
 class ClientViewSet(ModelViewSet):
