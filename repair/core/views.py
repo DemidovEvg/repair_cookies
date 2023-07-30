@@ -128,4 +128,3 @@ def change_serviceman(request):
     obj.save()
 
     return redirect("home")
-

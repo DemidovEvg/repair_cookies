@@ -28,7 +28,7 @@ from core.views import (
     LoginUser,
     logout_user,
     PriceApiList,
-    change_serviceman
+    change_serviceman,
 )
 
 router = DefaultRouter()
