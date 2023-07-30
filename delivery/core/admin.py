@@ -9,7 +9,7 @@ from core.services.order_service import create_or_update
 from core.serializers import OrderSerializer
 
 
-admin.site.site_header = "Доставщики"
+admin.site.site_header = "Смарт Курьер"
 
 
 @admin.register(DeliveryUser)

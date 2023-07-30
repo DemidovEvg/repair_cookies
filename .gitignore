@@ -3,8 +3,6 @@ env
 .vscode/
 poetry.lock
 pyproject.toml
-Dockerfile
-.dockerignore
 fly.toml
 .idea
 postgres/

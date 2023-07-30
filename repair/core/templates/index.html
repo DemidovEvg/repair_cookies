@@ -56,7 +56,18 @@
     <td>{{ order.customer_description }}</td>
     <td>{{ order.created }}</td>
     <td>{{ order.status }}</td>
-    <td>{{ order.serviceman|default:"Не назначен" }}</td>
+      {% if order.serviceman == None %}
+        <td>
+            <form method="GET" action="{% url 'change_serviceman' %}">
+              <div class="form-row">
+                  {{ f.as_p }}
+              </div>
+              <button type="submit" class="btn btn-outline-dark mb-3" value="{{ order.id }}" name="order_id">Назначить</button>
+            </form>
+        </td>
+      {% else %}
+        <td>{{ order.serviceman|default:"Не назначен" }}</td>
+      {% endif %}
     <!--  чтобы назначить, нужно зайти в заявку  -->
   </tr>
   {% empty %}
@@ -102,17 +113,17 @@
 <!--Конец блока пагинатора-->
 
 <!--Сообщения-->
-{% if messages %}
-<ul class="messages">
-  {% for message in messages %}
-  <li class="{% if message.tags %}
-            {{ message.tags }}
-            {% endif %}">
-    {{ message }}
-  </li>
-  {% endfor %}
-</ul>
-{% endif %}
+{#{% if messages %}#}
+{#<ul class="messages">#}
+{#  {% for message in messages %}#}
+{#  <li class="{% if message.tags %}#}
+{#            {{ message.tags }}#}
+{#            {% endif %}">#}
+{#    {{ message }}#}
+{#  </li>#}
+{#  {% endfor %}#}
+{#</ul>#}
+{#{% endif %}#}
 <!--Конец блока сообщений-->
 
 {% endwith %}
