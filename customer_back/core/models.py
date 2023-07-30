@@ -80,6 +80,10 @@ class Order(models.Model):
     created = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True
     )
+    payment_completed = models.BooleanField(
+        verbose_name="Оплала произведена?", default=False
+    )
+    amount_due_by = models.FloatField(verbose_name="Сумма к оплате", default=0)
     updated = models.DateTimeField(auto_now=True, editable=False, blank=True, null=True)
     deleted = models.BooleanField(default=False)
 

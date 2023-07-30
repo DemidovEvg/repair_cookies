@@ -59,6 +59,8 @@ class OrderModelSerializer(ModelSerializer):
             "deliveryman_description",
             "status",
             "created",
+            "amount_due_by",
+            "payment_completed",
             "updated",
             "deleted",
         )

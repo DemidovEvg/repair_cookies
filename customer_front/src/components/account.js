@@ -39,9 +39,11 @@ function Order({ order }) {
           ? order.servicemanDescription
           : 'Отправлено на диагностику'}</p>
         <p className="order-status">{googleTranslateApi[order.status]}</p>
-        <p className="order-price">{order.price
-          ? order.price + ' руб.'
+        <p className="order-price">{order.amount_due_by
+          ? order.amount_due_by + ' руб.'
           : '-'}</p>
+        <p className="order-price">{order.payment_completed}</p>
+
       </div>
     </div>
   );
