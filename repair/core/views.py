@@ -69,9 +69,6 @@ class OrderDetail(UpdateView):
     def post(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
         self.object = self.get_object()
-        import pdb
-
-        pdb.set_trace()
         payload = OrderModelSerializer(instance=self.object).data
         if "category" in request.POST and "repair_lvl" in request.POST:
             price = get_repair_price(payload["category"], payload["repair_lvl"])
