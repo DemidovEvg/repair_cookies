@@ -47,7 +47,6 @@ function App() {
             } else if (key === "username") {
               continue;
             }
-
             notify(`${fieldName}: ${error.response.data[key]}`)
           }
         }
@@ -65,7 +64,10 @@ function App() {
     ).then(response => {
       saveToken(response.data['token'], email)
     })
-        .catch(error => notify('Wrong value of email or password'));
+        .catch(error => {
+          console.error(error)
+          notify('Wrong value of email or password');
+        });
   }
 
 
@@ -108,13 +110,13 @@ function App() {
         apiPath + `api/users?email=${email}`,
         {'headers': headers}
     ).then(response => setUsers(response.data))
-        .catch(error => console.log(`Что могло пойти так при обращении к users?`));
+        .catch(error => console.log(`Что могло пойти так при обращении к users?`, error));
 
     axios.get(
         apiPath + `api/orders?email=${email}`,
         {'headers': headers}
     ).then(response => setOrders(response.data))
-        .catch(error => console.log(`Что могло пойти так при обращении к orders?`));
+        .catch(error => console.log(`Что могло пойти так при обращении к orders?`, error));
   }
 
 
@@ -137,7 +139,10 @@ function App() {
       notify("Ваша заявка на ремонт отправлена 🙌");
       pullData()
     })
-        .catch(error => notify('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.'));
+        .catch(error => {
+          console.log(error);
+          notify('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.');
+        });
   }
 
   useEffect(() => {
@@ -146,7 +151,7 @@ function App() {
         apiPath + `api/prices`,
         {'headers': headers}
     ).then(response => setPrices(response.data))
-        .catch(error => console.log(`Что могло пойти так при обращении к prices?`));
+        .catch(error => console.log(`Что могло пойти так при обращении к prices?`, error));
     restoreToken();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -154,10 +159,9 @@ function App() {
     pullData();
     if (!!token) {
       const path = `ws://${url.host}/ws/client-orders/${email}/`
-      console.log(path)
       const socket = new WebSocket(path)
 
-      socket.onmessage = ( (event) => {
+      socket.onmessage = ((event) => {
         const data = JSON.parse(event.data);
         setOrders(data)
       })
@@ -188,10 +192,10 @@ function App() {
                   makeOrder={(category, customerDescription) => makeOrder(category, customerDescription)}/>}/>
               <Route path='contacts' element={<Contacts/>}/>
               <Route path='services' element={<Navigate to="/services/phones"/>}/>
-              <Route path='/services/phones' element={<Phones/>}/>
-              <Route path='/services/notebooks' element={<Notebooks/>}/>
-              <Route path='/services/tablets' element={<Tablets/>}/>
-              <Route path='prices' element={<Prices/>}/>
+              <Route path='/services/phones' element={<Phones prices={prices}/>}/>
+              <Route path='/services/notebooks' element={<Notebooks prices={prices}/>}/>
+              <Route path='/services/tablets' element={<Tablets prices={prices}/>}/>
+              <Route path='prices' element={<Prices prices={prices}/>}/>
               <Route path='auth' element={<LoginForm
                   isAuth={() => isAuth()}
                   getToken={(email, password) => getToken(email, password)}/>}/>

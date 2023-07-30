@@ -17,17 +17,18 @@ import samsung from '../img/Samsung.svg';
 import asus from '../img/Asus.svg';
 import vaio from '../img/Vaio.svg';
 import acer from '../img/Acer.svg';
+import PricesList from "./price";
 import {NavLink} from "react-router-dom";
 
-function Notebooks() {
+function Notebooks({prices}) {
   return (
       <div className="site-content-wrap">
         <div className="nav-background"></div>
         <div className="site-content">
           <div className="repair-details-head">
             <div className="repair-details-header">
-              <img className="repair-details-icon" src={notebook} alt="" />
-                <p className="white-big-text">РЕМОНТ НОУТБУКОВ</p>
+              <img className="repair-details-icon" src={notebook} alt=""/>
+              <p className="white-big-text">РЕМОНТ НОУТБУКОВ</p>
             </div>
           </div>
           <div className="about-device-wrap">
@@ -67,17 +68,17 @@ function Notebooks() {
               </div>
               <div className="simple-black-text">
                 <hr/>
-                  <p>
-                    Расколотые корпуса, облитая жидкостью клавиатура. самопроизвольное отключение, сбой батарей,
-                    перегрев вентилятора, торможения (зависание оборудования), искаженное изображение
-                    на&nbsp;экране&nbsp;&mdash; это основные, но&nbsp;далеко не&nbsp;все проблемы, с&nbsp;которыми
-                    обращаются в&nbsp;наш компьютерный сервис.
-                    Какой&nbsp;бы ни&nbsp;была поломка вашего ноутбука, обратитесь в&nbsp;сервис СМАРТ РЕМОНТ. Наши
-                    мастера окажут срочную профессиональную помощь и&nbsp;вернут ваш ноутбук к&nbsp;жизни
-                    с&nbsp;гарантией стабильной безотказной работы при условии правильной эксплуатации. В&nbsp;90%
-                    случаев с&nbsp;проблемой удается справиться в&nbsp;день обращения, при серьезных проблемах
-                    неисправное устройство будет бесплатно доставлено в&nbsp;сервисный центр.
-                  </p>
+                <p>
+                  Расколотые корпуса, облитая жидкостью клавиатура. самопроизвольное отключение, сбой батарей,
+                  перегрев вентилятора, торможения (зависание оборудования), искаженное изображение
+                  на&nbsp;экране&nbsp;&mdash; это основные, но&nbsp;далеко не&nbsp;все проблемы, с&nbsp;которыми
+                  обращаются в&nbsp;наш компьютерный сервис.
+                  Какой&nbsp;бы ни&nbsp;была поломка вашего ноутбука, обратитесь в&nbsp;сервис СМАРТ РЕМОНТ. Наши
+                  мастера окажут срочную профессиональную помощь и&nbsp;вернут ваш ноутбук к&nbsp;жизни
+                  с&nbsp;гарантией стабильной безотказной работы при условии правильной эксплуатации. В&nbsp;90%
+                  случаев с&nbsp;проблемой удается справиться в&nbsp;день обращения, при серьезных проблемах
+                  неисправное устройство будет бесплатно доставлено в&nbsp;сервисный центр.
+                </p>
               </div>
             </div>
           </div>
@@ -92,24 +93,24 @@ function Notebooks() {
                 <div className="text-1-2-3-4">
                   <ul>
                     <li>
-                      <img src={one} alt="1" /><p>Для вызова специалиста оформите заявку на&nbsp;нашем сайте или
-                        по&nbsp;телефону, обязательно укажите марку и&nbsp;модель устройства, подробно опишите проблему:
-                        это даст возможность специалисту подготовить нужные детали и&nbsp;инструменты для ремонта.</p>
+                      <img src={one} alt="1"/><p>Для вызова специалиста оформите заявку на&nbsp;нашем сайте или
+                      по&nbsp;телефону, обязательно укажите марку и&nbsp;модель устройства, подробно опишите проблему:
+                      это даст возможность специалисту подготовить нужные детали и&nbsp;инструменты для ремонта.</p>
                     </li>
                     <li>
-                      <img src={two} alt="2" /><p>Наш специалист прибудет по&nbsp;указанному адресу в&nbsp;течение
-                        часа, или вы&nbsp;можете договориться о&nbsp;любом удобном для вас времени.</p>
+                      <img src={two} alt="2"/><p>Наш специалист прибудет по&nbsp;указанному адресу в&nbsp;течение
+                      часа, или вы&nbsp;можете договориться о&nbsp;любом удобном для вас времени.</p>
                     </li>
                     <li>
-                      <img src={three} alt="3" /><p>Мастер бесплатно проведет диагностику вашего компьютера для
-                        выявления причины неисправности, предложит перечень необходимых работ и&nbsp;согласует
-                        с&nbsp;вами стоимость ремонта.</p>
+                      <img src={three} alt="3"/><p>Мастер бесплатно проведет диагностику вашего компьютера для
+                      выявления причины неисправности, предложит перечень необходимых работ и&nbsp;согласует
+                      с&nbsp;вами стоимость ремонта.</p>
                     </li>
                     <li>
-                      <img src={four} alt="4" /><p>Мастер проведет работы по&nbsp;ремонту и&nbsp;настройке вашего
-                        компьютера. По&nbsp;окончании работ подписывается договор и&nbsp;акт выполненных работ
-                        с&nbsp;предоставлением гарантии на&nbsp;выполненные работы и&nbsp;комплектующие сроком
-                        на&nbsp;1&nbsp;год.</p>
+                      <img src={four} alt="4"/><p>Мастер проведет работы по&nbsp;ремонту и&nbsp;настройке вашего
+                      компьютера. По&nbsp;окончании работ подписывается договор и&nbsp;акт выполненных работ
+                      с&nbsp;предоставлением гарантии на&nbsp;выполненные работы и&nbsp;комплектующие сроком
+                      на&nbsp;1&nbsp;год.</p>
                     </li>
                   </ul>
                 </div>
@@ -133,30 +134,19 @@ function Notebooks() {
               </div>
               <div className="short-price-only">
                 <div className="short-price-part">АППАРАТНАЯ ЧАСТЬ</div>
-                <div className="short-price-row"><p>Замена клавиатуры</p><p>900 руб.</p></div>
-                <div className="short-price-row"><p>Замена матрицы</p><p>9900 руб.</p></div>
-                <div className="short-price-row"><p>Замена рамки и петель крепления матрицы</p><p>700 руб.</p></div>
-                <div className="short-price-row"><p>Замена корпуса</p><p>999 руб.</p></div>
-                <div className="short-price-row"><p>Ремонт клавиатуры</p><p>500 руб.</p></div>
-                <div className="short-price-row"><p>Замена процессора</p><p>2300 руб.</p></div>
-                <div className="short-price-row"><p>Замена разъема питания</p><p>750 руб.</p></div>
-                <div className="short-price-row"><p>Замена HDD / SDD</p><p>200 руб.</p></div>
-                <div className="short-price-row"><p>Замена аккумулятора</p><p>1800 руб.</p></div>
-                <div className="short-price-row"><p>Ремонт материнской платы</p><p>2400 руб.</p></div>
-                <div className="short-price-row"><p>Замена серверного моста</p><p>7500 руб.</p></div>
-                <div className="short-price-row"><p>Ремонт залитого ноутбука</p><p>2000 руб.</p></div>
-                <div className="short-price-row"><p>Чистка ноутбука от пыли и грязи</p><p>300 руб.</p></div>
+                <PricesList
+                    prices={prices}
+                    category='LAPTOP'
+                    kind={['Аппаратная часть']}
+                    subKind={['Электромеханический ремонт', 'Прошивка и настройка', undefined]}
+                />
                 <div className="short-price-part">ПРОГРАММНАЯ ЧАСТЬ</div>
-                <div className="short-price-row"><p>Установка Windows</p><p>1990 руб.</p></div>
-                <div className="short-price-row"><p>Установка программного пакета</p><p>300 руб.</p></div>
-                <div className="short-price-row"><p>Восстановление ОС после повреждения</p><p>666 руб.</p></div>
-                <div className="short-price-row"><p>Восстановление информации при программных cбоях</p><p>500 руб.</p>
-                </div>
-                <div className="short-price-row"><p>Восстановление информации при повреждениях дисков</p><p>НЕВОЗМОЖНО</p>
-                </div>
-                <div className="short-price-row"><p>Удаление вирусов</p><p>666 руб.</p></div>
-                <div className="short-price-row"><p>Установка антивируса</p><p>350 руб.</p></div>
-                <div className="short-price-row"><p>Установка драйверов</p><p>150 руб.</p></div>
+                <PricesList
+                    prices={prices}
+                    category='LAPTOP'
+                    kind={['Программная часть']}
+                    subKind={['Операционная система', 'Программное обеспечение', undefined]}
+                />
               </div>
               <NavLink className="form-bringer" to="/prices">ПОЛНЫЙ ПРАЙС-ЛИСТ</NavLink>
             </div>
@@ -166,21 +156,21 @@ function Notebooks() {
               </div>
               <div className="we-fix-everything-icons">
                 <hr/>
-                  <img src={philips} alt="" />
-                    <img src={apple} alt="" />
-                      <img src={toshiba} alt="" />
-                        <img src={hp} alt="" />
-                          <img src={lenovo} alt="" />
-                            <img src={xiaomi} alt="" />
-                              <img src={huawei} alt="" />
-                                <img src={lg} alt="" />
-                                  <img src={sony} alt="" />
-                                    <img src={dell} alt="" />
-                                      <img src={samsung} alt="" />
-                                        <img src={asus} alt="" />
-                                          <img src={vaio} alt="" />
-                                            <img src={acer} alt="" />
-                                              <hr/>
+                <img src={philips} alt=""/>
+                <img src={apple} alt=""/>
+                <img src={toshiba} alt=""/>
+                <img src={hp} alt=""/>
+                <img src={lenovo} alt=""/>
+                <img src={xiaomi} alt=""/>
+                <img src={huawei} alt=""/>
+                <img src={lg} alt=""/>
+                <img src={sony} alt=""/>
+                <img src={dell} alt=""/>
+                <img src={samsung} alt=""/>
+                <img src={asus} alt=""/>
+                <img src={vaio} alt=""/>
+                <img src={acer} alt=""/>
+                <hr/>
               </div>
               <p>В&nbsp;СВОЕЙ РАБОТЕ МЫ&nbsp;ИСПОЛЬЗУЕМ ТОЛЬКО ЛИЦЕНЗИОННОЕ ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ И&nbsp;ОРИГИНАЛЬНЫЕ
                 КОМПЛЕКТУЮЩИЕ ОТ&nbsp;ОФИЦИАЛЬНЫХ ДИСТРИБЬЮТОРОВ</p>
