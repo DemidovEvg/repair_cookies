@@ -14,5 +14,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls), name="api"),
     path("api-token-auth/", views.obtain_auth_token, name="token_auth"),
-    path("ws/client-orders/<str:email>/", client_orders, name="client_orders"),
+    path("client-orders/<str:email>/", client_orders, name="client_orders"),
 ]
