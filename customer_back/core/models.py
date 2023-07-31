@@ -2,12 +2,11 @@ from uuid import uuid4
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import EmailValidator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 from customer.settings import PHONE_NUMBER_REGION
-
-from core.curse_word import func_curse_word
 
 
 # Create your models here.
@@ -15,10 +14,9 @@ from core.curse_word import func_curse_word
 
 class Client(AbstractUser):
     id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
-    patronymic = models.CharField("Отчетство", max_length=150, blank=True, default="")
-    first_name = models.CharField(max_length=30, blank=True, validators=[func_curse_word])
+    email = models.EmailField("email", unique=True, validators=[EmailValidator])
+    patronymic = models.CharField("Отчество", max_length=150, blank=True, default="")
     address = models.TextField("Адрес клиента", default="")
-    location = models.CharField(max_length=30, blank=True)
     phone_number = PhoneNumberField(
         "Номер телефона клиента", unique=True, region=PHONE_NUMBER_REGION, max_length=12
     )
@@ -51,7 +49,7 @@ class Order(models.Model):
         TABLET = ("TABLET", "планшет")
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="orders")
     status = models.CharField(
         verbose_name="Статус заказа",
         max_length=48,
@@ -62,6 +60,9 @@ class Order(models.Model):
         "Техника",
         max_length=15,
         choices=GadgetType.choices,
+    )
+    model = models.CharField(
+        verbose_name="Модель техники", max_length=1000, default="", blank=True
     )
     serviceman_description = models.CharField(
         verbose_name="Комментарий ремонтника", max_length=1000, default="", blank=True
@@ -78,6 +79,10 @@ class Order(models.Model):
     created = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True
     )
+    payment_completed = models.BooleanField(
+        verbose_name="Оплала произведена?", default=False
+    )
+    amount_due_by = models.FloatField(verbose_name="Сумма к оплате", default=0)
     updated = models.DateTimeField(auto_now=True, editable=False, blank=True, null=True)
     deleted = models.BooleanField(default=False)
 
