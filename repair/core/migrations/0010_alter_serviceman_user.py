@@ -6,15 +6,19 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('core', '0009_alter_order_repair_lvl_alter_price_repair_lvl'),
+        ("core", "0009_alter_order_repair_lvl_alter_price_repair_lvl"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='serviceman',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='serviceman', to=settings.AUTH_USER_MODEL, verbose_name='Ремонтник'),
+            model_name="serviceman",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="serviceman",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Ремонтник",
+            ),
         ),
     ]
