@@ -2,6 +2,7 @@ from uuid import uuid4
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import EmailValidator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -13,9 +14,9 @@ from customer.settings import PHONE_NUMBER_REGION
 
 class Client(AbstractUser):
     id = models.UUIDField(verbose_name="Идентификатор", default=uuid4, primary_key=True)
-    patronymic = models.CharField("Отчетство", max_length=150, blank=True, default="")
+    email = models.EmailField("email", unique=True, validators=[EmailValidator])
+    patronymic = models.CharField("Отчество", max_length=150, blank=True, default="")
     address = models.TextField("Адрес клиента", default="")
-    location = models.CharField(max_length=30, blank=True)
     phone_number = PhoneNumberField(
         "Номер телефона клиента", unique=True, region=PHONE_NUMBER_REGION, max_length=12
     )
@@ -48,7 +49,7 @@ class Order(models.Model):
         TABLET = ("TABLET", "планшет")
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name="orders")
     status = models.CharField(
         verbose_name="Статус заказа",
         max_length=48,
@@ -78,6 +79,10 @@ class Order(models.Model):
     created = models.DateTimeField(
         auto_now_add=True, editable=False, blank=True, null=True
     )
+    payment_completed = models.BooleanField(
+        verbose_name="Оплала произведена?", default=False
+    )
+    amount_due_by = models.FloatField(verbose_name="Сумма к оплате", default=0)
     updated = models.DateTimeField(auto_now=True, editable=False, blank=True, null=True)
     deleted = models.BooleanField(default=False)
 
@@ -88,3 +93,58 @@ class Order(models.Model):
         verbose_name = "Заказ на ремонт"
         verbose_name_plural = "Заказы на ремонт"
         ordering = ["-created"]
+
+
+class RepairKind(models.Model):
+    name = models.CharField(
+        "Название",
+        max_length=100,
+    )
+
+    def __str__(self):
+        return f"RepairKind---id={self.id}---name={self.name}"
+
+    class Meta:
+        verbose_name = "Вид ремонта"
+        verbose_name_plural = "Виды ремонта"
+
+
+class Price(models.Model):
+    GadgetType = Order.GadgetType
+
+    equipment_category = models.CharField(
+        "Техника",
+        max_length=15,
+        choices=Order.GadgetType.choices,
+    )
+    repair_kind = models.ForeignKey(
+        to=RepairKind,
+        verbose_name="Вид ремонта",
+        on_delete=models.CASCADE,
+        related_name="prices_for_kind",
+    )
+    repair_subkind = models.ForeignKey(
+        to=RepairKind,
+        verbose_name="Подвид ремонта",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="prices_for_subkind",
+    )
+    name = models.CharField(
+        "Название ремонта",
+        max_length=100,
+    )
+
+    value = models.DecimalField("Цена", max_digits=12, decimal_places=2, default=0.0)
+
+    def __str__(self):
+        return (
+            f"Price---id={self.id}---"
+            f"equipment_category={self.equipment_category}---"
+            f"repair_kind={self.repair_kind_id}---value={self.value}"
+        )
+
+    class Meta:
+        verbose_name = "Расценка на ремонт"
+        verbose_name_plural = "Расценки на ремонт"

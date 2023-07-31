@@ -9,7 +9,7 @@ from core.services.order_service import create_or_update
 from core.serializers import OrderSerializer
 
 
-admin.site.site_header = "Доставщики"
+admin.site.site_header = "СмартКурьер"
 
 
 @admin.register(DeliveryUser)
@@ -74,6 +74,7 @@ class OrderAdmin(admin.ModelAdmin):
         "deliveryman_description",
         "created",
         "updated",
+        "repair_lvl",
         "payment_completed",
         "amount_due_by",
     ]
@@ -128,9 +129,8 @@ class OrderAdmin(admin.ModelAdmin):
         exceptions = []
         try:
             service_create = f"{settings.CLIENT_SERVICE}/api/orders/"
-            service_update = f"{service_create}{order.id}/"
+            service_update = f"{service_create}{order.id}/sync/"
             data = OrderSerializer(instance=order).data
-
             create_or_update(service_create, service_update, data)
         except Exception as exc:
             exceptions.append(exc)

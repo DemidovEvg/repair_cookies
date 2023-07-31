@@ -38,7 +38,7 @@ class TokenData(models.Model):
 class ServiceMan(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
-        verbose_name="User",
+        verbose_name="Ремонтник",
         on_delete=models.CASCADE,
         unique=True,
         related_name="serviceman",
@@ -58,6 +58,13 @@ class Order(models.Model):
         TELEPHONE = ("TELEPHONE", "телефон")
         LAPTOP = ("LAPTOP", "ноутбук")
         TABLET = ("TABLET", "планшет")
+
+    class RepairLvl(models.IntegerChoices):
+        UNDEFINED = (0, "Неопределен")
+        ONE = (1, "Внешний осмотр, диагностика")
+        TWO = (2, "Ремонт с разбором телефона, замена не паяных деталей")
+        THREE = (3, "Замена дисплея, тачскрина")
+        FOUR = (4, "Электро-механический ремонт")
 
     class StatusEnum(models.TextChoices):
         CREATED = ("CREATED", "Заявка создана")
@@ -121,7 +128,13 @@ class Order(models.Model):
     model = models.CharField(
         verbose_name="Модель техники", max_length=1000, default="", blank=True
     )
+    repair_lvl = models.IntegerField(
+        verbose_name="Уровень ремонта",
+        choices=RepairLvl.choices,
+        default=0,
+    )
 
+    @staticmethod
     def get_for_user(user):
         valid_status = ["SENT_TO_REPAIR", "REPAIR_IN_PROCESS", "REPAIR_DONE"]
         if user.is_team_lead:
@@ -140,3 +153,29 @@ class Order(models.Model):
         verbose_name = "Ремонт"
         verbose_name_plural = "Ремонты"
         ordering = ["-created"]
+
+
+class Price(models.Model):
+    category = models.CharField(
+        verbose_name="Категория техники",
+        max_length=48,
+        choices=Order.GadgetType.choices,
+        default="",
+    )
+    repair_lvl = models.IntegerField(
+        verbose_name="Уровень ремонта",
+        choices=Order.RepairLvl.choices,
+        default=0,
+    )
+    price = models.FloatField(
+        verbose_name="Стоимость ремонта",
+        max_length=10,
+        default=0,
+    )
+
+    def __str__(self):
+        return f"Стоимость ремонта {self.repair_lvl} уровня для {self.category}"
+
+    class Meta:
+        verbose_name = "Стоимость ремонта"
+        verbose_name_plural = "Стоимость ремонтов"

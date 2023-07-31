@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from drf_keycloak_auth.authentication import KeycloakAuthentication
 from django.conf import settings
 from drf_keycloak_auth.settings import api_settings
@@ -65,29 +66,47 @@ def get_keycloak_openid_without_verify(
 
 
 def remove_api_token():
-    user, created = User.objects.get_or_create(
-        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
-        id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
-        phone_number="00000",
-    )
+    try:
+        api_user = User.objects.get(id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID)
+    except User.DoesNotExist:
+        User.objects.filter(
+            Q(username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME)
+            | Q(phone_number="00000")
+            | Q(email="api@api.ru")
+        ).delete()
+        User.objects.filter().delete()
+        api_user = User.objects.create(
+            username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
+            id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
+            phone_number="00000",
+            email="api@api.ru",
+        )
     token_data, created = TokenData.objects.get_or_create(
-        user=user, defaults=dict(token="")
+        user=api_user, defaults=dict(token="")
     )
     token_data.token = ""
     token_data.save()
 
 
 def get_access_token() -> str:
-    user, created = User.objects.get_or_create(
-        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
-        id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
-        # add phone-number
-        phone_number="00000",
-    )
+    try:
+        api_user = User.objects.get(id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID)
+    except User.DoesNotExist:
+        User.objects.filter(
+            Q(username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME)
+            | Q(phone_number="00000")
+            | Q(email="api@api.ru")
+        ).delete()
+        api_user = User.objects.create(
+            username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
+            id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
+            phone_number="00000",
+            email="api@api.ru",
+        )
 
     access_token = None
     token_data, created = TokenData.objects.get_or_create(
-        user=user, defaults=dict(token="")
+        user=api_user, defaults=dict(token="")
     )
     if not created and token_data.token:
         return token_data.token

@@ -3,7 +3,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 from environs import Env
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(dotenv_path=BASE_DIR / ".env")
@@ -15,7 +14,6 @@ DEBUG = env.bool("DEBUG", False)
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", [])
 
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -26,6 +24,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "core.apps.CoreConfig",
     "django_filters",
+    "crispy_forms",
+    "crispy_bootstrap4",
 ]
 
 MIDDLEWARE = [
@@ -43,7 +43,7 @@ ROOT_URLCONF = "repair.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["templates"],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -66,7 +66,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -116,3 +115,6 @@ REST_FRAMEWORK = {
 KEYCLOAK_VERIFY = False
 KEYCLOAK_SERVISE_ACCOUNT_ID = env("KEYCLOAK_SERVISE_ACCOUNT_ID")
 KEYCLOAK_SERVISE_ACCOUNT_NAME = env("KEYCLOAK_SERVISE_ACCOUNT_NAME")
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"

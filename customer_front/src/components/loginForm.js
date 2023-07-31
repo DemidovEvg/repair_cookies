@@ -1,58 +1,41 @@
-import {Button} from 'react-bootstrap';
-import React, {Component} from 'react';
-import Form from 'react-bootstrap/Form';
+import {useState} from 'react';
 import {NavLink, Navigate} from 'react-router-dom';
 
 
-class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      "email": "",
-      "password": ""
-    }
+function LoginForm ({isAuth, getToken}) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    getToken(email, password);
   }
 
-  handleChange(target) {
-    this.setState({[target.name]: target.value});
-  }
-
-  handleSubmit(event) {
-    event.preventDefault()
-    this.props.getToken(this.state.email, this.state.password)
-  }
-
-  render() {
-    return (
-        <div className="site-content-wrap">
-          <div className="nav-background"></div>
-          <div className="site-content">
-            <Form onSubmit={(event) => this.handleSubmit(event)}>
-              <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" name="email" placeholder="email@address.com"
-                              onChange={({target}) => this.handleChange(target)}/>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Пароль</Form.Label>
-                <Form.Control type="password" name="password" placeholder="Password"
-                              onChange={({target}) => this.handleChange(target)}/>
-              </Form.Group>
-
-              <Button variant="primary" type="submit">
-                Войти
-              </Button>
-            </Form>
-            <NavLink to="../register">Регистрация</NavLink>
-
-            {this.props.isAuth()
-                ? < Navigate to="../account"/>
-                : null}
+  return (
+      <div className="site-content-wrap">
+        <div className="nav-background"></div>
+        <div className="site-content">
+          <div className="form-holder">
+            <div id="login-form">
+              <h1>АВТОРИЗАЦИЯ</h1>
+              <fieldset>
+                <form onSubmit={(event) => handleSubmit(event)}>
+                  <input type="text" name='email' placeholder="email"
+                         onChange={({target}) => setEmail(target.value)}/>
+                  <input type="password" name='password' placeholder="пароль"
+                         onChange={({target}) => setPassword(target.value)}/>
+                  <input type="submit" value="ВОЙТИ"/>
+                </form>
+                <p>Впервые у нас? <NavLink to="/register">Зарегистрируйтесь</NavLink></p>
+              </fieldset>
+              {isAuth()
+                  ? < Navigate to="/account"/>
+                  : null}
+            </div>
           </div>
         </div>
-    );
-  }
+      </div>
+  );
 }
 
 export default LoginForm;

@@ -45,7 +45,7 @@ function Home() {
                 <li>и другое...</li>
               </ul>
             </div>
-            <NavLink className="price-list-link" to="../phones">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
+            <NavLink className="price-list-link" to="/services/phones">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
           </div>
           <div className="repair-card">
             <div className="top-card">
@@ -63,7 +63,7 @@ function Home() {
                 <li> и другое...</li>
               </ul>
             </div>
-            <NavLink className="price-list-link" to="../notebooks">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
+            <NavLink className="price-list-link" to="/services/notebooks">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
           </div>
           <div className="repair-card">
             <div className="top-card">
@@ -81,7 +81,7 @@ function Home() {
                 <li>и другое...</li>
               </ul>
             </div>
-            <NavLink className="price-list-link" to="../tablets">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
+            <NavLink className="price-list-link" to="/services/tablets">ПОДРОБНОСТИ И ЦЕНЫ</NavLink>
           </div>
         </div>
         <div className="call-courier-wrap">
@@ -143,7 +143,7 @@ function Home() {
             <div className="row-cards">
               <div className="one-of-nine">
                 <img src={groupPro} alt=""/>
-                <p>ВСЕ МАСТЕРА&nbsp;&mdash;ДИПЛОМИРОВАННЫЕ СПЕЦИАЛИСТЫ С ОПЫТОМ РАБОТЫ БОЛЕЕ 8 ЛЕТ </p>
+                <p>ВСЕ МАСТЕРА &mdash; ДИПЛОМИРОВАННЫЕ СПЕЦИАЛИСТЫ С ОПЫТОМ РАБОТЫ БОЛЕЕ 8 ЛЕТ </p>
               </div>
               <div className="one-of-nine">
                 <img src={upgrade} alt=""/>

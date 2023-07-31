@@ -21,7 +21,7 @@ STATUS_CHOICES = (
 
 class OrderFilter(django_filters.FilterSet):
     created = django_filters.ChoiceFilter(
-        choices=DATE_CHOICES, lookup_expr="gte", label="Показать заказы за "
+        choices=DATE_CHOICES, lookup_expr="gte", label="Выбрать период"
     )
     status = django_filters.ChoiceFilter(choices=STATUS_CHOICES, lookup_expr="iexact")
 
