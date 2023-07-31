@@ -37,17 +37,17 @@ function App() {
       notify('Вы успешно зарегистрированы!');
       getToken(data.email, data.password);
     }).catch(error => {
-          console.log('Что вообще могло пойти так?', error);
+          console.error('Что вообще могло пойти так?', error);
           let fieldName = ''
           for (const key in error.response.data) {
             if (key === 'phoneNumber') {
-              fieldName = 'номер телефона'
+              fieldName = 'Номер телефона '
             } else if (key === 'email') {
-              fieldName = 'email'
+              fieldName = 'Email '
             } else if (key === "username") {
               continue;
             }
-            notify(`${fieldName}: ${error.response.data[key]}`)
+            notify(`${fieldName}${error.response.data[key]}`)
           }
         }
     );
@@ -66,7 +66,7 @@ function App() {
     })
         .catch(error => {
           console.error(error)
-          notify('Wrong value of email or password');
+          notify('Похоже в email или пароль закралась ошибка.');
         });
   }
 
@@ -110,13 +110,13 @@ function App() {
         apiPath + `api/users?email=${email}`,
         {'headers': headers}
     ).then(response => setUsers(response.data))
-        .catch(error => console.log(`Что могло пойти так при обращении к users?`, error));
+        .catch(error => console.error(`Что могло пойти так при обращении к users?`, error));
 
     axios.get(
         apiPath + `api/orders?email=${email}`,
         {'headers': headers}
     ).then(response => setOrders(response.data))
-        .catch(error => console.log(`Что могло пойти так при обращении к orders?`, error));
+        .catch(error => console.error(`Что могло пойти так при обращении к orders?`, error));
   }
 
 
@@ -140,7 +140,7 @@ function App() {
       pullData()
     })
         .catch(error => {
-          console.log(error);
+          console.error(error);
           notify('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.');
         });
   }
@@ -151,7 +151,7 @@ function App() {
         apiPath + `api/prices`,
         {'headers': headers}
     ).then(response => setPrices(response.data))
-        .catch(error => console.log(`Что могло пойти так при обращении к prices?`, error));
+        .catch(error => console.error(`Что могло пойти так при обращении к prices?`, error));
     restoreToken();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

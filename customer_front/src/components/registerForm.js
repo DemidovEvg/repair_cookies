@@ -55,7 +55,6 @@ function RegisterForm({isAuth, createClient, getToken, notify}) {
     }
 
     createClient('api/users/', client);
-    getToken(email, password)
   }
 
   return (
