@@ -6,8 +6,6 @@ from channels.layers import get_channel_layer
 
 from core.models import Client, Order, RepairKind, Price
 from core.serializers import OrderModelSerializer
-from core.serializers import ClientModelSerializer
-
 from core.services.order_service import create_or_update
 
 admin.site.site_header = "Клиентская служба"

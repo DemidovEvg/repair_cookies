@@ -21,11 +21,6 @@ User = get_user_model()
 """тестирование моделей пользователя, заказа, прайса"""
 
 
-class AbstractUserTest(TestCase):
-    def test_create_user(self):
-        pass
-
-
 class ClientModelTestCase(TestCase):
     def test_client_model_creation(self):
         client = Client.objects.create(username="testuser", password="password")
