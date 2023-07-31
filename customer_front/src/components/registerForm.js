@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input/input';
 import {Navigate} from "react-router-dom";
 
 
@@ -88,7 +87,7 @@ function RegisterForm({isAuth, createClient, getToken, notify}) {
                       onChange={setPhoneNumber}
                   />
                   <p></p>
-                  <input className="upper-field" type="password" placeholder="пароль"
+                  <input className="upper-field" type="password" placeholder="пароль*"
                          name="password"
                          onChange={({target}) => setPassword(target.value)}/>
                   <input className="lower-field" type="password" placeholder="повторите пароль"
