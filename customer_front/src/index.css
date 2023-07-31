@@ -1369,7 +1369,9 @@ a:hover {
 
     }
 
-
+    .form-holder {
+        padding: 50px 0px 50px 0px;
+    }
     #signup-form {
         width: 365px;
     }
@@ -1502,4 +1504,5 @@ a:hover {
     .foot-contacts-list {
         font-size: 0.8em;
     }
+
 }
