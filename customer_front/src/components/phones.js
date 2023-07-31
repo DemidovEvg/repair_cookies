@@ -3,9 +3,10 @@ import one from '../img/1.svg'
 import two from '../img/2.svg'
 import three from '../img/3.svg'
 import four from '../img/4.svg'
+import PricesList from "./price";
 import {NavLink} from "react-router-dom";
 
-function Phones() {
+function Phones({prices}) {
   return (
       <div className="site-content-wrap">
         <div className="nav-background"></div>
@@ -83,7 +84,7 @@ function Phones() {
                   </ul>
                 </div>
               </div>
-              <NavLink to="../repair" className="form-bringer">ВЫЗВАТЬ КУРЬЕРА</NavLink>
+              <NavLink to="/repair" className="form-bringer">ВЫЗВАТЬ КУРЬЕРА</NavLink>
             </div>
           </div>
           <div className="short-price-for-cathegory-wrap">
@@ -103,53 +104,24 @@ function Phones() {
               </div>
               <div className="short-price-only">
                 <div className="short-price-part">АППАРАТНАЯ ЧАСТЬ</div>
-                <div className="short-price-row">
-                  <p>Замена дисплея</p>
-                  <p>1500 руб.</p>
-                </div>
-                <div className="short-price-row">
-                  <p>Замена кнопки включения</p>
-                  <p>150 руб.</p>
-                </div>
-                <div className="short-price-row">
-                  <p>Ремонт микрофона</p>
-                  <p>320 руб.</p>
-                </div>
-                <div className="short-price-row">
-                  <p>Замена динамика</p>
-                  <p>400 руб.</p>
-                </div>
-                <div className="short-price-row">
-                  <p>Попадание воды</p>
-                  <p>2900 руб.</p>
-                </div>
-                <div className="short-price-row">
-                  <p>Смена корпуса</p>
-                  <p>999 руб.</p>
-                </div>
-                <div className="short-price-row">
-                  <p>Ремонт передатчика</p>
-                  <p>9500 руб.</p>
-                </div>
-                <div className="short-price-row">
-                  <p>Не видит сим-карту</p>
-                  <p>50 руб.</p>
-                </div>
-                <div className="short-price-row">
-                  <p>Проблема с зарядкой</p>
-                  <p>450 руб.</p>
-                </div>
+
+                <PricesList
+                    prices={prices}
+                    category='TELEPHONE'
+                    kind={['Аппаратная часть']}
+                    subKind={['Электромеханический ремонт', undefined]}
+                />
+
+
                 <div className="short-price-part">ПРОГРАММНАЯ ЧАСТЬ</div>
-                <div className="short-price-row">
-                  <p>Смена версии ПО</p>
-                  <p>БЕСПЛАТНО</p>
-                </div>
-                <div className="short-price-row">
-                  <p>Восстановление данных</p>
-                  <p>БЕСЦЕННО</p>
-                </div>
+                <PricesList
+                    prices={prices}
+                    category='TELEPHONE'
+                    kind={['Программная часть']}
+                    subKind={['Прошивка и настройка', undefined]}
+                />
               </div>
-              <NavLink className="form-bringer" to="../prices">ПОЛНЫЙ ПРАЙС-ЛИСТ</NavLink>
+              <NavLink className="form-bringer" to="/prices">ПОЛНЫЙ ПРАЙС-ЛИСТ</NavLink>
             </div>
           </div>
         </div>

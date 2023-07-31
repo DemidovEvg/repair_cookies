@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import Header from './components/header';
@@ -8,7 +8,6 @@ import RegisterForm from './components/registerForm';
 import LoginForm from './components/loginForm';
 import Repair from './components/repair';
 import Home from './components/home';
-import Status from './components/status';
 import Account from "./components/account";
 import Contacts from "./components/contacts";
 import Phones from "./components/phones";
@@ -19,113 +18,111 @@ import 'react-toastify/dist/ReactToastify.css';
 import Notebooks from "./components/notebooks";
 import Tablets from "./components/tablets";
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-    this.apiPath = 'http://localhost:8001/';
-    this.state = {
-      'token': '',
-      'email': '',
-      'users': [],
-      'orders': [],
-      'endpoints': ['users', 'orders']
-    }
-  }
+function App() {
+  const apiPath = process.env.REACT_APP_API_BACK;
+  const url = new URL(apiPath)
+  const [token, setToken] = useState('')
+  const [email, setEmail] = useState('')
+  const [users, setUsers] = useState([])
+  const [orders, setOrders] = useState([])
+  const [prices, setPrices] = useState([])
 
-  notify(message) {
+  const notify = (message) => {
     toast(`${message}`);
   }
 
-
-  createClient(url, data) {
-    const headers = this.getHeaders();
-    axios.post(this.apiPath + url, data, {'headers': headers}).then(response => {
-      this.notify('Вы успешно зарегистрированы!');
-      this.getToken(data.email, data.password)
+  const createClient = (url, data) => {
+    const headers = getHeaders();
+    axios.post(apiPath + url, data, {'headers': headers}).then(response => {
+      notify('Вы успешно зарегистрированы!');
+      getToken(data.email, data.password);
     }).catch(error => {
-          console.log('Что вообще могло пойти так?', error);
+          console.error('Что вообще могло пойти так?', error);
           let fieldName = ''
           for (const key in error.response.data) {
             if (key === 'phoneNumber') {
-              fieldName = 'номер телефона'
+              fieldName = 'Номер телефона '
             } else if (key === 'email') {
-              fieldName = 'email'
+              fieldName = 'Email '
             } else if (key === "username") {
               continue;
             }
-
-            this.notify(`${fieldName}: ${error.response.data[key]}`)
+            notify(`${fieldName}${error.response.data[key]}`)
           }
         }
     );
   }
 
-  getToken(email, password) {
+  const getToken = (email, password) => {
     const data = {
       'username': email,
       'password': password
     };
     axios.post(
-        this.apiPath + 'api-token-auth/',
+        apiPath + 'api-token-auth/',
         data
     ).then(response => {
-      this.saveToken(response.data['token'], email)
+      saveToken(response.data['token'], email)
     })
-        .catch(error => this.notify('Wrong value of email or password'));
+        .catch(error => {
+          console.error(error)
+          notify('Похоже в email или пароль закралась ошибка.');
+        });
   }
 
 
-  saveToken(token, email = '') {
+  const saveToken = (token, email = '') => {
     const cookie = new Cookies();
     cookie.set('token', token);
     cookie.set('email', email);
     cookie.set('SameSite', 'Lax');
-    this.setState({'token': token, 'email': email}, () => this.pullData());
+    setToken(token);
+    setEmail(email);
   }
 
-  restoreToken() {
+  const restoreToken = () => {
     const cookie = new Cookies();
     const token = cookie.get('token');
     const email = cookie.get('email');
-    this.setState({'token': token, 'email': email}, () => this.pullData());
+    setToken(token);
+    setEmail(email);
   }
 
-  isAuth() {
-    return !!this.state.token;
+  const isAuth = () => {
+    return !!token;
   }
 
-  getHeaders() {
+  const getHeaders = () => {
     let headers = {
       "Content-Type": "application/json"
     };
-    if (this.isAuth()) {
-      headers['Authorization'] = 'Token ' + this.state.token
+    if (isAuth()) {
+      headers['Authorization'] = 'Token ' + token
     }
     return headers;
   }
 
 
-  pullData() {
-    if (!this.isAuth()) return;
-    const headers = this.getHeaders();
-    const download = endpoint => {
-      axios.get(
-          this.apiPath + `api/${endpoint}?email=${this.state.email}`,
-          {'headers': headers}
-      ).then(response => {
-        this.setState({[endpoint]: response.data})
-      }).catch(
-          error => console.log(`Что могло пойти так при обращении к ${endpoint}?`));
-    }
-    this.state.endpoints.forEach(endpoint => {
-      download(endpoint);
-    });
+  const pullData = () => {
+    if (!isAuth()) return;
+    const headers = getHeaders()
+    axios.get(
+        apiPath + `api/users?email=${email}`,
+        {'headers': headers}
+    ).then(response => setUsers(response.data))
+        .catch(error => console.error(`Что могло пойти так при обращении к users?`, error));
+
+    axios.get(
+        apiPath + `api/orders?email=${email}`,
+        {'headers': headers}
+    ).then(response => setOrders(response.data))
+        .catch(error => console.error(`Что могло пойти так при обращении к orders?`, error));
   }
 
 
-  makeOrder(category, customerDescription) {
-    const headers = this.getHeaders();
-    const user = this.state.users[0]
+  const makeOrder = (category, customerDescription) => {
+    const headers = getHeaders();
+    const user = users[0]
     const data = {
       "client": {
         "id": user.id,
@@ -135,84 +132,94 @@ class App extends Component {
       "customerDescription": customerDescription
     }
     axios.post(
-        this.apiPath + `api/orders/`,
+        apiPath + `api/orders/`,
         data,
         {'headers': headers}
     ).then(response => {
-      this.notify("Ваша заявка на ремонт отправлена 🙌");
-      this.pullData()
+      notify("Ваша заявка на ремонт отправлена 🙌");
+      pullData()
     })
-        .catch(error => this.notify('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.'));
+        .catch(error => {
+          console.error(error);
+          notify('С вашего лицевого счета будет списано 5700 рублей, не забудьте пополнить баланс.');
+        });
   }
 
-  checkStatus(orderNumber) {
-    axios.get(`${this.apiPath}/status?order=${orderNumber}`)
-        .then(response => {
-          this.notify("Можно забирать.")
-        })
-        .catch(error => this.notify('Еще не готово.'));
-  }
+  useEffect(() => {
+    const headers = getHeaders()
+    axios.get(
+        apiPath + `api/prices`,
+        {'headers': headers}
+    ).then(response => setPrices(response.data))
+        .catch(error => console.error(`Что могло пойти так при обращении к prices?`, error));
+    restoreToken();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  componentDidMount() {
-    this.restoreToken();
-  }
+  useEffect(() => {
+    pullData();
+    if (!!token) {
+      const path = `ws://${url.host}/ws/client-orders/${email}/`
+      const socket = new WebSocket(path)
 
-  render() {
-    return (
-        <div className="container sub-body">
-          <BrowserRouter>
-            <div className="sub-top">
+      socket.onmessage = ((event) => {
+        const data = JSON.parse(event.data);
+        setOrders(data)
+      })
+    }
+  }, [token]); // eslint-disable-line react-hooks/exhaustive-deps
 
-              <Header
-                  isAuth={() => this.isAuth()}
-                  saveToken={() => {
-                    this.saveToken('')
-                  }}
+  return (
+      <div className="container sub-body">
+        <BrowserRouter>
+          <div className="sub-top">
+
+            <Header
+                isAuth={() => isAuth()}
+                saveToken={() => {
+                  saveToken('')
+                }}
+                logOut={() => {
+                  saveToken('')
+                }}
+                users={users}
+            />
+            <ToastContainer/>
+            <Routes>
+              <Route path='/' element={<Home/>}/>
+              <Route path='repair' element={<Repair
+                  isAuth={() => isAuth()}
+                  notify={(message) => notify(message)}
+                  makeOrder={(category, customerDescription) => makeOrder(category, customerDescription)}/>}/>
+              <Route path='contacts' element={<Contacts/>}/>
+              <Route path='services' element={<Navigate to="/services/phones"/>}/>
+              <Route path='/services/phones' element={<Phones prices={prices}/>}/>
+              <Route path='/services/notebooks' element={<Notebooks prices={prices}/>}/>
+              <Route path='/services/tablets' element={<Tablets prices={prices}/>}/>
+              <Route path='prices' element={<Prices prices={prices}/>}/>
+              <Route path='auth' element={<LoginForm
+                  isAuth={() => isAuth()}
+                  getToken={(email, password) => getToken(email, password)}/>}/>
+              <Route path='account' element={<Account
+                  orders={orders}
+                  isAuth={() => isAuth()}
                   logOut={() => {
-                    this.saveToken('')
+                    saveToken('')
                   }}
-                  users={this.state.users}
-                  />
-              <ToastContainer/>
-              <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='repair' element={<Repair
-                    isAuth={() => this.isAuth()}
-                    notify={(message) => this.notify(message)}
-                    makeOrder={(category, customerDescription) => this.makeOrder(category, customerDescription)}/>}/>
-                <Route path='status' element={<Status
-                    checkStatus={(orderNumber) => this.checkStatus(orderNumber)}/>}/>
-                <Route path='contacts' element={<Contacts/>}/>
-                <Route path='services' element={<Navigate to="/services/phones"/>}/>
-                <Route path='/services/phones' element={<Phones/>}/>
-                <Route path='/services/notebooks' element={<Notebooks/>}/>
-                <Route path='/services/tablets' element={<Tablets/>}/>
-                <Route path='prices' element={<Prices/>}/>
-                <Route path='auth' element={<LoginForm
-                    isAuth={() => this.isAuth()}
-                    getToken={(email, password) => this.getToken(email, password)}/>}/>
-                <Route path='account' element={<Account
-                    orders={this.state.orders}
-                    isAuth={() => this.isAuth()}
-                    logOut={() => {
-                      this.saveToken('')
-                    }}
-                    user={this.state.users}
-                    email={this.state.email}
-                />}/>
-                <Route path='register' element={<RegisterForm
-                    isAuth={() => this.isAuth()}
-                    createClient={(url, data) => this.createClient(url, data)}
-                    getToken={(email, password) => this.getToken(email, password)}
-                    notify={(message) => this.notify(message)}/>}/>
-                <Route path='*' element={<NotFound404/>}/>
-              </Routes>
-            </div>
-            <Footer/>
-          </BrowserRouter>
-        </div>
-    );
-  }
+                  user={users}
+                  email={email}
+              />}/>
+              <Route path='register' element={<RegisterForm
+                  isAuth={() => isAuth()}
+                  createClient={(url, data) => createClient(url, data)}
+                  getToken={(email, password) => getToken(email, password)}
+                  notify={(message) => notify(message)}/>}/>
+              <Route path='*' element={<NotFound404/>}/>
+            </Routes>
+          </div>
+          <Footer/>
+        </BrowserRouter>
+      </div>
+  );
 }
 
 export default App

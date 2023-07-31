@@ -193,10 +193,9 @@ a {
 
 .foot-contact-item img {
     margin-right: 10px;
-    width: 15px;
-    height: 20px;
+    height: 1.5em;
+    width: 1.2em;
     align-self: center;
-    
 }
 
 .foot-tel-num p {
@@ -215,20 +214,17 @@ a {
 
 .footer-bottom hr {
     color: #E8772E;
-    width: 1080px;
+    width: 100%;
     margin-bottom: 10px;
 }
 
 .footer-bottom {
     max-width: 1080px;
+    width: 100%;
 }
 
 .footer-bottom a {
     text-decoration: none;
-}
-
-.footer-bottom p {
-    text-align: center;
 }
 
 a:hover {
@@ -301,8 +297,6 @@ a:hover {
     background: radial-gradient(circle, rgba(232, 119, 46, 0.6012605725884104) 0%, rgba(255, 255, 255, 0) 70%);
 
 }
-
-
 
 /* service */
 
@@ -606,9 +600,12 @@ a:hover {
 
 .text-1-2-3-4 li {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding-top: 32px;
+}
 
+.text-1-2-3-4 li p{
+    width: 90%;
 }
 
 .text-1-2-3-4 {
@@ -616,13 +613,12 @@ a:hover {
 }
 
 .text-1-2-3-4 li img {
+    display: flex;
     max-width: 100px;
-    max-height: 80px;
+    width: 100%;
+    height: 80px;
     margin-right: 20px;
-    
-}
-.text-1-2-3-4 p {
-    max-width: 90%;
+    object-fit: contain;
 }
 
 .only-details-1-2-3-4 {
@@ -1084,7 +1080,14 @@ a:hover {
 }
 
 .order-price {
-    max-width: 100px;
+    padding-left: 10px;
+    max-width: 70px;
+    width: 100%;
+}
+
+.order-payment-completed {
+    padding-left: 5px;
+    max-width: 130px;
     width: 100%;
 }
 
@@ -1280,6 +1283,9 @@ a:hover {
     .guy-with-laptop {
         display: none;
     }
+    .phones {
+        padding-right: 10px;
+    }
     .short-price-only {
         padding-right: 10px;
     }
@@ -1298,6 +1304,16 @@ a:hover {
     .order-history {
         border-radius: 0px;
     }
+    .why-us-cards {
+        padding: 0px 5px 0px 5px;
+    }
+    .short-price-for-cathegory-wrap {
+        padding: 20px 10px 0px 10px;
+    }
+    
+    .footer-top {
+        padding: 0px 10px 0px 10px;
+    }
 }
 
 @media (max-width: 500px){
@@ -1314,7 +1330,7 @@ a:hover {
     }
     .footer-top {
         flex-direction: column-reverse;
-        padding-left: 5px;
+        padding-left: 10px;
     }
     .footer-bottom p {
         text-align: center;
@@ -1330,6 +1346,9 @@ a:hover {
     }
     .repair-details-icon {
         display: none;
+    }
+    .repair-details-header p {
+        text-align: center;
     }
     .text-1-2-3-4 li img {
         max-width: 10%;
@@ -1347,8 +1366,10 @@ a:hover {
     }
     .reason-heading {
         font-size: 1em;
+
     }
-    
+
+
     #signup-form {
         width: 365px;
     }
@@ -1377,9 +1398,9 @@ a:hover {
         padding-left: 5px;
         font-size: 0.6em;
         justify-content: center;
-        
+
     }
-    .phones { 
+    .phones {
         padding-left: 5px;
         justify-content: center;
     }
@@ -1390,7 +1411,7 @@ a:hover {
         font-size: 0.8em;
         margin: 0px 10px 0px 10px
     }
-    
+
 
     .divider img {
         height: 0.8em;
@@ -1408,12 +1429,12 @@ a:hover {
     }
     .the-biggest-font {
         font-size: 2em;
-        
+
     }
     .main-page-top {
-        top: 12em;   
+        top: 12em;
     }
-    
+
     .block-service {
         flex-direction: column;
         justify-content: center;
@@ -1436,8 +1457,15 @@ a:hover {
         font-size: 1.5rem;
     }
     .call-steps {
-        padding-left: 5px;
+        padding-left: 10px;
     }
+    .call-steps ul {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-between;
+    }
+
     .one-of-nine img {
         max-width: 80px;
         max-height: 50px;
@@ -1452,17 +1480,18 @@ a:hover {
     .link-info {
         display: none;
     }
-    
-    
+
+
+
     .price-list-heading {
         font-size: 32px;
     }
-    
+
     .contacts-list li img {
         height: 1.3em;
         align-self: center;
     }
-    
+
     .repair-details-header p {
         font-size: 2em;
     }
@@ -1470,5 +1499,7 @@ a:hover {
         display: none;
     }
     
-    
+    .foot-contacts-list {
+        font-size: 0.8em;
+    }
 }

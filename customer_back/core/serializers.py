@@ -12,6 +12,7 @@ import re
 from core.not_word_mat import search_word_mat
 
 
+
 class ClientModelSerializer(ModelSerializer):
     class Meta:
         model = Client
@@ -44,6 +45,7 @@ class NewClientModelSerializer(ModelSerializer):
 
     def validate(self, data):
         my_str = data['last_name']
+
         if len(my_str) > 0:
             if not bool(re.match('^[А-яа-я0-9 -]+$', my_str)):
                 raise serializers.ValidationError('Можно вводить только русские буквы, тире и пробел, строка: ' + my_str)
@@ -65,7 +67,6 @@ class NewClientModelSerializer(ModelSerializer):
             if search_word_mat(my_str2):
                 raise serializers.ValidationError(
                     'Вы ввели нецензурное слово в поле: ОТЧЕСТВО. Если не согласны пишите на email: info@смартремонт.рф')
-
         return data
 
     def create(self, validated_data):
@@ -89,6 +90,8 @@ class OrderModelSerializer(ModelSerializer):
             "deliveryman_description",
             "status",
             "created",
+            "amount_due_by",
+            "payment_completed",
             "updated",
             "deleted",
         )

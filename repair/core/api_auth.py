@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from drf_keycloak_auth.authentication import KeycloakAuthentication
 from django.conf import settings
 from drf_keycloak_auth.settings import api_settings
@@ -65,10 +66,15 @@ def get_keycloak_openid_without_verify(
 
 
 def remove_api_token():
-    user, created = User.objects.get_or_create(
-        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
-        id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
-    )
+    try:
+        user = User.objects.get(id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID)
+    except User.DoesNotExist:
+        User.objects.filter(Q(username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME)).delete()
+        user = User.objects.create(
+            username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
+            id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
+        )
+
     token_data, created = TokenData.objects.get_or_create(
         user=user, defaults=dict(token="")
     )
@@ -77,10 +83,14 @@ def remove_api_token():
 
 
 def get_access_token() -> str:
-    user, created = User.objects.get_or_create(
-        username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
-        id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
-    )
+    try:
+        user = User.objects.get(id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID)
+    except User.DoesNotExist:
+        User.objects.filter(Q(username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME)).delete()
+        user = User.objects.create(
+            username=settings.KEYCLOAK_SERVISE_ACCOUNT_NAME,
+            id=settings.KEYCLOAK_SERVISE_ACCOUNT_ID,
+        )
 
     access_token = None
     token_data, created = TokenData.objects.get_or_create(

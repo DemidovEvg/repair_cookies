@@ -1,17 +1,81 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
-	Cookies Serviceman Desk
+Детали заказа
 {% endblock %}
 
-{% block style %}
-	{% include "inc_style.html" %}
-{% endblock %}
+{% block content %}
 
-{% block nav_panel %}
-	{% include "inc_top_nav_panel.html" %}
-{% endblock %}
+<!--<h1 class="display-4 text-center">Детали заказа</h1>-->
 
-{% block body %}
-	{% include "inc_order_detail.html" %}
+<!--Таблица-->
+<h4 class="m-3">Детали заказа № {{ order.id }}</h4>
+
+<table class="table table-sm table-striped table-bordered border-primary">
+  <!--Заголовок таблицы-->
+  <thead class="table-dark">
+  <tr>
+    <th scope="col">Номер заказа</th>
+    <th scope="col">Вид техники</th>
+    <th scope="col">Модель техники</th>
+    <th scope="col">Неисправность со слов клиента</th>
+    <th scope="col">Дата создания заказа</th>
+    <th scope="col">Статус заказа</th>
+    <th scope="col">Ремонтник</th>
+  </tr>
+  </thead>
+  <!--Конец заголовка таблицы-->
+  <!--Заполнение данными-->
+  <tbody>
+  <tr>
+    <td>{{ order.id }}</td>
+    <td>{{ order.category }}</td>
+    <td>{{ order.model }}</td>
+    <td>{{ order.customer_description }}</td>
+    <td>{{ order.created }}</td>
+    <td>{{ order.status }}</td>
+    <td>{{ order.serviceman|default:"Не назначен" }}</td>
+    <!--  чтобы назначить, нужно зайти в заявку  -->
+  </tr>
+  </tbody>
+  <!--Конец ввода данных-->
+</table>
+<!--Конец таблицы-->
+<!--выбирать ремонтника только тим-лиду и админу-->
+<h4 class="m-3">Изменение заказа</h4>
+<form action="" method="post">
+  {% csrf_token %}
+  <div class="form-row">
+    {% for name in form %}
+    <div class="form-group col-md-6">
+      {{ name|as_crispy_field }}
+    </div>
+    {% endfor %}
+  </div>
+  <button type="submit" class="btn btn-outline-dark mb-3">Изменить</button>
+</form>
+
+<div>
+  <h4 class="m-3">Стоимость ремонта
+    <span class="badge badge-pill badge-dark">
+      {{ order.amount_due_by }}
+    </span>
+  </h4>
+</div>
+    <!--Сообщения-->
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li class="{% if message.tags %}
+            {{ message.tags }}
+            {% endif %}">
+    {{ message }}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+<!--Конец блока сообщений-->
+
 {% endblock %}

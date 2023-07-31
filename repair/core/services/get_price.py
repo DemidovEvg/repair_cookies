@@ -1,19 +1,5 @@
-import json
-import requests
-from django.contrib import messages
+from core.models import Price
 
 
-def get_repair_price(category: str, repair_level: int, request):
-    headers = {"Content-type": "application/json"}
-
-    try:
-        resp = requests.get(
-            "http://127.0.0.1:8000/api/prices/", headers=headers
-        ).content
-        data = json.loads(resp)
-        for el in data:
-            if el["category"] == category and el["repairLvl"] == repair_level:
-                return el["price"]
-
-    except Exception as exc:
-        messages.add_message(request, messages.ERROR, repr(exc))
+def get_repair_price(category: str, repair_level: int) -> Price:
+    return Price.objects.filter(category=category, repair_lvl=repair_level).first()
