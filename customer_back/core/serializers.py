@@ -7,6 +7,10 @@ from requests.exceptions import ConnectionError
 from core.models import Client, Order, Price, RepairKind
 from core.services.order_service import create_or_update
 
+from rest_framework import serializers
+import re
+from core.not_word_mat import search_word_mat
+
 
 class ClientModelSerializer(ModelSerializer):
     class Meta:
@@ -37,6 +41,34 @@ class NewClientModelSerializer(ModelSerializer):
             "patronymic",
             "last_name",
         )
+
+    def validate(self, data):
+        my_str = data['last_name']
+        if len(my_str) > 0:
+            if not bool(re.match('^[А-яа-я0-9 -]+$', my_str)):
+                raise serializers.ValidationError(
+                    'Можно вводить только русские буквы, тире и пробел, строка: ' + my_str)
+            if search_word_mat(my_str):
+                raise serializers.ValidationError(
+                    'Вы ввели нецензурное слово в поле: ФАМИЛИЯ. Если не согласны пишите на email: info@смартремонт.рф')
+
+        my_str1 = data['first_name']
+        if not bool(re.match('^[А-яа-я0-9 -]+$', my_str1)):
+            raise serializers.ValidationError('Можно вводить только русские буквы, тире и пробел, строка: ' + my_str1)
+        if search_word_mat(my_str1):
+            raise serializers.ValidationError(
+                'Вы ввели нецензурное слово в поле: ИМЯ. Если не согласны пишите на email: info@смартремонт.рф')
+
+        my_str2 = data['patronymic']
+        if len(my_str2) > 0:
+            if not bool(re.match('^[А-яа-я0-9 -]+$', my_str2)):
+                raise serializers.ValidationError(
+                    'Можно вводить только русские буквы, тире и пробел, строка: ' + my_str2)
+            if search_word_mat(my_str2):
+                raise serializers.ValidationError(
+                    'Вы ввели нецензурное слово в поле: ОТЧЕСТВО. Если не согласны пишите на email: info@смартремонт.рф')
+
+        return data
 
     def create(self, validated_data):
         validated_data["password"] = make_password(validated_data["password"])
