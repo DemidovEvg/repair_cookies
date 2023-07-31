@@ -6,6 +6,7 @@ from channels.layers import get_channel_layer
 
 from core.models import Client, Order, RepairKind, Price
 from core.serializers import OrderModelSerializer
+
 from core.services.order_service import create_or_update
 
 admin.site.site_header = "Клиентская служба"
@@ -13,16 +14,7 @@ admin.site.site_header = "Клиентская служба"
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ("first_name", "phone_number")
-
-    def has_delete_permission(self, request, obj=None):
-        return request.user.is_superuser
-
-    def has_add_permission(self, request, obj=None):
-        return request.user.is_superuser
-
-    class Meta:
-        ordering = ("username", "phone_number")
+    pass
 
 
 @admin.register(Order)
