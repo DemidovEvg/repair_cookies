@@ -18,6 +18,8 @@
   <thead class="table-dark">
   <tr>
     <th scope="col">Номер заказа</th>
+    <th scope="col">Вид техники</th>
+    <th scope="col">Модель техники</th>
     <th scope="col">Неисправность со слов клиента</th>
     <th scope="col">Дата создания заказа</th>
     <th scope="col">Статус заказа</th>
@@ -30,6 +32,8 @@
   {% for order in orders %}
   <tr>
     <td><a href="{% url 'order_detail' order.pk %}">{{ order.id }}</a></td>
+    <td>{{ order.category }}</td>
+    <td>{{ order.model }}</td>
     <td>{{ order.customer_description }}</td>
     <td>{{ order.created }}</td>
     <td>{{ order.status }}</td>

@@ -41,6 +41,8 @@
   <thead class="table-dark">
   <tr>
     <th scope="col">Номер заказа</th>
+    <th scope="col">Вид техники</th>
+    <th scope="col">Модель техники</th>
     <th scope="col">Неисправность со слов клиента</th>
     <th scope="col">Дата создания заказа</th>
     <th scope="col">Статус заказа</th>
@@ -53,21 +55,25 @@
   {% for order in orders %}
   <tr>
     <td><a href="{{ order.pk }}">{{ order.id }}</a></td>
+    <td>{{ order.category }}</td>
+    <td>{{ order.model }}</td>
     <td>{{ order.customer_description }}</td>
     <td>{{ order.created }}</td>
     <td>{{ order.status }}</td>
-      {% if order.serviceman == None %}
-        <td>
-            <form method="GET" action="{% url 'change_serviceman' %}">
-              <div class="form-row">
-                  {{ f.as_p }}
-              </div>
-              <button type="submit" class="btn btn-outline-dark mb-3" value="{{ order.id }}" name="order_id">Назначить</button>
-            </form>
-        </td>
-      {% else %}
-        <td>{{ order.serviceman|default:"Не назначен" }}</td>
-      {% endif %}
+    {% if order.serviceman %}
+      <td>{{ order.serviceman }}</td>
+    {% else %}
+      <td>
+        <form method="GET" action="{% url 'change_serviceman' %}">
+          <div class="form-group">
+            {{ f.as_p }}
+          </div>
+          <button type="submit" class="btn btn-outline-dark mb-3"
+                  value="{{ order.id }}" name="order_id">Назначить
+          </button>
+        </form>
+      </td>
+    {% endif %}
     <!--  чтобы назначить, нужно зайти в заявку  -->
   </tr>
   {% empty %}
@@ -112,20 +118,20 @@
 </nav>
 <!--Конец блока пагинатора-->
 
-<!--Сообщения-->
-{#{% if messages %}#}
-{#<ul class="messages">#}
-{#  {% for message in messages %}#}
-{#  <li class="{% if message.tags %}#}
-{#            {{ message.tags }}#}
-{#            {% endif %}">#}
-{#    {{ message }}#}
-{#  </li>#}
-{#  {% endfor %}#}
-{#</ul>#}
-{#{% endif %}#}
-<!--Конец блока сообщений-->
-
 {% endwith %}
+
+<!--Сообщения-->
+<!--{#{% if messages %}#}-->
+<!--  {#<ul class="messages">#}-->
+<!--    {#{% for message in messages %}#}-->
+<!--      {#<li class="{% if message.tags %}#}-->
+<!--        {#{{ message.tags }}#}-->
+<!--        {#{% endif %}">#}-->
+<!--      {#{{ message }}#}-->
+<!--      {#</li>#}-->
+<!--    {#{% endfor %}#}-->
+<!--  {#</ul>#}-->
+<!--{#{% endif %}#}-->
+<!--Конец блока сообщений-->
 
 {% endblock %}
