@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import PhoneInput from 'react-phone-number-input/input';
-import 'react-phone-number-input/style.css';
 import {Navigate} from "react-router-dom";
 
 
