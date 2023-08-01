@@ -59,7 +59,7 @@
     <td>{{ order.model }}</td>
     <td>{{ order.customer_description }}</td>
     <td>{{ order.created }}</td>
-    <td>{{ order.status }}</td>
+    <td>{{ order.get_status_display }}</td>
     {% if order.serviceman %}
       <td>{{ order.serviceman }}</td>
     {% else %}

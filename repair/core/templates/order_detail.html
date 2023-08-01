@@ -35,9 +35,8 @@
     <td>{{ order.model }}</td>
     <td>{{ order.customer_description }}</td>
     <td>{{ order.created }}</td>
-    <td>{{ order.status }}</td>
+    <td>{{ order.get_status_display }}</td>
     <td>{{ order.serviceman|default:"Не назначен" }}</td>
-    <!--  чтобы назначить, нужно зайти в заявку  -->
   </tr>
   </tbody>
   <!--Конец ввода данных-->
