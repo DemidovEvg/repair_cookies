@@ -41,10 +41,11 @@
   <thead class="table-dark">
   <tr>
     <th scope="col">Номер заказа</th>
+    <th scope="col">Дата создания заказа</th>
     <th scope="col">Вид техники</th>
     <th scope="col">Модель техники</th>
     <th scope="col">Неисправность со слов клиента</th>
-    <th scope="col">Дата создания заказа</th>
+    <th scope="col">Коментарий доставки</th>
     <th scope="col">Статус заказа</th>
     <th scope="col">Ремонтник</th>
   </tr>
@@ -55,11 +56,12 @@
   {% for order in orders %}
   <tr>
     <td><a href="{{ order.pk }}">{{ order.id }}</a></td>
+    <td>{{ order.created }}</td>
     <td>{{ order.category }}</td>
     <td>{{ order.model }}</td>
     <td>{{ order.customer_description }}</td>
-    <td>{{ order.created }}</td>
-    <td>{{ order.status }}</td>
+    <td>{{ order.deliveryman_description }}</td>
+    <td>{{ order.get_status_display }}</td>
     {% if order.serviceman %}
       <td>{{ order.serviceman }}</td>
     {% else %}
