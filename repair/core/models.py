@@ -45,7 +45,7 @@ class ServiceMan(models.Model):
     )
 
     def __str__(self):
-        return f"Ремонтник {self.user}"
+        return f"{self.user}"
 
     class Meta:
         verbose_name = "Ремонтник"
